@@ -1,0 +1,20 @@
+.container{
+    max-width: 500px;
+    margin: 2em auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.content{
+    color: #343435;
+    text-align: center;
+    margin: 1em;
+}
+
+@media(min-width:900px)
+{
+    .container{
+        margin: 2em 2em;
+    }
+}

@@ -1,0 +1,40 @@
+.small_pdf_card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: .2em .5em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width:50%;
+    min-width: 100px;
+    max-width: fit-content;
+    border-radius: 10em;
+    margin:1em 0;
+}
+
+.small_pdf_card:hover {
+    background-color: #f0f0f0;
+}
+
+.thumbnail img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.info {
+    flex: 1;
+    overflow: hidden;
+}
+
+.name {
+    font-weight: bold;
+    font-size: small;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

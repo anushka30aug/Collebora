@@ -1,0 +1,8 @@
+.home_component{
+    position: relative;
+}
+.main_content {
+    max-width: 1500px;
+    margin: 0 auto;
+    display: flex; 
+}

@@ -1,0 +1,63 @@
+/* @media(min-width:500px) { */
+    .auth_container {
+        border-radius: 1em;
+        max-width: 500px;
+        margin: 2em auto;
+    }
+
+    .auth_container h1 {
+        text-align: center;
+        text-decoration-line: underline;
+        color: rgb(35, 6, 96);
+        /* word-wrap: break-word;
+        word-break: break-all; */
+        max-width: 320px;
+        margin: 1em auto;
+        padding:1em;
+    }
+
+    .auth_container svg {
+        width: 25px;
+        height: 25px;
+        margin: 3px;
+    }
+
+    .auth_main {
+        margin: 1em;
+        border-radius: 3em;
+        box-shadow: 0 0 1em 1px gainsboro;
+        overflow: hidden;
+    }
+
+    .class_image {
+        max-width: 450px;
+        max-height: 450px;
+        border-radius: 1em;
+        overflow: hidden;
+        margin: 0 auto;
+    }
+
+    .class_image img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .auth_button {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        background-color: white;
+        border: 1px solid gainsboro;
+        border-radius: 3em;
+        box-shadow: 0 0 5px 2px gainsboro;
+        padding: .5em .8em;
+        margin: 0 auto;
+        margin-bottom: 3em;
+
+    }
+
+    .auth_button span {
+        font-size: medium;
+    }
+
+/* } */

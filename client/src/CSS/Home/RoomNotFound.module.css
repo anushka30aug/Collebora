@@ -1,0 +1,38 @@
+.main_container{
+    margin:2em auto;
+    max-width: 300px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.image{
+    height: 250px;
+    width: 200px;
+    object-fit: contain;
+}
+
+.image img{
+    height: 100%;
+    width: 100%;
+}
+
+.main_button_1{
+    background-color: #0057ee50;
+    color: #0057ee;
+    border: none;
+    padding: .7em 1em;
+    border-radius: .2em;
+    margin: 1em;
+    font-weight: bold;
+}
+.main_button_2{
+    background-color: #0057ee;
+    color: white;
+    border: none;
+    padding: .7em 1em;
+    margin: 1em;
+    border-radius: .2em;
+    font-weight: bold;
+}
+
+

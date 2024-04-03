@@ -1,0 +1,81 @@
+.joinRoom_component{
+    max-width: 1500px;
+    margin: 0 auto;
+    color: rgb(62, 60, 60);
+}
+
+.header{
+    display: flex;
+    padding:1em 2em;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1em;
+    border-bottom: 1px solid gray;
+}
+.header_left{
+   display: flex;
+   align-items: center;
+   justify-content: space-evenly;
+}
+
+.header_left h3{
+    margin:.2em;
+    margin-left: .5em;
+}
+
+.header button{
+    padding:.5em 1em;
+    background-color:#0057ee;
+    color:white;
+    border:none;
+    border-radius: .5em;
+}
+
+.header button:disabled{
+    background-color: gainsboro;
+    color: grey;
+}
+
+.main_container{
+   max-width: 500px;
+   margin: 0 auto;
+   margin-top: 2em;
+   
+}
+
+.main{
+    padding:1em;
+    padding-top: 0;
+    border: 1px solid gainsboro;
+    border-radius: 1em;
+    margin: 0 1em;
+}
+
+.main h4{
+    margin: .5em;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.main p{
+    margin: .5em;
+}
+
+.main input{
+    padding:.7em;
+    margin-top:.5em;
+    outline: none;
+    border: 1px solid grey;
+    border-radius: .5em;
+}
+
+.instructions{
+    padding:1em;
+    margin:0 1em;
+}
+
+@media(min-width:500px){
+    .button{
+        padding: .7em 1.2em;
+    }
+}
+

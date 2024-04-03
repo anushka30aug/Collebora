@@ -1,0 +1,11 @@
+.roomDetail_container {
+    position: relative;
+}
+
+.main_content {
+    width: 100%;   
+    max-width: 1500px;
+    margin: 0 auto;
+    display: flex; 
+    justify-content:space-evenly;
+}
