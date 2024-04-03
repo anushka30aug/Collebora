@@ -2,10 +2,12 @@ import { useNavigate } from 'react-router-dom'
 import style from '../../CSS/Home/RoomsModal.module.css'
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../states/Store';
-import { editShowDeleteModal, setClassroomDetail } from '../../states/UserInterface';
+import { setClassroomDetail } from '../../states/UserInterface';
 import { Ellipsis } from '../helper/icons';
 import DeleteRoom from '../Room/DeleteRoom';
 import { useAppSelector } from '../../states/Hooks';
+import RenameRoom from '../Room/RenameRoom';
+import { useState } from 'react';
 
 interface classroom {
     _id: string,
@@ -18,24 +20,43 @@ interface classroom {
 const RoomsModal = (prop: classroom): React.JSX.Element => {
     const navigate = useNavigate();
     const dispatch = useDispatch<AppDispatch>();
-    const showDeleteModal = useAppSelector(state=>state.userInterface.showDeleteModal)
-    const isAdmin = useAppSelector(state=>state.userInterface.isAdmin)
+    const isAdmin = useAppSelector(state => state.userInterface.isAdmin)
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [showRenameModal, setShowRenameModal] = useState(false);
 
     const handleClick = () => {
         dispatch(setClassroomDetail(prop))
         navigate(`/room`);
     };
+
+    const handleRenameClick = () => {
+        setShowRenameModal(true);
+    };
+
+    const handleDeleteClick = () => {
+        setShowDeleteModal(true);
+    };
+
+    const handleRenameModalClose = () => {
+        setShowRenameModal(false);
+    };
+
+    const handleDeleteModalClose = () => {
+        setShowDeleteModal(false);
+    };
+
     return (
-        <div className={style.room_modal} >
-            {showDeleteModal&&<DeleteRoom id={prop._id}/>}
+        <div className={style.room_modal}>
+            {showDeleteModal && <DeleteRoom id={prop._id} onClose={handleDeleteModalClose} />}
+            {showRenameModal && <RenameRoom id={prop._id} onClose={handleRenameModalClose} />}
             <div className={style.main}>
-               { isAdmin && <div className={style.options}>
+                {isAdmin && <div className={style.options}>
                     <div className={style.ellipsis}>
                         <Ellipsis />
                     </div>
                     <div className={style.dropdown_content}>
-                        <p onClick={()=>{}}>Change name</p>
-                        <p onClick={()=>{dispatch(editShowDeleteModal())}}>Delete Room</p>
+                        <p onClick={(e) => { e.preventDefault(); handleRenameClick() }}>Change name</p>
+                        <p onClick={(e) => { e.preventDefault(); handleDeleteClick() }}>Delete Room</p>
                     </div>
                 </div>}
                 <h3 onClick={handleClick}>

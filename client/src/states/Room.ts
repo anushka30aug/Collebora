@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import toast from 'react-hot-toast';
-const host=process.env.REACT_APP_IP_ADDRESS
+const host = process.env.REACT_APP_IP_ADDRESS
 
 export const createRoom = createAsyncThunk('classroom/create', async ({ code, name, classId }: { code: string, name: string, classId: string }) => {
     const token = localStorage.getItem('auth-token-workspace')
@@ -19,7 +19,7 @@ export const createRoom = createAsyncThunk('classroom/create', async ({ code, na
     const data = await response.json();
     console.log(data)
     return data;
-    
+
 });
 
 
@@ -29,7 +29,7 @@ export const fetchClassrooms = createAsyncThunk('/classroom/fetch', async () => 
         "Content-Type": "application/json",
     }
     console.log('as member')
-    console.log(host,' host')
+    console.log(host, ' host')
     if (token !== null) { headers["auth-token"] = token; }
 
     const response = await fetch(`${host}/classroom/actions/read`, {
@@ -48,7 +48,7 @@ export const fetchClassroomsAsAdmin = createAsyncThunk('/classroom/fetchAsAdmin'
         "Content-Type": "application/json",
     }
     console.log('as admin')
-    console.log(host,' host')
+    console.log(host, ' host')
     if (token !== null) { headers["auth-token"] = token; }
 
     const response = await fetch(`${host}/classroom/actions/readAsAdmin`, {
@@ -80,7 +80,26 @@ export const JoinClassroom = createAsyncThunk('/classroom/join', async (classId:
     return data;
 })
 
-export const deleteClassroom=createAsyncThunk('/classroom/delete',async({id,code}:{id:string,code:string})=>{
+export const RenameClassroom = createAsyncThunk('/classroom/update', async ({ id, name, code }: { id: string, name: string, code: string }) => {
+    const token = localStorage.getItem('auth-token-workspace')
+    const headers: HeadersInit = {
+        "Content-Type": "application/json",
+    }
+
+    if (token !== null) { headers["auth-token"] = token; }
+
+    const response = await fetch(`${host}/classroom/actions/update/${id}`, {
+        method: "PUT",
+        headers: headers,
+        body: JSON.stringify({ newName: name, classcode: code })
+    }
+    );
+    const data = await response.json();
+    console.log(data)
+    return data;
+})
+
+export const deleteClassroom = createAsyncThunk('/classroom/delete', async ({ id, code }: { id: string, code: string }) => {
     const token = localStorage.getItem('auth-token-workspace')
     const headers: HeadersInit = {
         "Content-Type": "application/json",
@@ -91,7 +110,7 @@ export const deleteClassroom=createAsyncThunk('/classroom/delete',async({id,code
     const response = await fetch(`${host}/classroom/actions/delete`, {
         method: "DELETE",
         headers: headers,
-        body: JSON.stringify({ id,classCode:code })
+        body: JSON.stringify({ id, classCode: code })
     }
     );
     const data = await response.json();
@@ -113,7 +132,7 @@ interface stateStructure {
 }
 
 const initialState: stateStructure = {
-    classroom: null,  
+    classroom: null,
 }
 const Room = createSlice({
     name: 'Room',
@@ -148,7 +167,7 @@ const Room = createSlice({
                 }
             })
             .addCase(fetchClassrooms.rejected, (state, action) => {
-            
+
                 toast.error('unexpected error occured');
             })
             .addCase(fetchClassroomsAsAdmin.pending, (state, action) => {
@@ -162,6 +181,19 @@ const Room = createSlice({
                 }
             })
             .addCase(fetchClassroomsAsAdmin.rejected, (state, action) => {
+                toast.error('unexpected error occured');
+            })
+            .addCase(RenameClassroom.pending, (state, action) => {
+            })
+            .addCase(RenameClassroom.fulfilled, (state, action) => {
+                if (action.payload.error) {
+                    toast.error(`${action.payload.message}`)
+                }
+                else {
+                    toast.success(`${action.payload.message}`)
+                }
+            })
+            .addCase(RenameClassroom.rejected, (state, action) => {
                 toast.error('unexpected error occured');
             })
             .addCase(deleteClassroom.pending, (state, action) => {

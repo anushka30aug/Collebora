@@ -12,7 +12,6 @@ interface classroomDetail{
 interface structure{
  showMenu:boolean,
  showCreateModal:boolean,
- showDeleteModal:boolean
  isAdmin:boolean,
  classroomDetail:classroomDetail|null,
  isLoading:boolean
@@ -21,7 +20,6 @@ interface structure{
 const initialState:structure={
    showMenu:false, 
    showCreateModal:false,
-   showDeleteModal:false,
    isAdmin:true,
    classroomDetail:null,
    isLoading:false
@@ -39,10 +37,6 @@ const userInterface = createSlice({
         {
             state.showCreateModal=!state.showCreateModal
         },
-        editShowDeleteModal(state)
-        {
-            state.showDeleteModal=!state.showDeleteModal
-        },
         setIsAdmin(state,action)
         {
             state.isAdmin=action.payload
@@ -59,4 +53,4 @@ const userInterface = createSlice({
 })
 
 export default userInterface.reducer;
-export const {editShowMenu,editShowCreateModal,editShowDeleteModal,setIsAdmin,setClassroomDetail,setLoadingState}=userInterface.actions;
+export const {editShowMenu,editShowCreateModal,setIsAdmin,setClassroomDetail,setLoadingState}=userInterface.actions;

@@ -79,11 +79,11 @@ exports.fetchClassroomAsAdmin = asyncHandler(async (req, res) => {
 exports.updatedClassroom = asyncHandler(async (req, res) => {
     try {
         const userId = req.user.id;
-        const id = req.params.id;
+        const id = req.params.id; 
         const { newName, classcode } = req.body;
-
+        
         const classroom = await Classroom.findOne({ _id: id });
-        if (!classroom) {
+        if (!classroom) { 
             res.status(404).send({ error: true, message: 'classroom not found' });
         }
         else {
@@ -101,6 +101,7 @@ exports.updatedClassroom = asyncHandler(async (req, res) => {
         }
     }
     catch (error) {
+        console.log(error)
         res.status(400).send({ error: true, message: 'unexpected error occured' });
     }
 })
