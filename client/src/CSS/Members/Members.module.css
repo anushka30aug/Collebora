@@ -1,0 +1,23 @@
+.member_container{
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 1em;
+}
+
+.member_container h4{
+    color: rgb(56, 56, 56);
+    font-family: "Google Sans", Roboto, Arial, sans-serif;
+    font-size: 2rem;
+    font-weight: 500;
+    line-height: 2.5rem;
+}
+
+@media(min-width:500px)
+{
+    .member_container {
+    padding: 0 1.5em ;
+   }
+    .member_container h4{
+    font-size: x-large;
+    }
+}

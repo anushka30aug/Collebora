@@ -8,6 +8,7 @@ import DeleteRoom from '../Room/DeleteRoom';
 import { useAppSelector } from '../../states/Hooks';
 import RenameRoom from '../Room/RenameRoom';
 import { useState } from 'react';
+import LeaveRoom from '../Room/LeaveRoom';
 
 interface classroom {
     _id: string,
@@ -23,6 +24,7 @@ const RoomsModal = (prop: classroom): React.JSX.Element => {
     const isAdmin = useAppSelector(state => state.userInterface.isAdmin)
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [showRenameModal, setShowRenameModal] = useState(false);
+    const [showLeaveModal, setShowLeaveModal] = useState(false);
 
     const handleClick = () => {
         dispatch(setClassroomDetail(prop))
@@ -45,20 +47,32 @@ const RoomsModal = (prop: classroom): React.JSX.Element => {
         setShowDeleteModal(false);
     };
 
+    const handleLeaveClick = () => {
+        setShowLeaveModal(true)
+    }
+
+    const handleLeaveModalClose = () => {
+        setShowLeaveModal(false)
+    }
+
     return (
         <div className={style.room_modal}>
             {showDeleteModal && <DeleteRoom id={prop._id} onClose={handleDeleteModalClose} />}
             {showRenameModal && <RenameRoom id={prop._id} onClose={handleRenameModalClose} />}
+            {showLeaveModal && <LeaveRoom id={prop._id} onClose={handleLeaveModalClose} />}
             <div className={style.main}>
-                {isAdmin && <div className={style.options}>
+                <div className={style.options}>
                     <div className={style.ellipsis}>
                         <Ellipsis />
                     </div>
-                    <div className={style.dropdown_content}>
+                    {isAdmin ? <div className={style.dropdown_content}>
                         <p onClick={(e) => { e.preventDefault(); handleRenameClick() }}>Change name</p>
                         <p onClick={(e) => { e.preventDefault(); handleDeleteClick() }}>Delete Room</p>
+                    </div> : <div className={style.dropdown_content}>
+                        <p onClick={(e) => { e.preventDefault(); handleLeaveClick() }}>Leave Room</p>
                     </div>
-                </div>}
+                    }
+                </div>
                 <h3 onClick={handleClick}>
                     {prop.name}
                 </h3>

@@ -7,7 +7,9 @@ route.post('/create',fetchUser,members_controller.addMember);
 
 route.get('/fetch/:id',fetchUser,members_controller.fetchMembers);
 
-// route.delete('/delete',fetchUser,)
+route.delete('/delete',fetchUser,members_controller.removeMember);
+
+route.delete('/leave',fetchUser,members_controller.leaveRoom);
 
 module.exports = route;
 

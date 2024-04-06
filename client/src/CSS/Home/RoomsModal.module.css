@@ -1,4 +1,4 @@
-.room_modal{
+.room_modal {
     width: 90%;
     min-width: 200px;
     height: 10em;
@@ -12,7 +12,7 @@
     cursor: pointer;
 }
 
-.main{
+.main {
     margin: 0;
     padding: 0;
     height: 60%;
@@ -24,7 +24,7 @@
 }
 
 
-.main h3{
+.main h3 {
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -34,8 +34,7 @@
     margin: 0;
 }
 
-
-.options{
+.options {
     margin: 0;
     padding: 0;
     width: 100%;
@@ -44,7 +43,7 @@
     display: inline-block;
 }
 
-.ellipsis{
+.ellipsis {
     position: absolute;
     right: .5em;
 }
@@ -71,14 +70,12 @@
 
 .dropdown_content p:hover {
     color: #0057ee;
+    cursor: pointer;
 }
 
 
-@media(min-width:500px)
-{
-    .room_modal{  
-        width:300px;
+@media(min-width:500px) {
+    .room_modal {
+        width: 300px;
     }
 }
-
-

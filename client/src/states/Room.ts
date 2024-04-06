@@ -61,25 +61,6 @@ export const fetchClassroomsAsAdmin = createAsyncThunk('/classroom/fetchAsAdmin'
     return data;
 })
 
-export const JoinClassroom = createAsyncThunk('/classroom/join', async (classId: string) => {
-    const token = localStorage.getItem('auth-token-workspace')
-    const headers: HeadersInit = {
-        "Content-Type": "application/json",
-    }
-
-    if (token !== null) { headers["auth-token"] = token; }
-
-    const response = await fetch(`${host}/classroom/members/actions/create`, {
-        method: "POST",
-        headers: headers,
-        body: JSON.stringify({ classId })
-    }
-    );
-    const data = await response.json();
-    console.log(data)
-    return data;
-})
-
 export const RenameClassroom = createAsyncThunk('/classroom/update', async ({ id, name, code }: { id: string, name: string, code: string }) => {
     const token = localStorage.getItem('auth-token-workspace')
     const headers: HeadersInit = {

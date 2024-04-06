@@ -7,13 +7,18 @@ import { fetchAnnouncement, incrementPage } from "../../states/Announcement";
 import MakeAnnouncement from "./MakeAnnouncement";
 import { setLoadingState } from "../../states/UserInterface";
 import InfiniteScroll from "react-infinite-scroll-component";
-import {  Spinner } from "../helper/icons";
+import {  Spinner,Copy } from "../helper/icons";
 import NoAnnouncements from "./NoAnnouncements";
+import toast from "react-hot-toast";
+import style from '../../CSS/Announcement/Announcement.module.css';
+
 
 const Announcement = (): React.JSX.Element => {
     const dispatch = useDispatch<AppDispatch>();
     const Id = useAppSelector(state => state.userInterface.classroomDetail?._id)
     const Announcements = useAppSelector(state => state.announcement.announcements)
+    const className=useAppSelector(state=>state.userInterface.classroomDetail?.name);
+    const classId = useAppSelector(state=>state.userInterface.classroomDetail?.classId);
     const totalCount = useAppSelector(state => state.announcement.totalCount)
     const isLoading = useAppSelector(state => state.userInterface.isLoading)
     const isAdmin = useAppSelector(state => state.userInterface.isAdmin);
@@ -53,6 +58,24 @@ const Announcement = (): React.JSX.Element => {
                 {
                     isAdmin && <MakeAnnouncement />
                 }
+                 <div className={style.intro}>
+                <div className={style.intro_name}>
+                {className}
+                </div>
+                {
+                    isAdmin && <div className={style.intro_id}>
+                    <span>{classId}</span>
+                    <button onClick={(e:React.MouseEvent)=>{
+                        e.preventDefault();
+                        navigator.clipboard.writeText(`${classId}`)
+                        toast.success('copied')
+                    }}>
+                    <Copy/>
+                    </button>
+                    </div>
+                }
+                
+            </div>
             </div>
             {
                 isLoading ? ('') :(  totalCount > 0 ? (
