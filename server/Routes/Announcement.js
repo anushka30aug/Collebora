@@ -2,7 +2,6 @@ const express = require('express')
 const route = express.Router();
 const fetchUser = require('../middleware/fetchUser');
 const multer = require('multer');
-// const path = require('path')
 const announcement_controller = require('../controllers/AnnouncementController')
   
 const storage = multer.memoryStorage();

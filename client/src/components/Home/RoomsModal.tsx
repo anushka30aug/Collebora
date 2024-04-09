@@ -3,12 +3,13 @@ import style from '../../CSS/Home/RoomsModal.module.css'
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../states/Store';
 import { setClassroomDetail } from '../../states/UserInterface';
-import { Ellipsis } from '../helper/icons';
+import { Archive, Ellipsis } from '../helper/icons';
 import DeleteRoom from '../Room/DeleteRoom';
 import { useAppSelector } from '../../states/Hooks';
 import RenameRoom from '../Room/RenameRoom';
 import { useState } from 'react';
 import LeaveRoom from '../Room/LeaveRoom';
+import { ArchiveRoom } from '../../states/Room';
 
 interface classroom {
     _id: string,
@@ -22,6 +23,7 @@ const RoomsModal = (prop: classroom): React.JSX.Element => {
     const navigate = useNavigate();
     const dispatch = useDispatch<AppDispatch>();
     const isAdmin = useAppSelector(state => state.userInterface.isAdmin)
+    const isActive = useAppSelector(state => state.userInterface.isActive)
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [showRenameModal, setShowRenameModal] = useState(false);
     const [showLeaveModal, setShowLeaveModal] = useState(false);
@@ -55,6 +57,15 @@ const RoomsModal = (prop: classroom): React.JSX.Element => {
         setShowLeaveModal(false)
     }
 
+    const archiveRoom=()=>{
+        dispatch(ArchiveRoom(prop._id)).then(result=>{
+            if(result.payload.success)
+            {
+                window.location.reload()
+            }
+        })
+    }
+
     return (
         <div className={style.room_modal}>
             {showDeleteModal && <DeleteRoom id={prop._id} onClose={handleDeleteModalClose} />}
@@ -68,6 +79,12 @@ const RoomsModal = (prop: classroom): React.JSX.Element => {
                     {isAdmin ? <div className={style.dropdown_content}>
                         <p onClick={(e) => { e.preventDefault(); handleRenameClick() }}>Change name</p>
                         <p onClick={(e) => { e.preventDefault(); handleDeleteClick() }}>Delete Room</p>
+                        { 
+                        isActive ?
+                            <p onClick={(e) => { e.preventDefault(); archiveRoom() }}>Archive Room</p>
+                            :
+                            <p onClick={(e) => { e.preventDefault(); archiveRoom() }}>UnArchive Room</p>
+                        }
                     </div> : <div className={style.dropdown_content}>
                         <p onClick={(e) => { e.preventDefault(); handleLeaveClick() }}>Leave Room</p>
                     </div>

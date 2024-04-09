@@ -1,6 +1,5 @@
 .menu_container {
     display: flex;
-    /* width: fit-content; */
     padding-left: .5em;
     border-right: 1px solid gray;
     position: -webkit-sticky;
@@ -45,6 +44,10 @@
     align-items: center;
     height: 36px;
     margin: .5em 0;
+}
+
+.activeOption{
+    color: #0057ee;
 }
 
 @media(min-width:500px)

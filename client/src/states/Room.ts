@@ -23,7 +23,7 @@ export const createRoom = createAsyncThunk('classroom/create', async ({ code, na
 });
 
 
-export const fetchClassrooms = createAsyncThunk('/classroom/fetch', async () => {
+export const fetchClassrooms = createAsyncThunk('/classroom/fetch', async (isActive:boolean) => {
     const token = localStorage.getItem('auth-token-workspace')
     const headers: HeadersInit = {
         "Content-Type": "application/json",
@@ -32,7 +32,7 @@ export const fetchClassrooms = createAsyncThunk('/classroom/fetch', async () => 
     console.log(host, ' host')
     if (token !== null) { headers["auth-token"] = token; }
 
-    const response = await fetch(`${host}/classroom/actions/read`, {
+    const response = await fetch(`${host}/classroom/actions/read?isActive=${isActive}`, {
         method: "GET",
         headers: headers
     }
@@ -42,16 +42,14 @@ export const fetchClassrooms = createAsyncThunk('/classroom/fetch', async () => 
     return data;
 })
 
-export const fetchClassroomsAsAdmin = createAsyncThunk('/classroom/fetchAsAdmin', async () => {
+export const fetchClassroomsAsAdmin = createAsyncThunk('/classroom/fetchAsAdmin', async (isActive:boolean) => {
     const token = localStorage.getItem('auth-token-workspace')
     const headers: HeadersInit = {
         "Content-Type": "application/json",
     }
-    console.log('as admin')
-    console.log(host, ' host')
     if (token !== null) { headers["auth-token"] = token; }
 
-    const response = await fetch(`${host}/classroom/actions/readAsAdmin`, {
+    const response = await fetch(`${host}/classroom/actions/readAsAdmin?isActive=${isActive}`, {
         method: "GET",
         headers: headers
     }
@@ -93,6 +91,24 @@ export const deleteClassroom = createAsyncThunk('/classroom/delete', async ({ id
         headers: headers,
         body: JSON.stringify({ id, classCode: code })
     }
+    );
+    const data = await response.json();
+    console.log(data)
+    return data;
+})
+
+export const ArchiveRoom = createAsyncThunk('/classroom/archive/toogle',async(id:string)=>{
+    const token = localStorage.getItem('auth-token-workspace')
+    const headers: HeadersInit = {
+        "Content-Type": "application/json",
+    }
+
+    if (token !== null) { headers["auth-token"] = token; }
+    const response = await fetch(`${host}/classroom/actions/archive`, {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify({id})
+    } 
     );
     const data = await response.json();
     console.log(data)
@@ -188,6 +204,19 @@ const Room = createSlice({
                 }
             })
             .addCase(deleteClassroom.rejected, (state, action) => {
+                toast.error('unexpected error occured');
+            })
+            .addCase(ArchiveRoom.pending, (state, action) => {
+            })
+            .addCase(ArchiveRoom.fulfilled, (state, action) => {
+                if (action.payload.error) {
+                    toast.error(`${action.payload.message}`)
+                }
+                else {
+                    toast.success(`${action.payload.message}`)
+                }
+            })
+            .addCase(ArchiveRoom.rejected, (state, action) => {
                 toast.error('unexpected error occured');
             })
     },

@@ -13,6 +13,7 @@ Welcome to Collebora! Collebora is a collaborative platform designed to streamli
    <h6>Join Room:</h6> Users can join a room using a room ID.
    <h6>Delete Room:</h6> Admin can delete a room, removing it from the platform.
    <h6>Update Room Name:</h6> Admin can update the name of a room to reflect changes or updates.
+   <h6>Archive Room:</h6>Admin can archive a room to make it inActive on temporary basis 
 
 - <h4>Announcement Management:</h4>
    <h6>Make Announcement:</h6> Admin can make announcements visible to all members of a room.

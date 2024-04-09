@@ -16,7 +16,7 @@ const persistUser={
 const persistUI={
     key:'UI',
     storage:storageSession,
-    whitelist:['showMenu','isAdmin','classroomDetail']
+    whitelist:['showMenu','isAdmin','classroomDetail','isActive','menuOption']
 }
 
 // const persistAnnouncement={

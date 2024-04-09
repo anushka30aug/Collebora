@@ -10,7 +10,11 @@
     word-wrap: break-word;
     text-align: center;
     cursor: pointer;
+    /* overflow-y: auto; */
 }
+/* ::-webkit-scrollbar {
+    display: none;
+} */
 
 .main {
     margin: 0;
@@ -41,11 +45,7 @@
     cursor: pointer;
     position: relative;
     display: inline-block;
-}
-
-.ellipsis {
-    position: absolute;
-    right: .5em;
+    /* Add relative positioning to establish a positioning context for absolute positioning of dropdown */
 }
 
 .options .dropdown_content {
@@ -56,12 +56,21 @@
     min-width: 100px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     border-radius: .2em;
-    padding: 5px 15px;
+    padding: 2px 15px;
+    font-size:15px;
     z-index: 1;
     top: 1.5em;
     right: 4px;
     left: auto;
     text-align: left;
+    padding-bottom: 5px; 
+    height: auto;   
+}
+
+
+.ellipsis {
+    position: absolute;
+    right: .5em;
 }
 
 .options:hover .dropdown_content {

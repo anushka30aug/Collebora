@@ -6,26 +6,26 @@ const classroom = new Schema({
     name: {
         type: String,
         required: true,
-        maxLength:30
+        maxLength: 30
     },
-    code:{
-        type:String,
-        required:true,
-        minLength:6
+    code: {
+        type: String,
+        required: true,
+        minLength: 6
     },
-    classId:{
-        type:String,
-        required:true,
-        minLength:4,
-        unique:true,
+    classId: {
+        type: String,
+        required: true,
+        minLength: 4,
+        unique: true,
     },
-    adminId:{
-       type:mongoose.Schema.Types.ObjectId,
-       required:true 
+    adminId: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
     },
-    adminName:{
-        type:String,
-        required:true
+    adminName: {
+        type: String,
+        required: true
     },
     members: [
         {
@@ -33,9 +33,13 @@ const classroom = new Schema({
             ref: User
         }
     ],
-    date:{
-        type:Date,
-        default:Date.now
+    isActive: {
+        type: Boolean,
+        default: true
+    },
+    date: {
+        type: Date,
+        default: Date.now
     }
 
 })

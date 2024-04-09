@@ -21,7 +21,7 @@ exports.createClassroom = asyncHandler(async (req, res) => {
         const classroom = await Classroom.findOne({ classId: classId });
         if (classroom !== null) {
             res.status(400).send({ error: true, message: 'Entered RoomId not available (already in use)' })
-        } 
+        }
         else {
             const classroom = await Classroom.create({
                 name: name,
@@ -44,12 +44,13 @@ exports.createClassroom = asyncHandler(async (req, res) => {
 exports.fetchClassroom = asyncHandler(async (req, res) => {
     try {
         const userId = req.user.id;
+        const isActive = req.query.isActive;
         const user = await User.findOne({ _id: userId });
         if (!user) {
             res.status(404).send({ error: true, message: 'user not found' })
         }
         else {
-            const classRooms = await Classroom.find({ members: userId }).select("-code");
+            const classRooms = await Classroom.find({ members: userId, isActive: isActive }).select("-code");
             res.status(200).send({ success: true, data: classRooms });
         }
     }
@@ -61,12 +62,13 @@ exports.fetchClassroom = asyncHandler(async (req, res) => {
 exports.fetchClassroomAsAdmin = asyncHandler(async (req, res) => {
     try {
         const userId = req.user.id;
+        const isActive = req.query.isActive;
         const user = await User.findOne({ _id: userId });
         if (!user) {
             res.status(404).send({ error: true, message: 'user not found' })
         }
         else {
-            const classRooms = await Classroom.find({ adminId: userId }).select("-code");
+            const classRooms = await Classroom.find({ adminId: userId, isActive: isActive }).select("-code");
             res.status(200).send({ success: true, data: classRooms });
         }
     }
@@ -79,11 +81,11 @@ exports.fetchClassroomAsAdmin = asyncHandler(async (req, res) => {
 exports.updatedClassroom = asyncHandler(async (req, res) => {
     try {
         const userId = req.user.id;
-        const id = req.params.id; 
+        const id = req.params.id;
         const { newName, classcode } = req.body;
-        
+
         const classroom = await Classroom.findOne({ _id: id });
-        if (!classroom) { 
+        if (!classroom) {
             res.status(404).send({ error: true, message: 'classroom not found' });
         }
         else {
@@ -103,36 +105,6 @@ exports.updatedClassroom = asyncHandler(async (req, res) => {
     catch (error) {
         console.log(error)
         res.status(400).send({ error: true, message: 'unexpected error occured' });
-    }
-})
-
-
-exports.removeMember = asyncHandler(async (req, res) => {
-    try {
-        const classroomId = req.params.id;
-        const userId = req.user.id;
-        const { userToRemove } = req.body;
-        const classroom = await Classroom.findOne({ _id: classroomId });
-        if (!classroom) {
-            res.status(404).send({ error: true, message: 'classroom not found' })
-        }
-        else {
-            if (classroom.admin !== userId) {
-                res.status(401).send({ error: true, message: ' invalid access request' })
-            }
-            else {
-                const updatedClassroom = await Classroom.findByIdAndUpdate(
-                    classroomId,
-                    { $pull: { students: userToRemove } },
-                    { new: true }
-                );
-                console.log(updatedClassroom)
-                res.status(200).send({ success: true, message: 'User removed successfully' });
-            }
-        }
-    }
-    catch (error) {
-        res.status(400).send({ error: true, message: 'unexpected error occured' })
     }
 })
 
@@ -156,7 +128,7 @@ exports.deleteClassroom = asyncHandler(async (req, res) => {
             }
             else {
                 await Classroom.deleteOne({ _id: id });
-                await Announcement.deleteMany({classId:id})
+                await Announcement.deleteMany({ classId: id })
                 res.status(200).send({ success: true, message: 'classroom deleted successfully' })
             }
         }
@@ -166,6 +138,37 @@ exports.deleteClassroom = asyncHandler(async (req, res) => {
     }
 })
 
+
+exports.toogle_Archive = asyncHandler(async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const {id}= req.body; 
+
+        const classroom = await Classroom.findOne({ _id: id });
+        const user = await User.findOne({ _id: userId })
+        if (!user) {
+            res.status(404).send({ error: true, message: 'user not found' })
+        }
+        else if (!classroom) {
+            res.status(404).send({ error: true, message: "classroom not found" })
+        }
+        else {
+            if (classroom.adminId.toString() !== userId.toString()) {
+                res.status(401).send({ error: true, message: 'Invalid access request' })
+            }
+            else {
+                classroom.isActive = !classroom.isActive
+                classroom.save();
+                res.status(200).send({ success: true, message: classroom.isActive ? 'Classroom Activated' : 'Classroom Deactivated' })
+            }
+        }
+    }
+    catch (error) {
+        console.log(error)
+        res.status(400).send({ error: true, message: 'unexpected error occured' })
+    }
+
+})
 
 // generate invitation link for classroom
 // send invitation link 

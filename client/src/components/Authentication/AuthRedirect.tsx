@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchUser } from '../../states/User';
 import { AppDispatch } from '../../states/Store';
-import { fetchClassrooms } from '../../states/Room';
+// import { fetchClassrooms } from '../../states/Room';
 
 const AuthRedirect = (): React.JSX.Element => {
    const location = useLocation();
@@ -16,8 +16,8 @@ const AuthRedirect = (): React.JSX.Element => {
    useEffect(()=>{
       if (token) {
          localStorage.setItem('auth-token-workspace', token);
-         dispatch(fetchUser());
-         dispatch(fetchClassrooms()).then(user=>navigate('/'));
+         dispatch(fetchUser()).then(user=>navigate('/'));
+         // dispatch(fetchClassrooms())
       }
    },[token])
    

@@ -7,7 +7,7 @@ import { fetchAnnouncement, incrementPage } from "../../states/Announcement";
 import MakeAnnouncement from "./MakeAnnouncement";
 import { setLoadingState } from "../../states/UserInterface";
 import InfiniteScroll from "react-infinite-scroll-component";
-import {  Spinner,Copy } from "../helper/icons";
+import { Spinner, Copy } from "../helper/icons";
 import NoAnnouncements from "./NoAnnouncements";
 import toast from "react-hot-toast";
 import style from '../../CSS/Announcement/Announcement.module.css';
@@ -17,15 +17,15 @@ const Announcement = (): React.JSX.Element => {
     const dispatch = useDispatch<AppDispatch>();
     const Id = useAppSelector(state => state.userInterface.classroomDetail?._id)
     const Announcements = useAppSelector(state => state.announcement.announcements)
-    const className=useAppSelector(state=>state.userInterface.classroomDetail?.name);
-    const classId = useAppSelector(state=>state.userInterface.classroomDetail?.classId);
+    const className = useAppSelector(state => state.userInterface.classroomDetail?.name);
+    const classId = useAppSelector(state => state.userInterface.classroomDetail?.classId);
     const totalCount = useAppSelector(state => state.announcement.totalCount)
     const isLoading = useAppSelector(state => state.userInterface.isLoading)
     const isAdmin = useAppSelector(state => state.userInterface.isAdmin);
     useEffect(() => {
         dispatch(setLoadingState(true))
         if (Id !== undefined) {
-            dispatch(fetchAnnouncement({id:Id})).then(() => {
+            dispatch(fetchAnnouncement({ id: Id })).then(() => {
                 dispatch(setLoadingState(false))
             })
 
@@ -46,46 +46,47 @@ const Announcement = (): React.JSX.Element => {
     }
 
     const fetchMore = () => {
-       dispatch(incrementPage());
+        dispatch(incrementPage());
         if (Id !== undefined)
-        dispatch(fetchAnnouncement({id:Id}));
+            dispatch(fetchAnnouncement({ id: Id }));
     }
 
     return (
         <div>
 
             <div>
+
+                <div className={style.intro}>
+                    <div className={style.intro_name}>
+                        {className}
+                    </div>
+                    {
+                        isAdmin && <div className={style.intro_id}>
+                            <span>{classId}</span>
+                            <button onClick={(e: React.MouseEvent) => {
+                                e.preventDefault();
+                                navigator.clipboard.writeText(`${classId}`)
+                                toast.success('copied')
+                            }}>
+                                <Copy />
+                            </button>
+                        </div>
+                    }
+
+                </div>
                 {
                     isAdmin && <MakeAnnouncement />
                 }
-                 <div className={style.intro}>
-                <div className={style.intro_name}>
-                {className}
-                </div>
-                {
-                    isAdmin && <div className={style.intro_id}>
-                    <span>{classId}</span>
-                    <button onClick={(e:React.MouseEvent)=>{
-                        e.preventDefault();
-                        navigator.clipboard.writeText(`${classId}`)
-                        toast.success('copied')
-                    }}>
-                    <Copy/>
-                    </button>
-                    </div>
-                }
-                
-            </div>
             </div>
             {
-                isLoading ? ('') :(  totalCount > 0 ? (
+                isLoading ? ('') : (totalCount > 0 ? (
                     <InfiniteScroll
                         dataLength={Announcements.length}
                         hasMore={hasMore()}
                         next={fetchMore}
-                        loader={<div style={{margin:' 1em auto',maxWidth:'max-content'}}>
-                            <Spinner/>
-                            </div>}
+                        loader={<div style={{ margin: ' 1em auto', maxWidth: 'max-content' }}>
+                            <Spinner />
+                        </div>}
                     >
                         {Announcements.map((announcement, index) => (
                             <AnnouncementCard key={index} announcement={announcement} />
@@ -93,7 +94,7 @@ const Announcement = (): React.JSX.Element => {
                     </InfiniteScroll>
 
                 ) : (
-                    <div><NoAnnouncements/></div>
+                    <div><NoAnnouncements /></div>
                 ))
             }
         </div>
