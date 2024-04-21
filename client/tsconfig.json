@@ -26,6 +26,7 @@
   },
   "include": [
     "src",
-    "typings"
+    "typings",
+    "src/context"
   ]
 }

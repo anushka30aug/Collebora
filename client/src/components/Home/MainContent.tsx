@@ -51,7 +51,7 @@ const MainContent = (): React.JSX.Element => {
             <div className={style.rooms_main}>
                 {
                     isLoading ? '' : (classrooms !== null && classrooms.length !== 0) ?
-                        (classrooms.map(rooms => <RoomsModal _id={rooms._id} name={rooms.name} adminId={rooms.adminId} adminName={rooms.adminName} classId={rooms.classId} />)) :
+                        (classrooms.map(rooms => <RoomsModal key={rooms._id} _id={rooms._id} name={rooms.name} adminId={rooms.adminId} adminName={rooms.adminName} classId={rooms.classId} />)) :
                         (<RoomNotFound />)
                 }
             </div>

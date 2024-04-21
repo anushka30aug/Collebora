@@ -1,19 +1,27 @@
 .room_container{
     width: 100%;
     position: relative;
+    overflow-y: auto;
+    height: 100vh; 
 }
 
 .room_header{
-    padding: 0 1em;
-    width: 100%;
-    box-sizing: border-box;
-    border-bottom: 1px solid rgb(161, 159, 159);
-    overflow-x: scroll; 
-    max-height:50px;
-    /* display: flex;
-    flex-direction: row-reverse; */
-}
 
+   width: calc(100dvw - 60px);
+   overflow-x: scroll; 
+   height: 50px;
+   border-bottom: 1px solid gray;
+   display: flex; 
+   position: sticky;
+   top: 0;
+   overflow-y: scroll;
+   
+}
+@media (min-width:480px) {
+    .room_header{
+        width: 100%;
+    }
+}
 .rooms_header_button{
     border: none;
     background-color: transparent;

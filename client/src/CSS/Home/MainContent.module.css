@@ -9,6 +9,9 @@
     align-items: center;
     justify-content: flex-start;
     border-bottom: 1px solid rgb(161, 159, 159);
+    position:sticky;
+    width: 100%;
+    background-color: white;
 }
 
 .rooms_header_button{

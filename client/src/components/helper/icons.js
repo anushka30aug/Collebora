@@ -208,7 +208,7 @@ export const Send = () => {
 
 export const NoAnnouncement = () => {
     return (
-        <svg fill="#343434" height="100px" width="100px" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 297.23 297.23" enable-background="new 0 0 297.23 297.23">
+        <svg fill="#343434" height="100px" width="100px" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 297.23 297.23" enableBackground="new 0 0 297.23 297.23">
             <g>
                 <path d="m149.416,61.02c14.139,0 25.642-11.503 25.642-25.642 0-14.139-11.503-25.642-25.642-25.642s-25.642,11.503-25.642,25.642c0,14.139 11.503,25.642 25.642,25.642z" />
                 <path d="m108.813,139.678h80.845c5.265,0 9.533-4.268 9.533-9.533v-35.25c0-9.758-6.271-18.41-15.544-21.448l-.043-.014-13.563-2.246c-1.154-0.355-2.388,0.256-2.803,1.395l-15.389,42.224c-0.888,2.436-4.333,2.436-5.221,0l-15.389-42.224c-0.335-0.92-1.203-1.496-2.133-1.496-0.22,0-0.445,0.033-0.667,0.101l-13.566,2.243c-9.349,3.115-15.595,11.782-15.595,21.582v35.133c0.002,5.265 4.27,9.533 9.535,9.533z" />
@@ -240,6 +240,32 @@ export const Ellipsis = () => {
             <path fillRule="evenodd" d="M10.5 6a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Zm0 6a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Zm0 6a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Z" clipRule="evenodd" />
         </svg>
 
+
+    )
+}
+
+export const MessageIcon = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 9.75a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 0 1 .778-.332 48.294 48.294 0 0 0 5.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
+        </svg>
+
+    )
+}
+
+export const Timer = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" height="18" width="18">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+        </svg>
+    )
+}
+
+export const Tick = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" height="18" width="18">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+        </svg>
 
     )
 }

@@ -4,6 +4,8 @@ const User = require('../models/user');
 const { default: mongoose } = require('mongoose');
 const { validationResult } = require('express-validator');
 const Announcement = require('../models/announcement');
+const Chat = require('../models/chatroom');
+const Message = require('../models/Message');
 
 
 exports.createClassroom = asyncHandler(async (req, res) => {
@@ -30,8 +32,15 @@ exports.createClassroom = asyncHandler(async (req, res) => {
                 adminId: admin,
                 adminName: user.name
             });
-            await classroom.save();
-            console.log(classroom);
+            await classroom.save(); 
+
+            const Chatroom = await Chat.create({
+                _id: classroom._id,
+                members:[user._id],
+                groupAdmin: user._id
+             })
+            await Chatroom.save();
+            console.log(classroom); 
             res.status(200).send({ success: true, message: 'Room created successfully' });
         }
 
@@ -127,13 +136,16 @@ exports.deleteClassroom = asyncHandler(async (req, res) => {
                 res.status(401).send({ error: true, message: 'unauthorized access' })
             }
             else {
+                await Chat.deleteOne({_id:classroom._id})
+                await Message.deleteMany({chatId:classroom._id});
+                await Announcement.deleteMany({ classId: id });
                 await Classroom.deleteOne({ _id: id });
-                await Announcement.deleteMany({ classId: id })
                 res.status(200).send({ success: true, message: 'classroom deleted successfully' })
             }
         }
     }
     catch (error) {
+        console.log(error)
         res.status(400).send({ error: true, message: 'unexpected error occured' })
     }
 })

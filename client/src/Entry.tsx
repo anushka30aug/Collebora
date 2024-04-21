@@ -7,23 +7,56 @@ import RoomDetail from './components/Room/RoomDetail';
 import LoadingBar, { LoadingBarRef } from 'react-top-loading-bar';
 import { useEffect, useRef } from 'react';
 import { useAppSelector } from './states/Hooks';
+import { useChatSocketCtx } from './context/SocketContext';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from './states/Store';
+import { fetchUser } from './states/User';
+import { newMessage } from './states/Message';
 
-const Entry = ():React.JSX.Element=>{
-  const ref = useRef<null|LoadingBarRef>(null);
-  const Loading = useAppSelector(state=>state.userInterface.isLoading)
-  useEffect(()=>{
-    if(Loading)
-    {
+const Entry = (): React.JSX.Element => {
+  const { socket } = useChatSocketCtx()
+  const dispatch = useDispatch<AppDispatch>();
+  const ref = useRef<null | LoadingBarRef>(null);
+  const Loading = useAppSelector(state => state.userInterface.isLoading)
+ 
+  useEffect(() => {
+    if (Loading) {
       ref.current?.continuousStart()
     }
-    else{
+    else {
       ref.current?.complete()
     }
-  },[Loading])
-    return(
-        <div>
-        <LoadingBar color='#0057ee' ref={ref} height={5} loaderSpeed={1000} />
-        <BrowserRouter>
+  }, [Loading])
+
+  useEffect(() => {
+    if (localStorage.getItem('auth-token-workspace')) {
+      socket.connect();
+      console.log(socket)
+      dispatch(fetchUser()).then((result) => {
+        if (result.payload.success) {
+          socket.emit("setup", result.payload.data._id)
+        }
+      })
+      socket.on("connected", (userId) => {
+        console.log(userId)
+    })
+    socket.on("message received", (Message) => {
+        console.log(Message)
+        dispatch(newMessage(Message));
+    })
+      return () => {
+        socket.disconnect();
+      };
+    }
+    //eslint-disable-next-line
+  }, [socket]);
+
+  
+
+  return (
+    <div>
+      <LoadingBar color='#0057ee' ref={ref} height={5} loaderSpeed={1000} />
+      <BrowserRouter>
         <Routes>
           <Route path='/' Component={Home}></Route>
           <Route path='/auth' Component={Auth}></Route>
@@ -32,8 +65,8 @@ const Entry = ():React.JSX.Element=>{
           <Route path='/room' Component={RoomDetail}></Route>
         </Routes>
       </BrowserRouter>
-      </div>
-    )
+    </div>
+  )
 }
 
 export default Entry;

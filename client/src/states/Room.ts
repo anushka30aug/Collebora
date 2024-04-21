@@ -38,7 +38,6 @@ export const fetchClassrooms = createAsyncThunk('/classroom/fetch', async (isAct
     }
     );
     const data = await response.json();
-    console.log(data)
     return data;
 })
 
@@ -55,7 +54,6 @@ export const fetchClassroomsAsAdmin = createAsyncThunk('/classroom/fetchAsAdmin'
     }
     );
     const data = await response.json();
-    console.log(data)
     return data;
 })
 

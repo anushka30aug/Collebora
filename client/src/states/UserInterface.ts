@@ -26,7 +26,7 @@ const initialState: structure = {
     isAdmin: true,
     classroomDetail: null,
     isLoading: false,
-    isActive: true
+    isActive: true,
 }
 
 const userInterface = createSlice({

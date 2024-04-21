@@ -48,7 +48,6 @@ const user = createSlice({
             //task to do while the data fetching is in process
         })
         .addCase(fetchUser.fulfilled,(state,action)=>{
-           console.log(action.payload)
            if(action.payload.error)
            {
                toast.error(`${action.payload.message}`)

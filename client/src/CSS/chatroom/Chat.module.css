@@ -1,0 +1,68 @@
+.chat_container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: .5em;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.chat {
+    margin-bottom: 1em;
+}
+
+.emptyChat{
+    color:#0057ee;
+    text-align: center;
+}
+
+.chat_svg{
+    max-width: 100px;
+    max-height: 100px;
+    margin: 2em auto;
+
+}
+
+.chat_svg svg{
+    height:100%;
+    width: 100%;
+    stroke: #0057ee;
+}
+
+
+.form_div{
+    background-color: white;
+    position: sticky;
+    bottom: 0;
+    float: inline-end;
+    width: 100%;
+    box-sizing: border-box;
+}
+.form {   
+    width: 90%;
+    max-width: 900px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    padding: .5em 1em;
+    background-color: white;
+    box-shadow: 0 0 .1em 1px gray;
+    border-radius: 1em;
+    z-index: 900;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+   
+}
+
+.input {
+    width: 80%;
+    border: none;
+    outline: none;
+}
+
+.form button {
+    border: none;
+    background-color: white;
+}

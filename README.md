@@ -23,11 +23,12 @@ Welcome to Collebora! Collebora is a collaborative platform designed to streamli
    <h6>View Members:</h6> Users can view the list of members in room.
    <h6>Remove Member:</h6> Admin can remove members from room.
 
+- <h4>Group Chat:</h4> Implement group chat functionality for real-time communication among room members.
+
  <h2>Future Enhancements</h2>
    
 - <h4>Announcement Management:</h4>
    <h6>Delete Announcement:</h6> Admin can delete announcements to remove them from the room.
 
-- <h4>Group Chat:</h4> Implement group chat functionality for real-time communication among room members.
 
  <h3>Author:</h3> Anushka Shukla

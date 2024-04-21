@@ -72,7 +72,7 @@ const MakeAnnouncement = (): React.JSX.Element => {
     return (
         <div className={style.announcement_container} onClick={()=>{setIsVisible(true)}} >
             <form className={style.announcement_form} onSubmit={handleSubmit}>
-                <textarea placeholder="Announce something to your class" name='announcement' onChange={handleAnnouncementChange} className={`${style.textArea} ${isVisible?style.FocusedtextArea:''}`} disabled={!isActive} required></textarea>
+                <textarea placeholder="Announce something to your class" name='announcement' value={announcement} onChange={handleAnnouncementChange} className={`${style.textArea} ${isVisible?style.FocusedtextArea:''}`} disabled={!isActive} required></textarea>
                 <input type='file' name='files' ref={inputfileRef} accept='image/jpeg, image/png, application/pdf' style={{ display: 'none' }} onChange={handleSelectedFile} disabled={!isActive}></input>
                 <button type='submit' style={{ display: 'none' }} ref={inputSubmitRef} disabled={!isActive}></button>
             </form>

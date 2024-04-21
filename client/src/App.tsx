@@ -4,18 +4,19 @@ import { Provider } from 'react-redux';
 import { persistor, store } from './states/Store';
 import { PersistGate } from 'redux-persist/integration/react';
 import Entry from './Entry';
+import { ChatSocketCtxProvider } from './context/SocketContext';
 
 function App() {
   return (
-    <Provider store={store}>
-      <PersistGate persistor={persistor} loading={null}>
-      <div className="App">
-       
-        <Entry/>
-        
-      </div>
-      </PersistGate>
-    </Provider>
+    <ChatSocketCtxProvider>
+      <Provider store={store}>
+        <PersistGate persistor={persistor} loading={null}>
+          <div className="App">
+            <Entry />
+          </div>
+        </PersistGate>
+      </Provider>
+    </ChatSocketCtxProvider>
   );
 }
 

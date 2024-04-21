@@ -2,14 +2,15 @@
     max-width: 1500px;
     margin-bottom: 1em;
     padding: 1em;
-    /* padding-left: .5em; */
     border-bottom: 1px solid gray;
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin: 0 auto;
     font-size: large;
-    height: 45px;
+    position:sticky; 
+    top: 0;
+    background-color: white; 
 }
 
 .nav_left {

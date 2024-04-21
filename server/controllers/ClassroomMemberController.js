@@ -2,6 +2,7 @@ const asyncHandler = require('express-async-handler');
 const Classroom = require('../models/classroom');
 const User = require('../models/user');
 const { default: mongoose } = require('mongoose');
+const Chat = require('../models/chatroom');
 
 
 exports.addMember = asyncHandler(async (req, res) => {
@@ -29,6 +30,13 @@ exports.addMember = asyncHandler(async (req, res) => {
                 // If user doesn't exist in the classroom, add the user
                 classroom.members.push(userId);
                 await classroom.save();
+
+                const chatroom = await Chat.findOne({ _id: classroom._id });
+                if (chatroom) {
+                    chatroom.members.push(userId);
+                }
+                await chatroom.save();
+                console.log(chatroom , " new member joined chatroom")
 
                 res.status(200).send({ success: true, message: 'User added successfully' });
             }
@@ -95,7 +103,7 @@ exports.removeMember = asyncHandler(async (req, res) => {
             else if (classroom.code !== classcode) {
                 res.status(401).send({ error: true, message: ' invalid class code' })
             }
-            else { 
+            else {
                 if (!classroom.members.includes(userToRemove)) {
                     res.status(404).send({ error: true, message: 'user not found as member' });
                 }

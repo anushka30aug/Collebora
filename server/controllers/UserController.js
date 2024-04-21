@@ -14,7 +14,7 @@ exports.fetchUser = asyncHandler(async (req, res) => {
         }
     }
     catch (error) {
-        res.status(400).send({ error: true, message: 'unexpected error occured' })
+        res.status(400).send({ error: true, message: "Internal Server Error" })
     }
 });
 
