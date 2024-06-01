@@ -6,7 +6,7 @@ import CreateRoom from "./CreateRoom";
 import Members from "../Members/Members";
 import Chatroom from "../chatroom/Chat";
 
-const MainContent = (): React.JSX.Element => {
+const MainContent = ():React.JSX.Element => {
     const isModal = useAppSelector(state => state.userInterface.showCreateModal);
     const [option, setOption] = useState<'announcement' | 'members' | 'discussion' | null>('announcement');
 

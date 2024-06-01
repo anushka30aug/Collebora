@@ -1,10 +1,13 @@
 .rooms_container{
     width: 100%;
     position: relative;
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .rooms_header{
-    padding: 0 1em ;
+    padding: 0 1em;
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -25,6 +28,7 @@
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     color:rgb(96, 96, 96);
     display: inline-block;
+    cursor: pointer;
 }
 
 .rooms_header_button:hover{
@@ -45,6 +49,4 @@
     .rooms_main{
     display: flex;
     flex-wrap: wrap;
-    /* justify-content:space-evenly; */
-    /* gap: */
 }}

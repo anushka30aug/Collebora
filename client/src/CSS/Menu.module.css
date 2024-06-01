@@ -2,10 +2,7 @@
     display: flex;
     padding-left: .5em;
     border-right: 1px solid gray;
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    height: 100vh;  
+    height: 100%;  
     z-index: 1000; 
 }
 
@@ -16,6 +13,7 @@
     cursor: pointer;
     box-sizing: border-box;
     max-width: 60px;
+    height: 100%;
 }
 
 
@@ -33,7 +31,7 @@
     cursor: pointer;
     position: absolute; 
     left:55px;
-    height: 100vh;
+    height: 100%;
     background-color: rgb(255, 255, 255);
     border-right: 1px solid gray;  
     min-width: max-content;
@@ -50,10 +48,35 @@
     color: #0057ee;
 }
 
+.accountIcon {
+    width: 35px;
+    height: 35px;
+    border-radius: 5em;
+    object-fit: contain;
+    overflow: hidden;
+    cursor: pointer;
+    display: block;
+}
+
+.accountIcon img {
+   width: 100%;
+   height: 100%;
+}
+
+.accountOption{
+    display: block;
+}
+
 @media(min-width:500px)
 {
     .menu_icons{
         padding-right: .7em;
+    }
+    .accountIcon{
+        display: none;
+    }
+    .accountOption{
+        display: none;
     }
 }
 

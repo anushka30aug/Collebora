@@ -55,7 +55,6 @@ const MakeAnnouncement = (): React.JSX.Element => {
             dispatch(MakeAnnouncements(formData)).then((result) => {
                 if(result.payload.success)
                 window.location.reload()
-
                 setHasSubmitted(false)
             });
 

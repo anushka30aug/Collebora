@@ -4,7 +4,8 @@ import { useAppSelector } from "../../states/Hooks";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../states/Store";
 import { editShowMenu, setIsActive, setMenuOption } from "../../states/UserInterface"; 
-import React, { useState } from "react";
+import img from '../helper/image.png';
+// import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Menu = (): React.JSX.Element => {
@@ -12,25 +13,31 @@ const Menu = (): React.JSX.Element => {
     const navigate=useNavigate()
     const showMenu = useAppSelector(state => state.userInterface.showMenu)
     const option = useAppSelector(state=>state.userInterface.menuOption)
+    const image = useAppSelector(state => state.user.profilePicture);
 
     const archiveClick=(e:React.MouseEvent)=>{
         e.preventDefault();
-        dispatch(setIsActive(false)) ;
+        dispatch(setIsActive(false));
         dispatch(setMenuOption('archive'));
         navigate('/')
     }
 
     const homeClick=(e:React.MouseEvent)=>{
-        e.preventDefault();
-        dispatch(setIsActive(true)) ;
-        dispatch(setMenuOption('home'));
+        e.preventDefault()
+        dispatch(setIsActive(true))
+        dispatch(setMenuOption('home'))
         navigate('/')
-
     }
 
     const calendarClick=(e:React.MouseEvent)=>{
+        e.preventDefault()
+        dispatch(setMenuOption('calendar'))
+        navigate('/schedule')
+    }
+
+    const accountClick=(e:React.MouseEvent)=>{
         e.preventDefault();
-        dispatch(setMenuOption('calendar'));
+        dispatch(setMenuOption('Account'));
     }
 
     return (
@@ -45,6 +52,9 @@ const Menu = (): React.JSX.Element => {
                 <div className={`${style.icons} ${option==='archive'?style.activeOption:''}`} onClick={archiveClick}>
                     <Archive />
                 </div>
+                <div className={`${style.icons} ${option==='Account'?style.activeOption:''} ${style.accountIcon}`} onClick={accountClick}>
+                    <img src={image !== null ? image : img} alt="" />
+                </div>
             </div>
             <div className={style.menu_options} style={{ display: showMenu ? 'flex' : 'none' }} >
                 <div className={`${style.options} ${option==='home'?style.activeOption:''}`} onClick={homeClick}>
@@ -56,6 +66,10 @@ const Menu = (): React.JSX.Element => {
                 <div className={`${style.options} ${option==='archive'?style.activeOption:''}`} onClick={archiveClick}>
                     Archived Rooms
                 </div>
+                <div className={`${style.options} ${option==='Account'?style.activeOption:''} ${style.accountOption}`} onClick={accountClick}>
+                    Account
+                </div>
+
             </div>
         </div>
     )

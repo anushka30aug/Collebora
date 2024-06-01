@@ -41,7 +41,7 @@ const RenameRoom=({ id,onClose }: Props):React.JSX.Element=>{
             Rename Room
           </h2>
           <form className={style.room_form}>
-            <input type="text" name="name" placeholder='New Name' minLength={3} onChange={handleNameChange} required />
+            <input type="text" name="name" placeholder='New Name' minLength={3} maxLength={30} onChange={handleNameChange} required />
             <input type="password" name="code" placeholder='Room Code' minLength={6} onChange={handleCodeChange} required />
             <button className={`${style.create_form_button} ${style.create_form_button1}`} onClick={(e: React.MouseEvent) => { e.preventDefault(); onClose() }}>cancel</button>
             <button type="submit" className={`${style.create_form_button} ${style.create_form_button2}`} disabled={name.length >= 3 && code.length>=6 ? false : true} onClick={handleSubmit}>Rename</button>

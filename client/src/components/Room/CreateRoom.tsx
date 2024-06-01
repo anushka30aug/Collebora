@@ -46,7 +46,7 @@ const CreateRoom = (): React.JSX.Element => {
                 </h2>
                 <form className={style.room_form} onSubmit={handleSubmit}>
                     <input type="text" name="name" placeholder='Room name' minLength={3} maxLength={30} value={name} onChange={handleChange} required />
-                    <input type="text" name="classId" placeholder='Room Id(unique)'  minLength={5} maxLength={7} value={classId} onChange={handleChange} required />
+                    <input type="text" name="classId" placeholder='Room Id(unique)'  minLength={4} maxLength={6} value={classId} onChange={handleChange} required />
                     <input type="password" name="code" placeholder='Room Code' title='(secret code should not be shared with anyone)' minLength={6} value={code} onChange={handleChange} required />
                     <button className={`${style.create_form_button} ${style.create_form_button1}`} onClick={()=>{ dispatch(editShowCreateModal())}}>cancel</button>
                     <button type="submit" className={`${style.create_form_button} ${style.create_form_button2}`} disabled={name !== '' && code !== '' && classId!=='' ? false : true}>create</button>

@@ -37,7 +37,7 @@ const JoinRoom = (): React.JSX.Element => {
         <span onClick={()=>{navigate(-1)}}><Cross/></span>
         <h3>Join Room</h3>
         </span>
-        <button onClick={handleClick} disabled={classId.length<5}>JOIN</button>
+        <button onClick={handleClick} disabled={classId.length<4}>JOIN</button>
       </header>
 
       <main className={style.main_container}>
@@ -45,14 +45,14 @@ const JoinRoom = (): React.JSX.Element => {
           <h4>Room ID</h4>
           <p> Ask Admin for Room ID, then enter it here </p>
           
-          <input type="text" placeholder="Room ID" minLength={5} maxLength={7} value={classId} onChange={handleChange} required />
+          <input type="text" placeholder="Room ID" minLength={4} maxLength={6} value={classId} onChange={handleChange} required />
          
         </div>
 
         <div className={style.instructions}>
           <h4>To sign in with a class code</h4>
           <li>Use an authorised account</li>
-          <li>Use a class code with 5-7 letters or numbers</li>
+          <li>Use a class code with 4-6 letters or numbers</li>
         </div>
 
       </main>

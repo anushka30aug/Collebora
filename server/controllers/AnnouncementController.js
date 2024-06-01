@@ -36,7 +36,7 @@ exports.makeAnnouncement = asyncHandler(async (req, res) => {
             contentType: file.mimetype 
         }));
     }
-        // console.log(files[0].mimetype,' mimetype')
+       
 
         const announcement = new Announcement({
             classId: Id,

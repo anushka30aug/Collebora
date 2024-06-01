@@ -11,7 +11,7 @@ interface classroomDetail {
 
 interface structure {
     showMenu: boolean,
-    menuOption:'home'|'calendar'|'archive',
+    menuOption:'home'|'calendar'|'archive'|'Account',
     showCreateModal: boolean,
     isAdmin: boolean,
     classroomDetail: classroomDetail | null,  //when user visited a particular class set that class detail to use in performing any task in that class this help to avoid prop drilling

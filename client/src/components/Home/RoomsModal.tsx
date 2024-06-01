@@ -3,7 +3,7 @@ import style from '../../CSS/Home/RoomsModal.module.css'
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../states/Store';
 import { setClassroomDetail } from '../../states/UserInterface';
-import { Archive, Ellipsis } from '../helper/icons';
+import { Ellipsis } from '../helper/icons';
 import DeleteRoom from '../Room/DeleteRoom';
 import { useAppSelector } from '../../states/Hooks';
 import RenameRoom from '../Room/RenameRoom';

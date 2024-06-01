@@ -12,13 +12,15 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from './states/Store';
 import { fetchUser } from './states/User';
 import { newMessage } from './states/Message';
-
+import MyCalendar from './components/calendar/MyCalendar';
+var classRoomIdCheck: string | undefined;
 const Entry = (): React.JSX.Element => {
   const { socket } = useChatSocketCtx()
   const dispatch = useDispatch<AppDispatch>();
   const ref = useRef<null | LoadingBarRef>(null);
   const Loading = useAppSelector(state => state.userInterface.isLoading)
- 
+  const classroomId = useAppSelector(state => state.userInterface.classroomDetail?._id)
+  classRoomIdCheck = classroomId;
   useEffect(() => {
     if (Loading) {
       ref.current?.continuousStart()
@@ -39,11 +41,16 @@ const Entry = (): React.JSX.Element => {
       })
       socket.on("connected", (userId) => {
         console.log(userId)
-    })
-    socket.on("message received", (Message) => {
-        console.log(Message)
-        dispatch(newMessage(Message));
-    })
+      })
+      socket.on("message received", (Message) => {
+        
+        // console.log(Message, ' meko message aaya')
+        // console.log(Message.chatId, ' ispr bheja')
+        // console.log(classroomId, 'ispr hu')
+
+        if (classRoomIdCheck && Message.chatId === classRoomIdCheck)
+          dispatch(newMessage(Message));
+      })
       return () => {
         socket.disconnect();
       };
@@ -51,7 +58,7 @@ const Entry = (): React.JSX.Element => {
     //eslint-disable-next-line
   }, [socket]);
 
-  
+
 
   return (
     <div>
@@ -63,6 +70,7 @@ const Entry = (): React.JSX.Element => {
           <Route path='/authRedirect' Component={AuthRedirect}></Route>
           <Route path='/joinRoom' Component={JoinRoom}></Route>
           <Route path='/room' Component={RoomDetail}></Route>
+          <Route path='/schedule' Component={MyCalendar}></Route>
         </Routes>
       </BrowserRouter>
     </div>

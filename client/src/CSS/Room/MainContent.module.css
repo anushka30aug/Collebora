@@ -2,11 +2,10 @@
     width: 100%;
     position: relative;
     overflow-y: auto;
-    height: 100vh; 
+    height: 100%; 
 }
 
 .room_header{
-
    width: calc(100dvw - 60px);
    overflow-x: scroll; 
    height: 50px;
@@ -14,14 +13,9 @@
    display: flex; 
    position: sticky;
    top: 0;
-   overflow-y: scroll;
-   
+   overflow-y: scroll;  
 }
-@media (min-width:480px) {
-    .room_header{
-        width: 100%;
-    }
-}
+
 .rooms_header_button{
     border: none;
     background-color: transparent;
@@ -33,7 +27,7 @@
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     color:rgb(96, 96, 96);
     display: inline-block;
-    /* flex-grow: 1; */
+    cursor: pointer;
 }
 
 .rooms_header_button:hover{
@@ -47,5 +41,11 @@
 
 .room_main{
     padding: .5em;
+}
+
+@media (min-width:480px) {
+    .room_header{
+        width: 100%;
+    }
 }
 

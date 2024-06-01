@@ -21,7 +21,7 @@ const Home = (): React.JSX.Element => {
     return (
         <div className={style.home_component}>
             {isModal && <CreateRoom />}
-            <header>
+            <header className={style.header}>
                 <Navbar />
             </header>
             <main className={style.main_content}>

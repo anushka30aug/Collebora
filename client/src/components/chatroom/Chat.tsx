@@ -20,7 +20,11 @@ const Chatroom = (): React.JSX.Element => {
         if (classroomId !== undefined)
             dispatch(fetchMessage({ chatId: classroomId }))
 
-        window.scrollTo(0, document.documentElement.scrollHeight);
+        window.scrollTo({
+            left: 0,
+            top: document.documentElement.scrollHeight,
+            behavior: 'smooth'
+          });   
         //eslint-disable-next-line
     }, [])
 
@@ -47,12 +51,13 @@ const Chatroom = (): React.JSX.Element => {
             }
             dispatch(newMessage(tempMessage))
             console.log(allMessages)
-
+            
             dispatch(createMessage({ message, chatId: classroomId })).then((response) => {
                 //remove temporary message and add permanent message 
                 dispatch(removeMessage())
                 console.log(allMessages)
                 if (response.payload.success) {
+                console.log(response.payload.message.newMessage , ' ye message bheja hai mene ')
                     // create a new object of message and memebers to emit 
                     const message = {
                         newMessage: {

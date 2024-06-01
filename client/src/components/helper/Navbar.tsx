@@ -10,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 
 const Navbar = (): React.JSX.Element => {
     const image = useAppSelector(state => state.user.profilePicture);
-    // console.log('image ',image)
     const menu = useAppSelector(state=>state.userInterface.showMenu)
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();

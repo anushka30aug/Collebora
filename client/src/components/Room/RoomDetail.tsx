@@ -17,7 +17,7 @@ const RoomDetail = (): React.JSX.Element => {
     }, [])
     return (
         <div className={style.roomDetail_container}>
-            <header>
+            <header className={style.header}>
                 <Navbar />
             </header>
             <main className={style.main_content}>

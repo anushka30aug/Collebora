@@ -1,11 +1,15 @@
 .roomDetail_container {
     position: relative;
+    height: 100vh;
+}
+
+.header{
+    height: 15%;
 }
 
 .main_content {
-    width: 100%;   
     max-width: 1500px;
     margin: 0 auto;
     display: flex; 
-    justify-content:space-evenly;
+    height:85%;
 }

@@ -21,17 +21,6 @@ interface message {
 
 const MessageCard = ({ prop }: { prop: message }): React.JSX.Element => {
     const userId = useAppSelector(state => state.user._id)
-    // const dateOptions: Intl.DateTimeFormatOptions = {
-    //     year: 'numeric',
-    //     month: '2-digit',
-    //     day: '2-digit',
-    //     hour: '2-digit',
-    //     minute: '2-digit',
-    //     second: '2-digit',
-    //     hour12: true, // Whether to use 12-hour format
-    // };
-
-    // const date = new Intl.DateTimeFormat('en-US', dateOptions).format(new Date(prop.createdAt));
     const date = new Date(prop.createdAt).toLocaleString()
 
     return (

@@ -1,0 +1,9 @@
+.MyCalendarContainer{
+ max-width: 1500px;
+ /* height: 400px; */
+ margin: 0 auto;
+ padding: .5em;
+ box-sizing: border-box;
+ /* background-color: #0057ee;
+ color: white; */
+}

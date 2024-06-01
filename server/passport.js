@@ -9,7 +9,7 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         callbackURL: "http://localhost:5000/classroom/authentication/google/callback",
       }, 
-      async (accessToken, refreshToken, profile, done) => { // Add 'done' as an argument here
+      async (accessToken, refreshToken, profile, done) => { 
         try { 
           let user = await User.findOne({ emailAddress: profile.emails[0].value });
           if (!user) {
