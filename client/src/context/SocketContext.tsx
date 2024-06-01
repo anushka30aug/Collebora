@@ -29,7 +29,7 @@ export const useChatSocketCtx = () => {
 
 // Chat socket provider component
 export const ChatSocketCtxProvider = ({ children }: { children: ReactNode }) => {
-  const socket = io("http://localhost:5000", { autoConnect: false });
+  const socket = io("https://collebora.onrender.com", { autoConnect: false });
 
   return (
     <ChatSocketCtx.Provider value={{ socket }}>

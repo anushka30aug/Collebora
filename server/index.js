@@ -6,7 +6,7 @@ const session = require('express-session');
 require("./passport");
 const app = express();
 const server = require("http").createServer(app);
-const port = 5000 ;
+const port = 5000||process.env.port;
 const main = require('./connect');
 
 main().then(() => {

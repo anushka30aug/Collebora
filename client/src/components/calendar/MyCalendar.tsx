@@ -1,13 +1,3 @@
-// const MyCalendar =():React.JSX.Element=>{
-//     return(
-//         <div>
-
-//         </div>
-//     )
-// }
-
-// export default MyCalendar;
-
 import React from 'react';
 import { Calendar, momentLocalizer, Event as BigCalendarEvent } from 'react-big-calendar';
 import moment from 'moment';

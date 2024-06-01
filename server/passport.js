@@ -7,7 +7,7 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
       {
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: "http://localhost:5000/classroom/authentication/google/callback",
+        callbackURL: "https://collebora.onrender.com/classroom/authentication/google/callback",
       }, 
       async (accessToken, refreshToken, profile, done) => { 
         try { 
