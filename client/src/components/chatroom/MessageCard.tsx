@@ -25,23 +25,30 @@ const MessageCard = ({ prop }: { prop: message }): React.JSX.Element => {
 
     return (
         <div className={style.message_container}>
-            <div className={`${style.message_card} ${prop.senderId._id === userId ? style.sender_message_card : ''}`}>
-                {/* {prop.sending?'bhej rhe':'bhej diya'} */}
-                <h5 className={`${style.name_container} ${prop.senderId._id === userId ? style.sender_name_Container : ''}`}>{prop.senderId.name}</h5>
-                <div>
-                    {prop.message}
+            <div className={`${prop.senderId._id === userId ? style.own_message : style.other_message}`}>
+                <div className={style.sender_info} style={{display:prop.senderId._id === userId?'none':'' }}>
+                    <img src={prop.senderId.profilePicture} alt={prop.senderId.name} />
                 </div>
-                <div className={style.date_time_container}>
-                    <small>
-                        {date.split(',')[1]}
-                    </small>
+                <div className={`${style.message_card} ${prop.senderId._id === userId ? style.sender_message_card : ''}`}>
+                    {/* {prop.sending?'bhej rhe':'bhej diya'} */}
+                    <h5 className={`${style.name_container} ${prop.senderId._id === userId ? style.sender_name_Container : ''}`}>{prop.senderId.name}</h5>
+                    <div>
+                        {prop.message}
+                    </div>
+                    <div className={style.date_time_container}>
+                        <small>
+                            {date.split(',')[1]}
+                        </small>
 
-                    {
-                        prop.senderId._id === userId ? prop.sending === true ? <Timer /> : <Tick /> : ''
-                    }
+                        {
+                            prop.senderId._id === userId ? prop.sending === true ? <Timer /> : <Tick /> : ''
+                        }
 
+                    </div>
                 </div>
+
             </div>
+
         </div>
     )
 }

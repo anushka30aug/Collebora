@@ -3,7 +3,6 @@ import toast from "react-hot-toast";
 const host = process.env.REACT_APP_IP_ADDRESS
 
 export const fetchMessage = createAsyncThunk('/classroom/chats/messages', async ({ chatId }: { chatId: string }) => {
-
     const token = localStorage.getItem('auth-token-workspace')
     const headers: HeadersInit = {
         "Content-Type": "application/json",
@@ -16,7 +15,7 @@ export const fetchMessage = createAsyncThunk('/classroom/chats/messages', async 
         }
     )
     const data = await response.json();
-    console.log(data)
+    console.log("message data is ", data)
     return data;
 })
 

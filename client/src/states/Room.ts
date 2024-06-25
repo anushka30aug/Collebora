@@ -114,6 +114,25 @@ export const ArchiveRoom = createAsyncThunk('/classroom/archive/toogle',async(id
 })
 
 
+export const sendInvitation = createAsyncThunk('/classroom/sendInvitation',async({classId,emails}:{classId:string,emails:string[]})=>{
+    const token = localStorage.getItem('auth-token-workspace')
+    const headers: HeadersInit = {
+        "Content-Type": "application/json",
+    }
+
+    if (token !== null) { headers["auth-token"] = token; }
+    const response = await fetch(`${host}/classroom/invitation/send`,{
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify({classId,emails})
+    })
+
+    const data = await response.json();
+    // console.log(data)
+    return data;
+})
+
+
 interface classroom {
     _id: string,
     name: string,
@@ -215,6 +234,19 @@ const Room = createSlice({
                 }
             })
             .addCase(ArchiveRoom.rejected, (state, action) => {
+                toast.error('unexpected error occured');
+            })
+            .addCase(sendInvitation.pending, (state, action) => {
+            })
+            .addCase(sendInvitation.fulfilled, (state, action) => {
+                if (action.payload.error) {
+                    toast.error(`${action.payload.message}`)
+                }
+                else {
+                    toast.success(`${action.payload.message}`)
+                }
+            })
+            .addCase(sendInvitation.rejected, (state, action) => {
                 toast.error('unexpected error occured');
             })
     },

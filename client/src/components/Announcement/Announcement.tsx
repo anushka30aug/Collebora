@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAppSelector } from "../../states/Hooks";
 import AnnouncementCard from "./AnnouncementCard";
 import { useDispatch } from "react-redux";
@@ -11,9 +11,11 @@ import { Spinner, Copy } from "../helper/icons";
 import NoAnnouncements from "./NoAnnouncements";
 import toast from "react-hot-toast";
 import style from '../../CSS/Announcement/Announcement.module.css';
+import Invitation from "../modal/Invitation";
 
 
 const Announcement = (): React.JSX.Element => {
+    const [InvitationModal,setInvitationModal]=useState<boolean>(false)
     const dispatch = useDispatch<AppDispatch>();
     const Id = useAppSelector(state => state.userInterface.classroomDetail?._id)
     const Announcements = useAppSelector(state => state.announcement.announcements)
@@ -51,9 +53,15 @@ const Announcement = (): React.JSX.Element => {
             dispatch(fetchAnnouncement({ id: Id }));
     }
 
+    const handleInvitationClose=()=>{
+        setInvitationModal(false);
+    }
+
     return (
         <div>
-
+              {
+                InvitationModal && <Invitation close={handleInvitationClose}/>
+              }
             <div>
 
                 <div className={style.intro}>
@@ -71,6 +79,15 @@ const Announcement = (): React.JSX.Element => {
                                 <Copy />
                             </button>
                         </div>
+                    }
+                    {isAdmin && <div className={style.join_invitation}>
+                        <button onClick={(e: React.MouseEvent) => {
+                            e.preventDefault();
+                            setInvitationModal(true)
+                        }}>
+                           Send Invitation
+                        </button>
+                    </div>
                     }
 
                 </div>

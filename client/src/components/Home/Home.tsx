@@ -6,10 +6,12 @@ import style from '../../CSS/Home/Home.module.css'
 import CreateRoom from "../Room/CreateRoom";
 import { useAppSelector } from "../../states/Hooks";
 import MainContent from "./MainContent";
+import MyCalendar from "../calendar/MyCalendar";
 
 const Home = (): React.JSX.Element => {
     const navigate = useNavigate();
     const isModal = useAppSelector(state => state.userInterface.showCreateModal);
+    const menuOption = useAppSelector(state=>state.userInterface.menuOption)
     useEffect(() => {
         if (localStorage.getItem('auth-token-workspace') === null || undefined) {
             navigate('/auth');
@@ -26,7 +28,9 @@ const Home = (): React.JSX.Element => {
             </header>
             <main className={style.main_content}>
                 <Menu />
-                <MainContent />
+                {
+                    menuOption==='calendar'?<MyCalendar/>: <MainContent />
+                }    
             </main>
         </div>
     )

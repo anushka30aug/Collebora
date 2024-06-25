@@ -24,7 +24,7 @@ const Chatroom = (): React.JSX.Element => {
             left: 0,
             top: document.documentElement.scrollHeight,
             behavior: 'smooth'
-          });   
+        });
         //eslint-disable-next-line
     }, [])
 
@@ -51,13 +51,13 @@ const Chatroom = (): React.JSX.Element => {
             }
             dispatch(newMessage(tempMessage))
             console.log(allMessages)
-            
+
             dispatch(createMessage({ message, chatId: classroomId })).then((response) => {
                 //remove temporary message and add permanent message 
                 dispatch(removeMessage())
                 console.log(allMessages)
                 if (response.payload.success) {
-                console.log(response.payload.message.newMessage , ' ye message bheja hai mene ')
+                    console.log(response.payload.message.newMessage, ' ye message bheja hai mene ')
                     // create a new object of message and memebers to emit 
                     const message = {
                         newMessage: {
@@ -79,12 +79,37 @@ const Chatroom = (): React.JSX.Element => {
     return (
         <div className={style.chat_container}>
             <div className={style.chat}>
-                {  allMessages.length!==0?
-                   ( allMessages.map(item =>
-                        <MessageCard prop={item} />
-                    )):<div className={style.emptyChat}>
+                {allMessages.length !== 0 ?
+                    (allMessages.map((item, index, arr) => {
+                        if (index >= 1) {
+                            if (arr[index - 1].createdAt.split('T')[0] != arr[index].createdAt.split('T')[0]) {
+                                return (
+                                    <>
+                                        <div className={style.date}>
+                                            {item.createdAt.split('T')[0]}
+                                        </div>
+                                        <MessageCard prop={item} />
+                                    </>
+
+                                )
+                            }
+                            else{
+                                return  <MessageCard prop={item} />
+                            }
+                        }
+                        else {
+                            
+                            return  <>
+                            <div className={style.date}>
+                                {item.createdAt.split('T')[0]}
+                            </div>
+                            <MessageCard prop={item} />
+                        </>
+                        }
+                    }
+                    )) : <div className={style.emptyChat}>
                         <div className={style.chat_svg}>
-                        <MessageIcon/>
+                            <MessageIcon />
                         </div>
                         <h4>Start Conversation..</h4>
                     </div>

@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import style from '../../CSS/Announcement/AnnouncementCard.module.css';
 import { GoogleInitial } from '../helper/icons';
 import PdfComponent from './PdfComponent';
@@ -19,8 +20,11 @@ interface Announcement {
 
 const AnnouncementCard = ({ announcement }: { announcement: Announcement }): React.JSX.Element => {
     // const classAdmin = useAppSelector(state => state.userInterface.classroomDetail?.adminName)
+    const navigate = useNavigate();
     return (
-        <div className={style.announcement_card}>
+        <div className={style.announcement_card} onClick={()=>{
+            navigate('/announcement/description',{state:announcement})
+        }}>
             <div className={style.header}>
                 <div className={style.profile}>
                     <GoogleInitial />

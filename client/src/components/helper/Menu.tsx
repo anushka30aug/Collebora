@@ -32,7 +32,7 @@ const Menu = (): React.JSX.Element => {
     const calendarClick=(e:React.MouseEvent)=>{
         e.preventDefault()
         dispatch(setMenuOption('calendar'))
-        navigate('/schedule')
+        navigate('/')
     }
 
     const accountClick=(e:React.MouseEvent)=>{

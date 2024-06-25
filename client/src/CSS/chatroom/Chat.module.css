@@ -12,6 +12,7 @@
     margin-bottom: 1em;
 }
 
+
 .emptyChat{
     color:#0057ee;
     text-align: center;
@@ -30,6 +31,14 @@
     stroke: #0057ee;
 }
 
+.date{
+    max-width: 100px;
+    text-align: center;
+    margin: 1em auto;
+    padding: .5em;
+    background-color: gainsboro;
+    border-radius: .5em;
+}
 
 .form_div{
     background-color: white;

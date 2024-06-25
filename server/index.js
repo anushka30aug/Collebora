@@ -41,7 +41,7 @@ app.use('/classroom/actions', require('./Routes/Classroom'));
 app.use('/classroom/members/actions', require('./Routes/ClassroomMembers'));
 app.use('/classroom/announcement', require('./Routes/Announcement'));
 app.use('/classroom/message',require('./Routes/Message'))
-
+app.use('/classroom/invitation',require('./Routes/Invitation'))
 
 io.on( "connection", (socket) => {
     console.log("Connected to socket.io")

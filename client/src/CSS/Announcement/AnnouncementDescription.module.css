@@ -1,0 +1,72 @@
+.go_back_button{
+    width: 40px;
+    height: 40px;
+    border-radius: 10em;
+    background-color: rgb(239, 237, 237);
+    border: 1px solid #0057ee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1em;
+}
+
+.go_back_button svg{
+    height: 30px;
+    width: 30px;
+    color: #0057ee;
+}
+
+.go_back_button:hover{
+    /* border: 1px solid #0011ff; */
+    background-color: rgb(230, 229, 229);
+}
+
+.container{
+    min-width: 300px;
+    margin:1em auto;
+    padding: .5em;
+    width: 100%;
+    max-width: 1200px;
+    box-sizing: border-box;    
+    border-bottom: 1px solid rgb(198, 196, 196);
+}
+
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    border-bottom: 1px solid #0057ee;
+    margin: 1em;
+    padding: 1em 0;
+}
+
+.profile{
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #0057ee;
+    border-radius: 2em;
+    object-fit: contain;
+    margin: .5em;
+}
+.main{
+    margin: .5em 1em;
+  
+}
+
+.announcement_files{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+
+@media(min-width:900px)
+{
+    .announcement_card{
+        margin: 1em 2em;
+    }
+}

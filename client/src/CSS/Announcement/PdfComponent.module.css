@@ -12,7 +12,7 @@
     min-width: 100px;
     max-width: fit-content;
     border-radius: 10em;
-    margin:1em 0;
+    margin:1em .5em;
 }
 
 .small_pdf_card:hover {
