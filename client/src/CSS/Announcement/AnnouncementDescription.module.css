@@ -54,6 +54,8 @@
 }
 .main{
     margin: .5em 1em;
+    word-wrap: break-word;
+    word-break: break-all;
   
 }
 
@@ -61,6 +63,96 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+}
+
+.comment_container{
+    margin: 1em;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding:.5em 1.5em;
+    box-sizing: border-box;
+   
+}
+.comment_container p{
+  color: #0057ee;
+  cursor: pointer;
+  margin-top: 1em;
+}
+
+.small_pdf_card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: .2em .5em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width:50%;
+    min-width: 100px;
+    max-width: fit-content;
+    border-radius: 10em;
+    margin:1em 0 0 0;
+    font-size: small;
+    font-weight: bold;
+    
+}
+
+
+.small_pdf_card:hover {
+    background-color: #f0f0f0;
+}
+
+.info{
+    overflow: hidden;
+}
+
+.name{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.comment_form{
+    margin-top: 1em;
+    display: flex;
+    align-items: center;
+}
+
+.comment_form input{
+  padding:1em 1em;
+  margin:.5em 0;
+  border: 1px solid #0057ee;
+  border-radius: .5em 0 0 .5em;
+  outline: none;
+  border-right: none;
+}
+
+.upload_button{
+    padding:.4em 1em .55em 1em;
+    margin: 1.5em 0;
+    background-color: white;
+    border: none;
+    box-sizing: border-box;
+    border-top: 1px solid #0057ee;
+    border-bottom: 1px solid #0057ee;
+}
+
+.submit_button{
+    padding:1em 1em;
+    margin:.5em 0;
+    border: 1px solid #0057ee;
+    background-color: #0057ee;
+    color: white;
+    box-sizing: border-box;
+    border-radius: 0 .5em .5em 0;
+}
+
+.submit_button:disabled{
+    background-color: rgb(188, 188, 188);
+    color: black;
+    border: 1px solid rgb(188, 188, 188);
 }
 
 

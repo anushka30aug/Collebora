@@ -7,6 +7,7 @@ import storageSession from 'redux-persist/lib/storage/session'
 import RoomMembers from "./RoomMembers";
 import Announcement from "./Announcement";
 import Message from "./Message";
+import comments from "./comments";
 
 const persistUser = {
   key: 'user',
@@ -31,7 +32,8 @@ export const store = configureStore({
     room: Room,
     roomMembers: RoomMembers,
     announcement: Announcement,
-    messages:Message
+    messages:Message,
+    comments: comments
   }
 });
 
