@@ -3,6 +3,7 @@ const Classroom = require('../models/classroom');
 const Announcement = require('../models/announcement');
 const Comment = require('../models/comments');
 const User = require('../models/user');
+const FileConversion = require('../Helper/FileConversion');
 
 exports.addComment = asyncHandler(async (req, res) => {
     try {
@@ -78,6 +79,9 @@ exports.fetchComment = asyncHandler(async (req, res) => {
     try {
         const userId = req.user.id;
         const { announcementId, id } = req.query;
+        const page = parseInt(req.query.page) || 1;
+        const limit = 10;
+        const skip = (page - 1) * limit;
 
         const classroom = await Classroom.findOne({ _id: id });
         const announcement = await Announcement.findOne({ _id: announcementId });
@@ -94,8 +98,10 @@ exports.fetchComment = asyncHandler(async (req, res) => {
             res.status(401).send({ error: true, message: `announcement doesn't exist in provided room id` })
         }
         else {
-            const comments = await Comment.find({ announcementId });
-
+            const comments = await Comment.find({ announcementId }).sort({ date: -1 })
+            .skip(skip)
+            .limit(limit);
+            const totalCount = await Comment.countDocuments({ announcementId });
             const commentsWithSender = await Promise.all(comments.map(async (comment) => {
                 const commentObj = comment.toObject();
                 commentObj.postedBy = await User.findOne({ _id: comment.postedBy }).select('name profilePicture');
@@ -103,19 +109,13 @@ exports.fetchComment = asyncHandler(async (req, res) => {
             }));
             
             const commentsWithFiles = await Promise.all(commentsWithSender.map(async (comment) => {
-                const files = await Promise.all(comment.files.map(async (file) => {
-                    const base64Data = file.data.toString('base64');
-                    return {
-                        ...file, // Convert Mongoose document to plain JavaScript object
-                        data: base64Data,
-                    };
-                }));
+                const files = await FileConversion(comment.files)
                 return {
                     ...comment, // Convert Mongoose document to plain JavaScript object
                     files,
                 };
             }));
-            res.status(200).send({ success: true, data: commentsWithFiles });
+            res.status(200).send({ success: true, data:{comments:commentsWithFiles,totalCount }});
         }
     }
     catch (error) {

@@ -2,6 +2,7 @@ const asyncHandler = require('express-async-handler');
 const Announcement = require('../models/announcement');
 const Classroom = require('../models/classroom');
 const User = require('../models/user');
+const FileConversion = require('../Helper/FileConversion');
 
 exports.makeAnnouncement = asyncHandler(async (req, res) => {
     try {
@@ -45,8 +46,14 @@ exports.makeAnnouncement = asyncHandler(async (req, res) => {
         });
 
         await announcement.save();
+        
+        const resp={
+            ...announcement._doc,
+            files:await FileConversion(announcement.files)
+        }
 
-        res.status(200).json({ success: true, message: 'Announcement submitted successfully' });
+        // console.log(resp);
+        res.status(200).json({ success: true, data:resp});
     } catch (error) {
         console.error('Error saving announcement:', error);
         res.status(500).json({ error: true, message: 'An error occurred while saving the announcement' });
@@ -82,13 +89,7 @@ exports.fetchAnnouncement = asyncHandler(async (req, res) => {
                         .limit(limit);
                     const totalCount = await Announcement.countDocuments({ classId: Id });
                     const announcementsWithFiles = await Promise.all(Announcements.map(async (announcement) => {
-                        const files = await Promise.all(announcement.files.map(async (file) => {
-                            const base64Data = file.data.toString('base64');
-                            return {
-                                ...file.toObject(), // Convert Mongoose document to plain JavaScript object
-                                data: base64Data,
-                            };
-                        }));
+                        const files = await FileConversion(announcement.files);
                         return {
                             ...announcement.toObject(), // Convert Mongoose document to plain JavaScript object
                             files,

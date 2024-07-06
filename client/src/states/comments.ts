@@ -57,17 +57,23 @@ interface commentStructure {
 }
 
 interface stateStructure {
-    comments: commentStructure[]
+    comments: commentStructure[],
+    totalCount:number,
+    page:number
 }
 const initialState: stateStructure = {
-    comments: []
+    comments: [],
+    totalCount:0,
+    page:1
 }
 
 const comments = createSlice({
     name: 'comments',
     initialState,
     reducers: {
-
+        incrementPage(state) {
+            state.page += 1
+        }
     },
     extraReducers(builder) {
         builder
@@ -79,8 +85,14 @@ const comments = createSlice({
                 if (action.payload.error) {
                     toast.error(action.payload.error)
                 }
-                else
-                    state.comments = action.payload.data;
+                else{
+                    if (state.page === 1) {
+                        state.comments = [];
+                    }
+                    state.comments = [...state.comments,...action.payload.data.comments];
+                    
+                    state.totalCount=action.payload.data.totalCount;
+                }
             }
             )
             .addCase(fetchComments.rejected, (state, action) => {
@@ -93,10 +105,13 @@ const comments = createSlice({
             )
             .addCase(addComments.fulfilled, (state, action) => {
                 if (action.payload.error) {
-                    toast.error(action.payload.error)
+                    toast.error(action.payload.error);
                 }
-                else
-                    state.comments = [...state.comments,action.payload.data]
+                else{
+                   toast.success('comment added');
+                   state.comments=[...state.comments,action.payload.data];
+                   state.totalCount+=1;
+                }
             }
             )
             .addCase(addComments.rejected, (state, action) => {
@@ -108,4 +123,6 @@ const comments = createSlice({
 })
 
 export default comments.reducer;
+export const { incrementPage } = comments.actions
+
 

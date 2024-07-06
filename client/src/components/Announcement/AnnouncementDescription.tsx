@@ -1,12 +1,13 @@
-import { Cross, GoBack, GoogleInitial, Pdf, Upload } from '../helper/icons';
+import { Cross, GoBack, GoogleInitial, Pdf, Spinner, Upload } from '../helper/icons';
 import PdfComponent from './PdfComponent';
 import style from '../../CSS/Announcement/AnnouncementDescription.module.css';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
-import { addComments, fetchComments } from '../../states/comments';
+import { addComments, fetchComments, incrementPage } from '../../states/comments';
 import { useAppDispatch, useAppSelector } from '../../states/Hooks';
 import { setLoadingState } from '../../states/UserInterface';
 import CommentCard from './CommentCard';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 
 interface filesStructure {
@@ -22,6 +23,9 @@ const AnnouncementDescription = (): React.JSX.Element => {
     const announcement = location.state || {};
     const id = useAppSelector(state => state.userInterface.classroomDetail?._id);
     const announcementComments = useAppSelector(state => state.comments.comments);
+    const totalCount = useAppSelector(state=>state.comments.totalCount);
+    const isLoading = useAppSelector(state => state.userInterface.isLoading)
+
 
     const [comment, setComment] = useState<string>('');
     const [showInputField, setShowInputField] = useState<boolean>(false);
@@ -96,6 +100,23 @@ const AnnouncementDescription = (): React.JSX.Element => {
     };
 
 
+    const hasMore = () => {
+        if (announcementComments.length < totalCount) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    const fetchMore = () => {
+        dispatch(incrementPage());
+        if (id !== undefined && announcement._id !== undefined) {
+            dispatch(fetchComments({ id, announcementId: announcement._id }));
+        }
+    }
+
+
 
     return (
         <>
@@ -165,9 +186,27 @@ const AnnouncementDescription = (): React.JSX.Element => {
                 <div className={style.made_comment}>
                     <h4>Comments </h4>
                     {
-                        announcementComments.map((value, index) =>
-                            <CommentCard key={index} prop={value}/>
-                        )
+                        // announcementComments.map((value, index) =>
+                        //     <CommentCard key={index} prop={value}/>
+                        // )
+                        isLoading ? ('') : (totalCount > 0 ? (
+                            <InfiniteScroll
+                                dataLength={announcementComments.length}
+                                hasMore={hasMore()}
+                                next={fetchMore}
+                                loader={<div style={{ margin: ' 1em auto', maxWidth: 'max-content' }}>
+                                    <Spinner />
+                                </div>}
+                            >
+                                {announcementComments.map((value, index) => {
+                                    // console.log(value)
+                                   return <CommentCard key={index} prop={value} />
+                                })}
+                            </InfiniteScroll>
+        
+                        ) : (
+                            ''
+                        ))
                     }
                 </div>
 

@@ -53,8 +53,11 @@ const MakeAnnouncement = (): React.JSX.Element => {
                 formData.append('files', file);
             });
             dispatch(MakeAnnouncements(formData)).then((result) => {
-                if(result.payload.success)
-                window.location.reload()
+                if(result.payload.success){
+                    setAnnouncement('');
+                    setFiles([]);
+                }
+                // window.location.reload()
                 setHasSubmitted(false)
             });
 

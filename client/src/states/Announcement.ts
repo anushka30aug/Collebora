@@ -86,8 +86,7 @@ const announcement = createSlice({
                         state.announcements = [];
                     }
                     state.announcements = [...state.announcements, ...action.payload.data.announcements];
-                    state.totalCount = action.payload.data.totalCount
-
+                    state.totalCount = action.payload.data.totalCount;
                 }
             })
             .addCase(fetchAnnouncement.rejected, (state, action) => {
@@ -100,9 +99,14 @@ const announcement = createSlice({
                 if(action.payload.error)
                 {
                     toast.error(`${action.payload.message}`)
+                   
                 }
                 else{
-                    toast.success(`${action.payload.message}`)
+                    toast.success('announcemet made successfully')
+                    console.log(action.payload.data);
+                    state.announcements=[action.payload.data,...state.announcements];
+                    state.totalCount+=1;
+                    console.log(state.announcements)
                 }
             })
             .addCase(MakeAnnouncements.rejected,(state,action)=>{

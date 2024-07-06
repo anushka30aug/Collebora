@@ -23,6 +23,7 @@ interface commentStructure {
 }
 
 const CommentCard = ({prop}:{prop:commentStructure}): React.JSX.Element => {
+    // console.log(prop)
     return (
         <div>
             <div className={style.card_header}>
