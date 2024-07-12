@@ -84,12 +84,12 @@ interface memberStructure{
 }
 
 interface stateStructure{
-    members:null|memberStructure[],
+    members:memberStructure[],
     Admin:null|memberStructure
 }
 
 const initialState:stateStructure={
-    members:null,
+    members:[],
     Admin:null
 }
 
@@ -109,7 +109,7 @@ const RoomMembers = createSlice({
                 toast.error(`${action.payload.message}`)
             }
             else {
-                toast.success(`${action.payload.message}`)
+                toast.success(`room joined successfully`)
             }
         })
         .addCase(JoinClassroom.rejected, (state, action) => {

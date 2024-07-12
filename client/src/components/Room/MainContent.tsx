@@ -9,7 +9,6 @@ import Chatroom from "../chatroom/Chat";
 const MainContent = ():React.JSX.Element => {
     const isModal = useAppSelector(state => state.userInterface.showCreateModal);
     const [option, setOption] = useState<'announcement' | 'members' | 'discussion' | null>('announcement');
-
     const handleOptionChange = (e: React.MouseEvent, prop: 'announcement' | 'members' | 'discussion' | null) => {
         setOption(prop);
     }

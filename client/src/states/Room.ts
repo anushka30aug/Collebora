@@ -17,7 +17,6 @@ export const createRoom = createAsyncThunk('classroom/create', async ({ code, na
     }
     );
     const data = await response.json();
-    console.log(data)
     return data;
 
 });
@@ -142,17 +141,19 @@ interface classroom {
 }
 
 interface stateStructure {
-    classroom: classroom[] | null,
+    classroom: classroom[] ,
 }
 
 const initialState: stateStructure = {
-    classroom: null,
+    classroom: [],
 }
 const Room = createSlice({
     name: 'Room',
     initialState,
     reducers: {
-
+        addRoom(state,action){
+            state.classroom=[...state.classroom,action.payload];
+        }
     },
     extraReducers(builder) {
         builder
@@ -164,7 +165,7 @@ const Room = createSlice({
                     toast.error(`${action.payload.message}`)
                 }
                 else {
-                    toast.success(`${action.payload.message}`)
+                    toast.success('room created successfully')
                 }
             })
             .addCase(createRoom.rejected, (state, actiion) => {
@@ -214,10 +215,10 @@ const Room = createSlice({
             })
             .addCase(deleteClassroom.fulfilled, (state, action) => {
                 if (action.payload.error) {
-                    toast.error(`${action.payload.message}`)
+                    toast.error(`${action.payload.message}`);
                 }
                 else {
-                    toast.success(`${action.payload.message}`)
+                    toast.success(`${action.payload.message}`);
                 }
             })
             .addCase(deleteClassroom.rejected, (state, action) => {
@@ -234,23 +235,24 @@ const Room = createSlice({
                 }
             })
             .addCase(ArchiveRoom.rejected, (state, action) => {
-                toast.error('unexpected error occured');
+                toast.error('Network error');
             })
             .addCase(sendInvitation.pending, (state, action) => {
             })
             .addCase(sendInvitation.fulfilled, (state, action) => {
                 if (action.payload.error) {
-                    toast.error(`${action.payload.message}`)
+                    toast.error(`${action.payload.message}`);
                 }
                 else {
-                    toast.success(`${action.payload.message}`)
+                    toast.success(`${action.payload.message}`);
                 }
             })
             .addCase(sendInvitation.rejected, (state, action) => {
-                toast.error('unexpected error occured');
+                toast.error('Network error');
             })
     },
 
 })
 
 export default Room.reducer;
+export const {addRoom} = Room.actions;

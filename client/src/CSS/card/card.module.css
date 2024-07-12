@@ -1,0 +1,16 @@
+.main_container{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card_container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10em;
+    background-color: white;
+    border: 1px solid black;
+    max-width: fit-content;
+    padding: .5em 1em;
+    margin: .5em; 
+}

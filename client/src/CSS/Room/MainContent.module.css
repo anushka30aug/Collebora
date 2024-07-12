@@ -6,14 +6,15 @@
 }
 
 .room_header{
-   width: calc(100dvw - 60px);
+   /* width: calc(100dvw - 60px); */
    overflow-x: scroll; 
    height: 50px;
    border-bottom: 1px solid gray;
    display: flex; 
    position: sticky;
    top: 0;
-   overflow-y: scroll;  
+   overflow-y: scroll; 
+   width: 100%; 
 }
 
 .rooms_header_button{

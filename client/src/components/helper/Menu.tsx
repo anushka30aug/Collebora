@@ -41,7 +41,7 @@ const Menu = (): React.JSX.Element => {
     }
 
     return (
-        <div className={style.menu_container} onMouseOver={() => { dispatch(editShowMenu(true))}} onMouseLeave={()=>{dispatch(editShowMenu(false))}}>
+        <div className={style.menu_container} onMouseOver={() => { dispatch(editShowMenu(true))}} onMouseLeave={()=>{dispatch(editShowMenu(false))}} style={{display:showMenu?'flex':''}}>
             <div className={style.menu_icons} >
                 <div className={`${style.icons} ${option==='home'?style.activeOption:''}`} onClick={homeClick}>
                     <Home />

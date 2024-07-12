@@ -5,10 +5,13 @@ import { AppDispatch } from '../../states/Store';
 import { JoinClassroom } from '../../states/RoomMembers';
 import { Cross } from '../helper/icons';
 import { useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../../states/Hooks';
+import { addRoom } from '../../states/Room';
 const JoinRoom = (): React.JSX.Element => {
 
   const dispatch = useDispatch<AppDispatch>();
   const navigate =useNavigate();
+  const {isAdmin,isActive}=useAppSelector(state=>state.userInterface)
   const [classId, setClassId] = useState<string>('');
 
   const handleClick=(e:MouseEvent)=>{
@@ -17,7 +20,10 @@ const JoinRoom = (): React.JSX.Element => {
     dispatch(JoinClassroom(classId)).then(result=>
       {
         if(result.payload.success)
-        {
+        { 
+          if(isActive && !isAdmin){
+            dispatch(addRoom(result.payload.data));
+          }
           navigate(-1)
         }
       }

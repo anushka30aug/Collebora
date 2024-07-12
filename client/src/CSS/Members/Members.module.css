@@ -12,6 +12,15 @@
     line-height: 2.5rem;
 }
 
+.no_member{
+    text-align: center;
+}
+
+.no_member p{
+    color:#0057ee;
+    cursor: pointer;
+}
+
 @media(min-width:500px)
 {
     .member_container {

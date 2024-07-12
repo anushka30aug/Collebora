@@ -90,7 +90,7 @@ const announcement = createSlice({
                 }
             })
             .addCase(fetchAnnouncement.rejected, (state, action) => {
-                toast.error('unexpected error occured')
+                toast.error('unexpected error occured');
             })
             .addCase(MakeAnnouncements.pending,(state,action)=>{
                 
@@ -98,15 +98,15 @@ const announcement = createSlice({
             .addCase(MakeAnnouncements.fulfilled,(state,action)=>{
                 if(action.payload.error)
                 {
-                    toast.error(`${action.payload.message}`)
+                    toast.error(`${action.payload.message}`);
                    
                 }
                 else{
-                    toast.success('announcemet made successfully')
+                    toast.success('announcemet made successfully');
                     console.log(action.payload.data);
                     state.announcements=[action.payload.data,...state.announcements];
                     state.totalCount+=1;
-                    console.log(state.announcements)
+                    console.log(state.announcements);
                 }
             })
             .addCase(MakeAnnouncements.rejected,(state,action)=>{

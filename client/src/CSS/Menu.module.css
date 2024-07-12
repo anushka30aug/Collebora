@@ -67,6 +67,12 @@
     display: block;
 }
 
+@media(max-width:500px){
+    .menu_container{
+        display: none;
+    }
+}
+
 @media(min-width:500px)
 {
     .menu_icons{

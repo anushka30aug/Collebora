@@ -9,7 +9,7 @@ exports.addMember = asyncHandler(async (req, res) => {
     try {
         const { classId } = req.body;
         const userId = req.user.id;
-        const classroom = await Classroom.findOne({ classId: classId });
+        const classroom = await Classroom.findOne({ classId: classId }).select('-code');
         if (!classroom) {
             res.status(404).send({ error: true, message: 'Classroom not found' })
         }
@@ -36,9 +36,8 @@ exports.addMember = asyncHandler(async (req, res) => {
                     chatroom.members.push(userId);
                 }
                 await chatroom.save();
-                console.log(chatroom , " new member joined chatroom")
 
-                res.status(200).send({ success: true, message: 'User added successfully' });
+                res.status(200).send({ success: true, data: classroom });
             }
         }
     }

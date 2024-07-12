@@ -3,7 +3,8 @@ import style from '../../CSS/Room/CreateRoom.module.css';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../states/Store';
 import { editShowCreateModal } from '../../states/UserInterface';
-import { createRoom, fetchClassrooms } from '../../states/Room';
+import { addRoom, createRoom, fetchClassrooms } from '../../states/Room';
+import { useAppSelector } from '../../states/Hooks';
 
 const CreateRoom = (): React.JSX.Element => {
 
@@ -12,6 +13,8 @@ const CreateRoom = (): React.JSX.Element => {
     const [name, setName] = useState<string>('');
     const[classId,setClassId]=useState<string>('');
     const [code, setCode] = useState<string>('');
+
+    const {isAdmin,isActive}=useAppSelector(state=>state.userInterface)
 
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -32,10 +35,12 @@ const CreateRoom = (): React.JSX.Element => {
         .then((result)=>{
              if(result.payload.success)
              {
-                window.location.reload()
+                if(isActive && isAdmin){
+                    dispatch(addRoom(result.payload.data))
+                }
              }
+             dispatch(editShowCreateModal())
         })
-        dispatch(editShowCreateModal())
     }
 
     return (

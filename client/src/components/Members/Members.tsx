@@ -6,9 +6,12 @@ import { fetchMembers } from "../../states/RoomMembers";
 import { setLoadingState } from "../../states/UserInterface";
 import MembersCard from "./MembersCard";
 import style from '../../CSS/Members/Members.module.css'
+import { NoAnnouncement } from "../helper/icons";
+import { useNavigate } from "react-router-dom";
 
 const Members = (): React.JSX.Element => {
     const dispatch = useDispatch<AppDispatch>();
+    const navigate = useNavigate();
     const Admin = useAppSelector(state => state.roomMembers.Admin);
     const Members = useAppSelector(state => state.roomMembers.members);
     const Id = useAppSelector(state => state.userInterface.classroomDetail?._id)
@@ -34,14 +37,20 @@ const Members = (): React.JSX.Element => {
 
             </div>
             
-           { Members && <h4>Members</h4>}
+            <h4>Members</h4>
             <div>
                 {
-                    Members?.map((member) => {
+                   Members.length>0? Members.map((member) => {
                         return (
                             <MembersCard name={member.name} profile={member.profilePicture} id={member._id} showEllipses={true}/>
                         );
-                    })
+                    }):<div className={style.no_member}>
+                        <NoAnnouncement/>
+                        <br/>
+                        (
+                            There is no member in this room 
+                        )
+                        </div>
                 }
             </div>
         </div>

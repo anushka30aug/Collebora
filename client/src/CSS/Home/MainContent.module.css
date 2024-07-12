@@ -42,11 +42,17 @@
 
 .rooms_main{
     padding: .5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
 @media(min-width:500px)
 {
     .rooms_main{
     display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
     flex-wrap: wrap;
 }}

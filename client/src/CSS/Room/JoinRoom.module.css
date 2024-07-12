@@ -18,6 +18,10 @@
    justify-content: space-evenly;
 }
 
+.header_left span{
+    cursor: pointer;
+}
+
 .header_left h3{
     margin:.2em;
     margin-left: .5em;
@@ -29,6 +33,7 @@
     color:white;
     border:none;
     border-radius: .5em;
+    cursor: pointer;
 }
 
 .header button:disabled{

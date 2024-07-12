@@ -41,7 +41,7 @@ exports.createClassroom = asyncHandler(async (req, res) => {
              })
             await Chatroom.save();
             console.log(classroom); 
-            res.status(200).send({ success: true, message: 'Room created successfully' });
+            res.status(200).send({ success: true, data:classroom });
         }
 
     }
@@ -181,7 +181,4 @@ exports.toogle_Archive = asyncHandler(async (req, res) => {
     }
 
 })
-
-// generate invitation link for classroom
-// send invitation link 
 
