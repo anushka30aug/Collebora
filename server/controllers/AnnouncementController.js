@@ -95,7 +95,6 @@ exports.fetchAnnouncement = asyncHandler(async (req, res) => {
                             files,
                         };
                     }));
-            
                     res.status(200).send({ success: true, data:{announcements: announcementsWithFiles, totalCount}  });
                     // res.status(200).send({ success: true, data: Announcements ,totalCount });
                 }

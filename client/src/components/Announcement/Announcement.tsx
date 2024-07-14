@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect} from "react";
 import { useAppSelector } from "../../states/Hooks";
 import AnnouncementCard from "./AnnouncementCard";
 import { useDispatch } from "react-redux";

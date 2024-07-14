@@ -101,21 +101,23 @@ exports.fetchComment = asyncHandler(async (req, res) => {
             const comments = await Comment.find({ announcementId }).sort({ date: -1 })
             .skip(skip)
             .limit(limit);
+            // console.log(comments);
             const totalCount = await Comment.countDocuments({ announcementId });
-            const commentsWithSender = await Promise.all(comments.map(async (comment) => {
-                const commentObj = comment.toObject();
-                commentObj.postedBy = await User.findOne({ _id: comment.postedBy }).select('name profilePicture');
-                return commentObj;
-            }));
-            
-            const commentsWithFiles = await Promise.all(commentsWithSender.map(async (comment) => {
+
+            const commentsWithFiles = await Promise.all(comments.map(async (comment) => {
                 const files = await FileConversion(comment.files)
                 return {
-                    ...comment, // Convert Mongoose document to plain JavaScript object
+                    ...comment.toObject(), 
                     files,
                 };
             }));
-            res.status(200).send({ success: true, data:{comments:commentsWithFiles,totalCount }});
+
+            const commentsWithSender = await Promise.all(commentsWithFiles.map(async (comment) => {
+                comment.postedBy = await User.findOne({ _id: comment.postedBy }).select('name profilePicture');
+                return comment;
+            }));
+            
+            res.status(200).send({ success: true, data:{comments:commentsWithSender,totalCount }});
         }
     }
     catch (error) {

@@ -1,14 +1,17 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
+import { store } from "./Store";
 const host = process.env.REACT_APP_IP_ADDRESS
 
 export const fetchComments = createAsyncThunk('/announcement/comments/fetch', async ({ id, announcementId }: { id: string, announcementId: string }) => {
-    const token = localStorage.getItem('auth-token-workspace')
+    const token = localStorage.getItem('auth-token-workspace');
+    const states = store.getState();
+    const page = states.comments.page;
     const headers: HeadersInit = {
         "Content-Type": "application/json",
     }
     if (token !== null) { headers["auth-token"] = token; }
-    const response = await fetch(`${host}/classroom/announcement/comments/fetch?id=${id}&announcementId=${announcementId}`,
+    const response = await fetch(`${host}/classroom/announcement/comments/fetch?id=${id}&announcementId=${announcementId}&page=${page}`,
         {
             method: 'GET',
             headers: headers

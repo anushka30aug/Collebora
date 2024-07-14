@@ -4,7 +4,6 @@ import toast from "react-hot-toast";
 import { useAppDispatch, useAppSelector } from "../../states/Hooks";
 import { sendInvitation } from "../../states/Room";
 import InvitationCard from "../card/InvitationCard";
-import { useNavigate } from "react-router-dom";
 
 const Invitation = (): React.JSX.Element => {
     const dispatch = useAppDispatch();
@@ -12,7 +11,6 @@ const Invitation = (): React.JSX.Element => {
     const[InvitationSent,setInvitationSent]=useState<boolean>(false);
     const classId = useAppSelector(state => state.userInterface.classroomDetail?.classId)
     const currentRef = useRef<HTMLInputElement | null>(null);
-    const navigate = useNavigate();
 
 
     const handleEmailAdd = (e: React.MouseEvent) => {
