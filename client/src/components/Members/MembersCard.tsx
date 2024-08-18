@@ -10,7 +10,7 @@ interface prop{
     showEllipses:boolean
 }
 const MembersCard = ({name,profile,id,showEllipses}:prop): React.JSX.Element => {
-
+    console.log("inside members "+ profile);
     const[showRemoveModal,setShowRemoveModal]=useState(false)
     const isAdmin = useAppSelector(state=>state.userInterface.isAdmin)
     

@@ -63,6 +63,7 @@
     padding:.5em;
     text-align: center;
     margin:.5em auto;
+    margin-bottom: 1em;
 }
 
 .submit_button:disabled{

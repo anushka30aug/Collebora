@@ -29,11 +29,13 @@ exports.sendMail = asyncHandler(async (req, res) => {
         if (classRoom.adminId != userId) {
             return res.status(401).send({ error: true, message: 'unauthorized access request' })
         }
-
+        console.log(emails);
         checkEmails(emails)
             .then(async (results) => {
                 const invalidEmails = results.filter(result => !result.exists).map(result => result.email);
                 const validEmails = results.filter(result => result.exists).map(result => result.email);
+                console.log(validEmails);
+                console.log(invalidEmails);
                 if (validEmails.length > 0) {
                     let info = await transporter.sendMail({
                         from: '"Anushka shukla" <anushkashukla3003@gmail.com>',

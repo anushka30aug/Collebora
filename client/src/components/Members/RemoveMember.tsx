@@ -37,7 +37,7 @@ const RemoveMembers = ({ userToRemove, onClose }: Props): React.JSX.Element => {
         <div className={style.room_form_component}>
             <div className={style.room_form_container}>
                 <h2>
-                    Remove the Member
+                    Remove Member
                 </h2>
                 <form className={style.room_form}>
                     <input type="password" name="code" placeholder='Room Code' minLength={6} onChange={handleChange} required />

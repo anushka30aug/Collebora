@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import style from '../../CSS/chatroom/MessageCard.module.css'
 import { useAppSelector } from '../../states/Hooks'
 import { Tick, Timer } from '../helper/icons'
@@ -22,7 +23,13 @@ interface message {
 const MessageCard = ({ prop }: { prop: message }): React.JSX.Element => {
     const userId = useAppSelector(state => state.user._id)
     const date = new Date(prop.createdAt).toLocaleString()
-
+    useEffect(()=>{
+        window.scrollTo({
+            left: 0,
+            top: document.documentElement.scrollHeight,
+            behavior: 'smooth'
+        });
+    },[])
     return (
         <div className={style.message_container}>
             <div className={`${prop.senderId._id === userId ? style.own_message : style.other_message}`}>

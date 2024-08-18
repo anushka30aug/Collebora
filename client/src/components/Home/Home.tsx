@@ -7,10 +7,14 @@ import CreateRoom from "../Room/CreateRoom";
 import { useAppSelector } from "../../states/Hooks";
 import MainContent from "./MainContent";
 import MyCalendar from "../calendar/MyCalendar";
+// import { ArchiveRoom } from "../../states/Room";
+// import RenameRoom from "../Room/RenameRoom";
+// import DeleteRoom from "../Room/DeleteRoom";
 
 const Home = (): React.JSX.Element => {
     const navigate = useNavigate();
     const isModal = useAppSelector(state => state.userInterface.showCreateModal);
+    // const {showArchiveModal,showDeleteModal,showRenameModal} = useAppSelector(state => state.userInterface);
     const menuOption = useAppSelector(state=>state.userInterface.menuOption)
     useEffect(() => {
         if (localStorage.getItem('auth-token-workspace') === null || undefined) {
@@ -23,6 +27,9 @@ const Home = (): React.JSX.Element => {
     return (
         <div className={style.home_component}>
             {isModal && <CreateRoom />}
+            {/* {showArchiveModal && <ArchiveRoom />} */}
+            {/* {showRenameModal && <RenameRoom />} */}
+            {/* {showDeleteModal && <DeleteRoom />} */}
             <header className={style.header}>
                 <Navbar />
             </header>

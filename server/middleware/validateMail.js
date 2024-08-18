@@ -5,6 +5,7 @@ const validateMail = [
         .isArray({ max: 10 }).withMessage('Emails should be an array with a maximum of 10 items')
         .custom(emails => {
             for (let email of emails) {
+                console.log('checkin in middleware'+ email)
                 if (!body(email).isEmail().bail()) {
                     throw new Error(`Invalid email: ${email}`);
                 }

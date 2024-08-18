@@ -1,16 +1,20 @@
 import React, { ChangeEvent, FormEvent, useRef, useState } from 'react';
 import style from '../../CSS/Announcement/MakeAnnouncement.module.css';
-import { Cross, Pdf, Send, Upload } from '../helper/icons';
+import { Send, Upload } from '../helper/icons';
+import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import { useAppSelector } from '../../states/Hooks';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../states/Store';
 import { MakeAnnouncements } from '../../states/Announcement';
+import Chip from '@mui/material/Chip';
+import Stack from '@mui/material/Stack';
 
 const MakeAnnouncement = (): React.JSX.Element => {
     const isActive = useAppSelector(state=>state.userInterface.isActive)
     const inputfileRef = useRef<HTMLInputElement>(null);
     const inputSubmitRef = useRef<HTMLButtonElement>(null);
     const Id = useAppSelector(state => state.userInterface.classroomDetail?._id);
+    // const isActive = useAppSelector(state=>state.userInterface.isActive);
     const dispatch = useDispatch<AppDispatch>();
     const[isVisible,setIsVisible] = useState(false); // to check if user visited the Announcement section and then display the upload and submit button
     const [files, setFiles] = useState<File[]>([]);
@@ -35,7 +39,6 @@ const MakeAnnouncement = (): React.JSX.Element => {
             }
         }
     };
-
     const handleAnnouncementChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setAnnouncement(e.target.value);
     };
@@ -48,8 +51,8 @@ const MakeAnnouncement = (): React.JSX.Element => {
             formData.append('message', announcement);
             if (Id) {
                 formData.append('Id', Id);
-            }
-            files.forEach(file => {
+            } 
+            files.forEach(file => { 
                 formData.append('files', file);
             });
             dispatch(MakeAnnouncements(formData)).then((result) => {
@@ -72,31 +75,19 @@ const MakeAnnouncement = (): React.JSX.Element => {
 
 
     return (
-        <div className={style.announcement_container} onClick={()=>{setIsVisible(true)}} >
+        <div className={style.announcement_container} onClick={()=>{setIsVisible(true)}} style={{display:isActive?'block':'none'}} >
             <form className={style.announcement_form} onSubmit={handleSubmit}>
                 <textarea placeholder="Announce something to your class" name='announcement' value={announcement} onChange={handleAnnouncementChange} className={`${style.textArea} ${isVisible?style.FocusedtextArea:''}`} disabled={!isActive} required></textarea>
                 <input type='file' name='files' ref={inputfileRef} accept='image/jpeg, image/png, application/pdf' style={{ display: 'none' }} onChange={handleSelectedFile} disabled={!isActive}></input>
                 <button type='submit' style={{ display: 'none' }} ref={inputSubmitRef} disabled={!isActive}></button>
             </form>
 
-            <div className={style.file_cards_container} >
+            <Stack spacing={{ xs: 1, sm: 2 }} direction="row" useFlexGap flexWrap="wrap">
                 {files && files.map((file, index) => (
-                    <div className={style.small_pdf_card}>
-
-                        <div className={style.thumbnail}>
-                            <Pdf />
-                        </div>
-
-                        <div className={style.info}>
-                            <div className={style.name}>{file.name}</div>
-                            <div>{(file.size / 1024).toFixed(2)} KB</div>
-                        </div>
-                        <div onClick={() => { removeFile(index) }}>
-                            <Cross />
-                        </div>
-                    </div>
+                <Chip icon={<PictureAsPdfIcon/>} label={`${file.name}
+                 ${(file.size / 1024).toFixed(2)}KB`  } variant="outlined" onDelete={()=>removeFile(index)}/>
                 ))}
-            </div>
+            </Stack>
 
             <div className={style.buttons_container} style={{display:isVisible?'block':'none'}}>
                 <button onClick={handleUploadClick} disabled={files.length < 3 ? false : true}>

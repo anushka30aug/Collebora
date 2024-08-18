@@ -28,7 +28,7 @@ const MyCalendar=( prop:MyCalendarProps):React.JSX.Element => {
         events={prop.events}
         startAccessor="start"
         endAccessor="end"
-        style={{ height: 500 }}
+        style={{ height: 450 }}
       />
     </div>
   );

@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 import { useChatSocketCtx } from "../../context/SocketContext";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../states/Store";
@@ -12,21 +12,30 @@ const Chatroom = (): React.JSX.Element => {
     const [message, setMessage] = useState<string>('');
     const classroomId = useAppSelector(state => state.userInterface.classroomDetail?._id)
     const userDetail = useAppSelector(state => state.user)
-    const allMessages = useAppSelector(state => state.messages.messages)
+    const allMessages = useAppSelector(state => state.messages.messages);
+    const isActive  = useAppSelector(state=>state.userInterface.isActive);
     const dispatch = useDispatch<AppDispatch>()
     const { socket } = useChatSocketCtx();
 
-    useEffect(() => {
-        if (classroomId !== undefined)
-            dispatch(fetchMessage({ chatId: classroomId }))
+    const chatEndRef = useRef<HTMLDivElement>(null);
 
-        window.scrollTo({
-            left: 0,
-            top: document.documentElement.scrollHeight,
-            behavior: 'smooth'
-        });
+    const scrollToBottom = () => {
+        if (chatEndRef.current) {
+            chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
+    useEffect(() => {
+        if (classroomId !== undefined) {
+            dispatch(fetchMessage({ chatId: classroomId }))
+                .then(() => scrollToBottom()); // Scroll to bottom after messages are fetched
+        }
         //eslint-disable-next-line
-    }, [])
+    }, [classroomId]);
+
+    useEffect(() => {
+        scrollToBottom(); // Scroll to bottom whenever messages change
+    }, [allMessages]);
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
@@ -50,15 +59,11 @@ const Chatroom = (): React.JSX.Element => {
                 sending: true
             }
             dispatch(newMessage(tempMessage))
-            console.log(allMessages)
 
             dispatch(createMessage({ message, chatId: classroomId })).then((response) => {
                 //remove temporary message and add permanent message 
                 dispatch(removeMessage())
-                console.log(allMessages)
                 if (response.payload.success) {
-                    console.log(response.payload.message.newMessage, ' ye message bheja hai mene ')
-                    // create a new object of message and memebers to emit 
                     const message = {
                         newMessage: {
                             senderId: response.payload.message.newMessage.senderId,
@@ -70,41 +75,40 @@ const Chatroom = (): React.JSX.Element => {
                     }
                     socket.emit('new message', message)
                     dispatch(newMessage(response.payload.message.newMessage))
-                    console.log(allMessages)
                 }
+                scrollToBottom(); // Scroll after a new message is sent
             })
             setMessage('');
         }
     }
+
     return (
         <div className={style.chat_container}>
             <div className={style.chat}>
                 {allMessages.length !== 0 ?
                     (allMessages.map((item, index, arr) => {
                         if (index >= 1) {
-                            if (arr[index - 1].createdAt.split('T')[0] != arr[index].createdAt.split('T')[0]) {
+                            if (arr[index - 1].createdAt.split('T')[0] !== arr[index].createdAt.split('T')[0]) {
                                 return (
-                                    <>
+                                    <div key={index}>
                                         <div className={style.date}>
                                             {item.createdAt.split('T')[0]}
                                         </div>
                                         <MessageCard prop={item} />
-                                    </>
-
+                                    </div>
                                 )
+                            } else {
+                                return <MessageCard key={index} prop={item} />
                             }
-                            else{
-                                return  <MessageCard prop={item} />
-                            }
-                        }
-                        else {
-                            
-                            return  <>
-                            <div className={style.date}>
-                                {item.createdAt.split('T')[0]}
-                            </div>
-                            <MessageCard prop={item} />
-                        </>
+                        } else {
+                            return (
+                                <div key={index}>
+                                    <div className={style.date}>
+                                        {item.createdAt.split('T')[0]}
+                                    </div>
+                                    <MessageCard prop={item} />
+                                </div>
+                            )
                         }
                     }
                     )) : <div className={style.emptyChat}>
@@ -114,8 +118,10 @@ const Chatroom = (): React.JSX.Element => {
                         <h4>Start Conversation..</h4>
                     </div>
                 }
+                {/* Scroll to this div */}
+                <div ref={chatEndRef}></div>
             </div>
-            <div className={style.form_div}>
+            <div className={style.form_div} style={{display:isActive?'block':'none'}}>
                 <form onSubmit={handleSubmit} className={style.form} >
                     <input type="text" onChange={handleChange} value={message} placeholder="write a message" className={style.input} required />
                     <button type="submit"><Send /></button>

@@ -83,7 +83,7 @@ const RoomsModal = (prop: classroom): React.JSX.Element => {
                         isActive ?
                             <p onClick={(e) => { e.preventDefault(); archiveRoom() }}>Archive Room</p>
                             :
-                            <p onClick={(e) => { e.preventDefault(); archiveRoom() }}>UnArchive Room</p>
+                            <p onClick={(e) => { e.preventDefault(); archiveRoom() }}>Unarchive Room</p>
                         }
                     </div> : <div className={style.dropdown_content}>
                         <p onClick={(e) => { e.preventDefault(); handleLeaveClick() }}>Leave Room</p>

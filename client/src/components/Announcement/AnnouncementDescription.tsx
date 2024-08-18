@@ -1,4 +1,4 @@
-import { Cross, GoBack, GoogleInitial, Pdf, Spinner, Upload } from '../helper/icons';
+import { GoBack, GoogleInitial, Spinner, Upload } from '../helper/icons';
 import PdfComponent from './PdfComponent';
 import style from '../../CSS/Announcement/AnnouncementDescription.module.css';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -8,6 +8,16 @@ import { useAppDispatch, useAppSelector } from '../../states/Hooks';
 import { setLoadingState } from '../../states/UserInterface';
 import CommentCard from './CommentCard';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import IconButton from '@mui/material/IconButton';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputAdornment from '@mui/material/InputAdornment';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import Chip from '@mui/material/Chip';
+import Stack from '@mui/material/Stack';
+import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
+import { Send } from '../helper/icons';
+
 
 
 interface filesStructure {
@@ -23,7 +33,7 @@ const AnnouncementDescription = (): React.JSX.Element => {
     const announcement = location.state || {};
     const id = useAppSelector(state => state.userInterface.classroomDetail?._id);
     const announcementComments = useAppSelector(state => state.comments.comments);
-    const totalCount = useAppSelector(state=>state.comments.totalCount);
+    const totalCount = useAppSelector(state => state.comments.totalCount);
     const isLoading = useAppSelector(state => state.userInterface.isLoading)
 
 
@@ -62,10 +72,9 @@ const AnnouncementDescription = (): React.JSX.Element => {
         if (e.target.files) {
             const selectedFiles = e.target.files[0];
             if (selectedFiles !== undefined) {
-                if(files.length>=1)
-                    {
-                        return
-                    }
+                if (files.length >= 1) {
+                    return
+                }
                 setFiles(prevFiles => [...prevFiles, selectedFiles]);
             }
         }
@@ -82,9 +91,9 @@ const AnnouncementDescription = (): React.JSX.Element => {
             formData.append('id', id);
         }
 
-        
-            formData.append('files', files[0]);
-       
+
+        formData.append('files', files[0]);
+
         dispatch(addComments(formData)).then(res => {
             if (res.payload.success) {
                 setComment('');
@@ -93,7 +102,6 @@ const AnnouncementDescription = (): React.JSX.Element => {
             setDisableSubmit(false)
         })
     }
-
 
     const removeFile = (indexToRemove: number) => {
         setFiles(prevFiles => prevFiles.filter((_, index) => index !== indexToRemove));
@@ -154,41 +162,43 @@ const AnnouncementDescription = (): React.JSX.Element => {
                 <div className={style.make_comment}>
                     <p onClick={() => setShowInputField(true)} style={{ display: showInputField ? 'none' : 'block' }}>Add comment</p>
 
-
-                    <div className={style.file_cards_container} >
+                    <Stack spacing={{ xs: 1, sm: 2 }} direction="row" useFlexGap flexWrap="wrap">
                         {files && files.map((file, index) => (
-                            <div className={style.small_pdf_card}>
-
-                                <div className={style.thumbnail}>
-                                    <Pdf />
-                                </div>
-
-                                <div className={style.info}>
-                                    <div className={style.name}>{file.name}</div>
-                                    <div>{(file.size / 1024).toFixed(2)} KB</div>
-                                </div>
-                                <div onClick={() => { removeFile(index) }}>
-                                    <Cross />
-                                </div>
-                            </div>
+                            <Chip icon={<PictureAsPdfIcon />} label={`${file.name}
+                 ${(file.size / 1024).toFixed(2)}KB`} variant="outlined" onDelete={() => removeFile(index)} />
                         ))}
-                    </div>
+                    </Stack>
                     <form onSubmit={handleSubmit} className={style.comment_form} style={{ display: showInputField ? 'flex' : 'none' }}>
-                        <input type='text' placeholder='Add Comment' value={comment} onChange={handleChange} required></input>
                         <input type='file' name='files' ref={inputfileRef} accept='image/jpeg, image/png, application/pdf' style={{ display: 'none' }} onChange={handleSelectedFile}></input>
-                        <button onClick={handleUploadClick} disabled={files.length < 1 ? false : true} className={style.upload_button}>
-                            <Upload />
-                        </button>
-                        <button type='submit' disabled={disableSubmit} className={style.submit_button}>Submit</button>
+                        <FormControl variant="outlined">
+                            <InputLabel>comment</InputLabel>
+                            <OutlinedInput
+                                type='text'
+                                label="comment"
+                                value={comment}
+                                onChange={handleChange}
+                                required
+                                placeholder='Add comment'
+                                endAdornment={
+                                    <InputAdornment position="end">
+                                        <IconButton color="primary" sx={{ p: '10px' }} aria-label="directions" onClick={handleUploadClick} disabled={files.length < 1 ? false : true}>
+                                            <Upload />
+                                        </IconButton>
+                                        <IconButton color="primary" sx={{ p: '10px' }} aria-label="directions" disabled={disableSubmit} type='submit'>
+                                            <Send />
+                                        </IconButton>
+                                    </InputAdornment>
+                                }
+
+                            />
+                        </FormControl>
                     </form>
                 </div>
 
                 <div className={style.made_comment}>
                     <h4>Comments </h4>
                     {
-                        // announcementComments.map((value, index) =>
-                        //     <CommentCard key={index} prop={value}/>
-                        // )
+
                         isLoading ? ('') : (totalCount > 0 ? (
                             <InfiniteScroll
                                 dataLength={announcementComments.length}
@@ -200,10 +210,10 @@ const AnnouncementDescription = (): React.JSX.Element => {
                             >
                                 {announcementComments.map((value, index) => {
                                     // console.log(value)
-                                   return <CommentCard key={index} prop={value} />
+                                    return <CommentCard key={index} prop={value} />
                                 })}
                             </InfiniteScroll>
-        
+
                         ) : (
                             ''
                         ))

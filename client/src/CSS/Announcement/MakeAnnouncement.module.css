@@ -21,53 +21,13 @@
 }
 
 .FocusedtextArea {
-    height: 8em;
-}
-.small_pdf_card {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: .2em .5em;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    width:50%;
-    min-width: 100px;
-    max-width: fit-content;
-    border-radius: 10em;
-    margin:1em 0;
-}
-
-.small_pdf_card:hover {
-    background-color: #f0f0f0;
-}
-
-.thumbnail img {
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
-    margin-right: 10px;
-}
-
-.info {
-    flex: 1;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.name {
-    font-weight: bold;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    height: 5em;
 }
 
 .buttons_container button{
    background-color: white;
     border: none;
-    margin:0 1em;
+    margin:.5em .5em;
 
 }
 
@@ -79,9 +39,5 @@
     .announcement_container {
         margin: 1em 2em;
         padding: 1em 1em 0em 1em;
-    }
-    .textArea:focus .buttons_container{
-        display: flex;
-    }
-    
+    }    
 }

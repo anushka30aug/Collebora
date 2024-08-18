@@ -13,6 +13,9 @@ interface structure {
     showMenu: boolean,
     menuOption:'home'|'calendar'|'archive'|'Account',
     showCreateModal: boolean,
+    showDeleteModal:boolean,
+    showArchiveModal:boolean,
+    showRenameModal:boolean,
     isAdmin: boolean,
     classroomDetail: classroomDetail | null,  //when user visited a particular class set that class detail to use in performing any task in that class this help to avoid prop drilling
     isLoading: boolean,
@@ -23,6 +26,9 @@ const initialState: structure = {
     showMenu: false,
     menuOption:'home',
     showCreateModal: false,
+    showDeleteModal:false,
+    showArchiveModal:false,
+    showRenameModal:false,
     isAdmin: true,
     classroomDetail: null,
     isLoading: false,
@@ -42,6 +48,15 @@ const userInterface = createSlice({
         editShowCreateModal(state) {
             state.showCreateModal = !state.showCreateModal
         },
+        editShowDeleteModal(state) {
+            state.showDeleteModal = !state.showDeleteModal
+        },
+        editShowArchiveModal(state) {
+            state.showArchiveModal = !state.showArchiveModal
+        },
+        editShowRenameModal(state) {
+            state.showRenameModal = !state.showRenameModal
+        },
         setIsAdmin(state, action) {
             state.isAdmin = action.payload
         },
@@ -58,4 +73,4 @@ const userInterface = createSlice({
 })
 
 export default userInterface.reducer;
-export const { editShowMenu,setMenuOption, editShowCreateModal, setIsAdmin, setClassroomDetail, setLoadingState, setIsActive } = userInterface.actions;
+export const { editShowMenu,setMenuOption, editShowCreateModal,editShowDeleteModal,editShowArchiveModal,editShowRenameModal, setIsAdmin, setClassroomDetail, setLoadingState, setIsActive } = userInterface.actions;
