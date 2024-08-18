@@ -48,25 +48,6 @@ const DeleteRoom = ({ id, onClose }: Props): React.JSX.Element => {
         </form>
       </div>
     </div>
-
-    // <div>
-    //   <Dialog
-    //     open={true}
-    //     onClose={onClose}
-    //   >
-    //     <DialogTitle>Create Room</DialogTitle>
-    //     <DialogContent>
-    //       <form onSubmit={handleSubmit}>
-    //         <TextField type="password" name="code" placeholder='Room Code' margin="dense" value={code} onChange={handleChange} inputProps={{ minLength: 6 }} fullWidth required variant="standard" />
-    //         <DialogActions>
-    //           <Button onClick={(e) => { e.preventDefault(); onClose(); }}>cancel</Button>
-    //           <Button type="submit" disabled={code.length >= 6 ? false : true}>create</Button>
-    //         </DialogActions>
-    //       </form>
-    //     </DialogContent>
-    //   </Dialog>
-
-    // </div>
   )
 }
 

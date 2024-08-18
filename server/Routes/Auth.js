@@ -28,6 +28,7 @@ Router.get(
    console.log(req.user);
    const payload = {
     id: req.user._id
+    
   };
   const secret = process.env.JWT_SECRET;
   // const options = { expiresIn: '1h' };

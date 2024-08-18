@@ -6,9 +6,9 @@ const host = process.env.REACT_APP_IP_ADDRESS
 
 const Authentication = (): React.JSX.Element => {
 
-    const logOut = () => {
-        window.open(`http://localhost:5000/classroom/authentication/logout`)
-    }
+    // const logOut = () => {
+    //     window.open(`http://localhost:5000/classroom/authentication/logout`)
+    // }
 
     const login = async () => {
         window.open(`${host}/classroom/authentication/google`, '_self')

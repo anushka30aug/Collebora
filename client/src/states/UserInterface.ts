@@ -11,7 +11,7 @@ interface classroomDetail {
 
 interface structure {
     showMenu: boolean,
-    menuOption:'home'|'calendar'|'archive'|'Account',
+    menuOption:'home'|'calendar'|'archive'|'Account'|'Logout',
     showCreateModal: boolean,
     showDeleteModal:boolean,
     showArchiveModal:boolean,

@@ -1,4 +1,4 @@
-import { Archive, Calendar, Home } from "./icons";
+import { Archive, Home, Logout } from "./icons";
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
 import style from '../../CSS/Menu.module.css';
@@ -47,16 +47,11 @@ const Menu = (): React.JSX.Element => {
         navigate('/')
     }
 
-    // const calendarClick=(e:React.MouseEvent)=>{
-    //     e.preventDefault()
-    //     dispatch(setMenuOption('calendar'))
-    //     navigate('/')
-    // }
+    const logoutClick=(e:React.MouseEvent)=>{
+        e.preventDefault()
+        dispatch(setMenuOption('Logout'))
+    }
 
-    // const accountClick=(e:React.MouseEvent)=>{
-    //     e.preventDefault();
-    //     dispatch(setMenuOption('Account'));
-    // }
 
     return (
         <div className={style.menu_container} onMouseOver={() => { dispatch(editShowMenu(true)) }} onMouseLeave={() => { dispatch(editShowMenu(false)) }} style={{ display: showMenu ? 'flex' : '' }}>
@@ -73,6 +68,9 @@ const Menu = (): React.JSX.Element => {
                 <div className={`${style.icons} ${option === 'Account' ? style.activeOption : ''} ${style.accountIcon}`}>
                     <img src={image !== null ? image : img} alt="" />
                 </div>
+                <div className={`${style.icons} ${option === 'Logout' ? style.activeOption : ''}`} onClick={ logoutClick}>
+                    <Logout />
+                </div>
             </div>
             <div className={style.menu_options} style={{ display: showMenu ? 'flex' : 'none' }} >
                 <div className={`${style.options} ${option === 'home' ? style.activeOption : ''}`} onClick={homeClick}>
@@ -87,6 +85,9 @@ const Menu = (): React.JSX.Element => {
                 <div className={`${style.options} ${option === 'Account' ? style.activeOption : ''} ${style.accountOption}`} onMouseEnter={handlePopoverOpen}
                     onMouseLeave={handlePopoverClose}>
                     Account
+                </div>
+                <div className={`${style.options} ${option === 'Logout' ? style.activeOption : ''} `} onClick={ logoutClick}>
+                    Logout
                 </div>
                 <Popover
                     id="mouse-over-popover"

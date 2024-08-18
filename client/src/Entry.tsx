@@ -12,7 +12,6 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from './states/Store';
 import { fetchUser } from './states/User';
 import { newMessage } from './states/Message';
-import MyCalendar from './components/calendar/MyCalendar';
 import AnnouncementDescription from './components/Announcement/AnnouncementDescription';
 import Invitation from './components/modal/Invitation';
 var classRoomIdCheck: string | undefined;
@@ -72,7 +71,6 @@ const Entry = (): React.JSX.Element => {
           <Route path='/authRedirect' Component={AuthRedirect}></Route>
           <Route path='/joinRoom' Component={JoinRoom}></Route>
           <Route path='/room' Component={RoomDetail}></Route>
-          <Route path='/schedule' Component={MyCalendar}></Route>
           <Route path='/announcement/description' Component={AnnouncementDescription}></Route>
           <Route path='/Invitation' Component={Invitation}></Route>
         </Routes>
