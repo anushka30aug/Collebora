@@ -44,10 +44,6 @@ const Entry = (): React.JSX.Element => {
         console.log(userId)
       })
       socket.on("message received", (Message) => {
-        
-        // console.log(Message, ' meko message aaya')
-        // console.log(Message.chatId, ' ispr bheja')
-        // console.log(classroomId, 'ispr hu')
 
         if (classRoomIdCheck && Message.chatId === classRoomIdCheck)
           dispatch(newMessage(Message));

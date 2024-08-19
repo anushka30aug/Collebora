@@ -3,12 +3,7 @@ import style from '../../CSS/Room/CreateRoom.module.css'
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../states/Store';
 import { deleteClassroom } from '../../states/Room';
-// import TextField from '@mui/material/TextField';
-// import Dialog from '@mui/material/Dialog';
-// import DialogActions from '@mui/material/DialogActions';
-// import DialogContent from '@mui/material/DialogContent';
-// import DialogTitle from '@mui/material/DialogTitle';
-// import Button from '@mui/material/Button';
+
 
 interface Props {
   id: string;
