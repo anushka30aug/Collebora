@@ -10,7 +10,7 @@ route.get('/read',fetchUser,classroom_controller.fetchClassroom);
 
 route.get('/readAsAdmin',fetchUser,classroom_controller.fetchClassroomAsAdmin)
 
-route.put('/update/:id',fetchUser,classroom_controller.updatedClassroom)
+route.put('/update/:classId',fetchUser,classroom_controller.updatedClassroom)
 
 route.delete('/delete',fetchUser,classroom_controller.deleteClassroom)
 

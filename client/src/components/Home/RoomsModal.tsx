@@ -2,13 +2,10 @@ import { useNavigate } from 'react-router-dom'
 import style from '../../CSS/Home/RoomsModal.module.css'
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../states/Store';
-import { setClassroomDetail } from '../../states/UserInterface';
+import { editShowDeleteModal, editShowLeaveModal, editShowRenameModal, setClassroomDetail } from '../../states/UserInterface';
 import { Ellipsis } from '../helper/icons';
-import DeleteRoom from '../Room/DeleteRoom';
 import { useAppSelector } from '../../states/Hooks';
-import RenameRoom from '../Room/RenameRoom';
-import { useState } from 'react';
-import LeaveRoom from '../Room/LeaveRoom';
+import LeaveRoom from '../modal/LeaveRoom';
 import { ArchiveRoom } from '../../states/Room';
 
 interface classroom {
@@ -24,38 +21,13 @@ const RoomsModal = (prop: classroom): React.JSX.Element => {
     const dispatch = useDispatch<AppDispatch>();
     const isAdmin = useAppSelector(state => state.userInterface.isAdmin)
     const isActive = useAppSelector(state => state.userInterface.isActive)
-    const [showDeleteModal, setShowDeleteModal] = useState(false);
-    const [showRenameModal, setShowRenameModal] = useState(false);
-    const [showLeaveModal, setShowLeaveModal] = useState(false);
+    const leaveRoom = useAppSelector(state => state.userInterface.showLeaveModal)
+
 
     const handleClick = () => {
         dispatch(setClassroomDetail(prop))
         navigate(`/room`);
     };
-
-    const handleRenameClick = () => {
-        setShowRenameModal(true);
-    };
-
-    const handleDeleteClick = () => {
-        setShowDeleteModal(true);
-    };
-
-    const handleRenameModalClose = () => {
-        setShowRenameModal(false);
-    };
-
-    const handleDeleteModalClose = () => {
-        setShowDeleteModal(false);
-    };
-
-    const handleLeaveClick = () => {
-        setShowLeaveModal(true)
-    }
-
-    const handleLeaveModalClose = () => {
-        setShowLeaveModal(false)
-    }
 
     const archiveRoom=()=>{
         dispatch(ArchiveRoom(prop._id)).then(result=>{
@@ -68,17 +40,15 @@ const RoomsModal = (prop: classroom): React.JSX.Element => {
 
     return (
         <div className={style.room_modal}>
-            {showDeleteModal && <DeleteRoom id={prop._id} onClose={handleDeleteModalClose} />}
-            {showRenameModal && <RenameRoom id={prop._id} onClose={handleRenameModalClose} />}
-            {showLeaveModal && <LeaveRoom id={prop._id} onClose={handleLeaveModalClose} />}
+            {leaveRoom && <LeaveRoom id={prop._id}  />}
             <div className={style.main}>
                 <div className={style.options}>
                     <div className={style.ellipsis}>
                         <Ellipsis />
                     </div>
                     {isAdmin ? <div className={style.dropdown_content}>
-                        <p onClick={(e) => { e.preventDefault(); handleRenameClick() }}>Change name</p>
-                        <p onClick={(e) => { e.preventDefault(); handleDeleteClick() }}>Delete Room</p>
+                        <p onClick={(e) => { e.preventDefault(); dispatch(editShowRenameModal()) }}>Change name</p>
+                        <p onClick={(e) => { e.preventDefault(); dispatch(editShowDeleteModal()) }}>Delete Room</p>
                         { 
                         isActive ?
                             <p onClick={(e) => { e.preventDefault(); archiveRoom() }}>Archive Room</p>
@@ -86,7 +56,7 @@ const RoomsModal = (prop: classroom): React.JSX.Element => {
                             <p onClick={(e) => { e.preventDefault(); archiveRoom() }}>Unarchive Room</p>
                         }
                     </div> : <div className={style.dropdown_content}>
-                        <p onClick={(e) => { e.preventDefault(); handleLeaveClick() }}>Leave Room</p>
+                        <p onClick={(e) => { e.preventDefault(); dispatch(editShowLeaveModal()) }}>Leave Room</p>
                     </div>
                     }
                 </div>

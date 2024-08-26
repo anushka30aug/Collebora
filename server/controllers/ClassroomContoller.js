@@ -90,10 +90,10 @@ exports.fetchClassroomAsAdmin = asyncHandler(async (req, res) => {
 exports.updatedClassroom = asyncHandler(async (req, res) => {
     try {
         const userId = req.user.id;
-        const id = req.params.id;
+        const classId = req.params.classId;
         const { newName, classcode } = req.body;
-
-        const classroom = await Classroom.findOne({ _id: id });
+            console.log(classId);
+        const classroom = await Classroom.findOne({ classId:classId });
         if (!classroom) {
             res.status(404).send({ error: true, message: 'classroom not found' });
         }
@@ -117,38 +117,38 @@ exports.updatedClassroom = asyncHandler(async (req, res) => {
     }
 })
 
+
 exports.deleteClassroom = asyncHandler(async (req, res) => {
     try {
         const userId = req.user.id;
-        const id = req.body.id;
+        const classId = req.body.classId;
         const classCode = req.body.classCode;
 
-        const classroom = await Classroom.findOne({ _id: id });
+        const classroom = await Classroom.findOne({ classId: classId });
         if (!classroom) {
-            res.status(404).send({ error: true, message: "classroom not found" })
+            return res.status(404).send({ error: true, message: "Classroom not found" });
         }
 
-        else {
-            if (classroom.code !== classCode) {
-                res.status(400).send({ error: true, message: "invalid class code" })
-            }
-            else if (classroom.adminId.toString() !== userId.toString()) {
-                res.status(401).send({ error: true, message: 'unauthorized access' })
-            }
-            else {
-                await Chat.deleteOne({_id:classroom._id})
-                await Message.deleteMany({chatId:classroom._id});
-                await Announcement.deleteMany({ classId: id });
-                await Classroom.deleteOne({ _id: id });
-                res.status(200).send({ success: true, message: 'classroom deleted successfully' })
-            }
+        if (classroom.code !== classCode) {
+            return res.status(400).send({ error: true, message: "Invalid class code" });
         }
+
+        if (classroom.adminId.toString() !== userId.toString()) {
+            return res.status(401).send({ error: true, message: 'Unauthorized access' });
+        }
+
+        await Chat.deleteOne({ _id: classroom._id });
+        await Message.deleteMany({ chatId: classroom._id });
+        await Announcement.deleteMany({ classId: classroom._id });
+        await Classroom.deleteOne({ classId: classId });
+
+        res.status(200).send({ success: true, message: 'Classroom deleted successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(400).send({ error: true, message: 'Unexpected error occurred' });
     }
-    catch (error) {
-        console.log(error)
-        res.status(400).send({ error: true, message: 'unexpected error occured' })
-    }
-})
+});
+
 
 
 exports.toogle_Archive = asyncHandler(async (req, res) => {

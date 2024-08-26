@@ -14,8 +14,9 @@ interface structure {
     menuOption:'home'|'calendar'|'archive'|'Account'|'Logout',
     showCreateModal: boolean,
     showDeleteModal:boolean,
-    showArchiveModal:boolean,
+    showLeaveModal:boolean,
     showRenameModal:boolean,
+    showRemoveModal:boolean,
     isAdmin: boolean,
     classroomDetail: classroomDetail | null,  //when user visited a particular class set that class detail to use in performing any task in that class this help to avoid prop drilling
     isLoading: boolean,
@@ -27,8 +28,9 @@ const initialState: structure = {
     menuOption:'home',
     showCreateModal: false,
     showDeleteModal:false,
-    showArchiveModal:false,
+    showLeaveModal:false,
     showRenameModal:false,
+    showRemoveModal:false,
     isAdmin: true,
     classroomDetail: null,
     isLoading: false,
@@ -51,11 +53,14 @@ const userInterface = createSlice({
         editShowDeleteModal(state) {
             state.showDeleteModal = !state.showDeleteModal
         },
-        editShowArchiveModal(state) {
-            state.showArchiveModal = !state.showArchiveModal
+        editShowLeaveModal(state) {
+            state.showLeaveModal = !state.showLeaveModal
         },
         editShowRenameModal(state) {
             state.showRenameModal = !state.showRenameModal
+        },
+        editShowRemoveModal(state) {
+            state.showRemoveModal = !state.showRemoveModal
         },
         setIsAdmin(state, action) {
             state.isAdmin = action.payload
@@ -73,4 +78,4 @@ const userInterface = createSlice({
 })
 
 export default userInterface.reducer;
-export const { editShowMenu,setMenuOption, editShowCreateModal,editShowDeleteModal,editShowArchiveModal,editShowRenameModal, setIsAdmin, setClassroomDetail, setLoadingState, setIsActive } = userInterface.actions;
+export const { editShowMenu,setMenuOption, editShowCreateModal,editShowDeleteModal,editShowLeaveModal,editShowRenameModal,editShowRemoveModal, setIsAdmin, setClassroomDetail, setLoadingState, setIsActive } = userInterface.actions;

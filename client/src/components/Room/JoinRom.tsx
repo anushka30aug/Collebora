@@ -13,10 +13,11 @@ const JoinRoom = (): React.JSX.Element => {
   const navigate =useNavigate();
   const {isAdmin,isActive}=useAppSelector(state=>state.userInterface)
   const [classId, setClassId] = useState<string>('');
+  const[codeSubmitted , setCodeSubmitted]= useState<boolean>(false);
 
   const handleClick=(e:MouseEvent)=>{
     e.preventDefault();
-    
+    setCodeSubmitted(true);
     dispatch(JoinClassroom(classId)).then(result=>
       {
         if(result.payload.success)
@@ -43,7 +44,7 @@ const JoinRoom = (): React.JSX.Element => {
         <span onClick={()=>{navigate(-1)}}><Cross/></span>
         <h3>Join Room</h3>
         </span>
-        <button onClick={handleClick} disabled={classId.length<4}>JOIN</button>
+        <button onClick={handleClick} disabled={classId.length<4 ||codeSubmitted }>JOIN</button>
       </header>
 
       <main className={style.main_container}>

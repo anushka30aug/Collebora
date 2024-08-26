@@ -56,7 +56,7 @@ export const fetchClassroomsAsAdmin = createAsyncThunk('/classroom/fetchAsAdmin'
     return data;
 })
 
-export const RenameClassroom = createAsyncThunk('/classroom/update', async ({ id, name, code }: { id: string, name: string, code: string }) => {
+export const RenameClassroom = createAsyncThunk('/classroom/update', async ({ classId, name, code }: { classId: string, name: string, code: string }) => {
     const token = localStorage.getItem('auth-token-workspace')
     const headers: HeadersInit = {
         "Content-Type": "application/json",
@@ -64,7 +64,7 @@ export const RenameClassroom = createAsyncThunk('/classroom/update', async ({ id
 
     if (token !== null) { headers["auth-token"] = token; }
 
-    const response = await fetch(`${host}/classroom/actions/update/${id}`, {
+    const response = await fetch(`${host}/classroom/actions/update/${classId}`, {
         method: "PUT",
         headers: headers,
         body: JSON.stringify({ newName: name, classcode: code })
@@ -75,18 +75,18 @@ export const RenameClassroom = createAsyncThunk('/classroom/update', async ({ id
     return data;
 })
 
-export const deleteClassroom = createAsyncThunk('/classroom/delete', async ({ id, code }: { id: string, code: string }) => {
+export const deleteClassroom = createAsyncThunk('/classroom/delete', async ({ classId, code }: { classId: string, code: string }) => {
     const token = localStorage.getItem('auth-token-workspace')
     const headers: HeadersInit = {
         "Content-Type": "application/json",
     }
 
     if (token !== null) { headers["auth-token"] = token; }
-
+   console.log(classId,code);
     const response = await fetch(`${host}/classroom/actions/delete`, {
         method: "DELETE",
         headers: headers,
-        body: JSON.stringify({ id, classCode: code })
+        body: JSON.stringify({ classId, classCode: code })
     }
     );
     const data = await response.json();

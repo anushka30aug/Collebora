@@ -83,10 +83,10 @@ exports.fetchAnnouncement = asyncHandler(async (req, res) => {
                 if (!classroom.members.includes(userId) && classroom.adminId.toString() !== userId.toString()) {
                     res.status(401).send({ error: true, message: 'Unauthorized access request' })
                 }
-                else {
+                else { 
                     const Announcements = await Announcement.find({ classId: Id }).sort({ date: -1 })
                         .skip(skip)
-                        .limit(limit);
+                        .limit(limit); 
                     const totalCount = await Announcement.countDocuments({ classId: Id });
                     const announcementsWithFiles = await Promise.all(Announcements.map(async (announcement) => {
                         const files = await FileConversion(announcement.files);

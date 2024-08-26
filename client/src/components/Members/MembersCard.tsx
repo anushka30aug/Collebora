@@ -1,8 +1,8 @@
-import { useState } from 'react';
 import style from '../../CSS/Members/MembersCard.module.css'
-import { useAppSelector } from '../../states/Hooks';
+import { useAppDispatch, useAppSelector } from '../../states/Hooks';
 import { Ellipsis } from '../helper/icons';
-import RemoveMembers from './RemoveMember';
+import RemoveMembers from '../modal/RemoveMember';
+import { editShowRemoveModal } from '../../states/UserInterface';
 interface prop{
     name:string,
     profile:string,
@@ -10,21 +10,15 @@ interface prop{
     showEllipses:boolean
 }
 const MembersCard = ({name,profile,id,showEllipses}:prop): React.JSX.Element => {
-    console.log("inside members "+ profile);
-    const[showRemoveModal,setShowRemoveModal]=useState(false)
-    const isAdmin = useAppSelector(state=>state.userInterface.isAdmin)
-    
-    const handleRemoveClick=()=>{
-        setShowRemoveModal(true)
-    }
+        const dispatch = useAppDispatch();
 
-    const handleRemoveModalClose=()=>{
-        setShowRemoveModal(false)
-    }
+    const showRemoveModal=useAppSelector(state=>state.userInterface.showRemoveModal);
+    const isAdmin = useAppSelector(state=>state.userInterface.isAdmin)
+   
 
     return (
         <div className={style.container}>
-            { showRemoveModal && <RemoveMembers userToRemove={id} onClose={handleRemoveModalClose}/>}
+            { showRemoveModal && <RemoveMembers userToRemove={id}/>}
         <div className={style.member_card}>
             <div className={style.image_container}>
                 <img src={profile} alt="profile"/>
@@ -37,7 +31,7 @@ const MembersCard = ({name,profile,id,showEllipses}:prop): React.JSX.Element => 
             isAdmin && showEllipses && <div className={style.option}>
             <span><Ellipsis/></span>
             <div className={style.dropdown_content}>
-                        <p onClick={(e) => { e.preventDefault(); handleRemoveClick() }}>Remove</p>
+                        <p onClick={(e) => { e.preventDefault(); dispatch(editShowRemoveModal()) }}>Remove</p>
                     </div>
             </div> 
         } 

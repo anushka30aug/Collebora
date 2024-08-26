@@ -13,9 +13,11 @@ const Logout = (): React.JSX.Element => {
     const option = useAppSelector(state=>state.userInterface.menuOption);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+
     const handleClose=()=>{
         dispatch(setMenuOption('home'))
     }
+    
     return(
     <Dialog
         open={option==='Logout'}

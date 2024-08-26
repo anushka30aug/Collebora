@@ -5,7 +5,6 @@ import style from '../../CSS/modal/Invitation.module.css'
 import toast from "react-hot-toast";
 import { useAppDispatch, useAppSelector } from "../../states/Hooks";
 import { sendInvitation } from "../../states/Room";
-// import InvitationCard from "../card/InvitationCard";
 
 const Invitation = (): React.JSX.Element => {
     const dispatch = useAppDispatch();
@@ -25,11 +24,9 @@ const Invitation = (): React.JSX.Element => {
             const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (emailPattern.test(currentRef.current.value)) {
                 setEmailAddress([...emailAddress, currentRef.current!.value]);
-                // console.log(emailAddress)
                 currentRef.current.value = "";
             } else {
                 toast.error("Please enter a valid email address.");
-                // alert("Please enter a valid email address.");
             }
             
         }
@@ -48,7 +45,6 @@ const Invitation = (): React.JSX.Element => {
                     setInvitationSent(false)
                     if (resp.payload.success) {
                         setEmailAddress([]);
-                        // navigate(-1);
                     }
                 }
                 )
