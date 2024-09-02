@@ -12,6 +12,7 @@ const Authentication = (): React.JSX.Element => {
         if(localStorage.getItem('auth-token-workspace')){
                 navigate('/');
         }
+        // eslint-disable-next-line
     },[])
 
     const login = async () => {

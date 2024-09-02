@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from "react"
 import Navbar from "../helper/Navbar";
 import style from '../../CSS/Room/RoomDetail.module.css'
 import Menu from "../helper/Menu";
@@ -13,7 +13,7 @@ const RoomDetail = (): React.JSX.Element => {
         if (!token) {
             navigate('/auth')
         }
-       
+      // eslint-disable-next-line
     }, [])
     return (
         <div className={style.roomDetail_container}>

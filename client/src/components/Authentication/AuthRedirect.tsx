@@ -19,6 +19,7 @@ const AuthRedirect = (): React.JSX.Element => {
          dispatch(fetchUser()).then(user=>navigate('/'));
          // dispatch(fetchClassrooms())
       }
+      // eslint-disable-next-line
    },[token])
    
    return (

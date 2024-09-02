@@ -7,11 +7,11 @@ import { setLoadingState } from "../../states/UserInterface";
 import MembersCard from "./MembersCard";
 import style from '../../CSS/Members/Members.module.css'
 import { NoAnnouncement } from "../helper/icons";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const Members = (): React.JSX.Element => {
     const dispatch = useDispatch<AppDispatch>();
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const Admin = useAppSelector(state => state.roomMembers.Admin);
     const Members = useAppSelector(state => state.roomMembers.members);
     const Id = useAppSelector(state => state.userInterface.classroomDetail?._id)
