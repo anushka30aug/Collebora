@@ -23,7 +23,7 @@
     padding: .7em 1em;
     border-radius: .2em;
     margin: 1em;
-    font-weight: bold;
+    /* font-weight: bold; */
 }
 .main_button_2{
     background-color: #0057ee;
@@ -32,7 +32,7 @@
     padding: .7em 1em;
     margin: 1em;
     border-radius: .2em;
-    font-weight: bold;
+    /* font-weight: bold; */
 }
 
 

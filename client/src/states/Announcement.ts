@@ -103,10 +103,10 @@ const announcement = createSlice({
                 }
                 else{
                     toast.success('announcemet made successfully');
-                    console.log(action.payload.data);
+                    // console.log(action.payload.data);
                     state.announcements=[action.payload.data,...state.announcements];
                     state.totalCount+=1;
-                    console.log(state.announcements);
+                    // console.log(state.announcements);
                 }
             })
             .addCase(MakeAnnouncements.rejected,(state,action)=>{

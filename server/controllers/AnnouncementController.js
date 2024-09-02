@@ -55,7 +55,7 @@ exports.makeAnnouncement = asyncHandler(async (req, res) => {
         // console.log(resp);
         res.status(200).json({ success: true, data:resp});
     } catch (error) {
-        console.error('Error saving announcement:', error);
+        // console.error('Error saving announcement:', error);
         res.status(500).json({ error: true, message: 'An error occurred while saving the announcement' });
     }
 });

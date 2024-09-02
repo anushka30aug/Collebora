@@ -4,14 +4,6 @@ const Router = express.Router();
 const auth_controller = require('../controllers/AuthController');
 const jwt = require('jsonwebtoken');
 
-// Router.get("/success", (req, res) => {
-//   console.log('inside succes');
-//   if (req.user) {
-//     return res.redirect(`${process.env.CLIENT_URI}`)
-//   } else {
-//     res.status(403).json({ error: true, message: "Not Authorized" });
-//   }
-// });
 
 Router.get("/failed", auth_controller.authFailure);
 
@@ -25,7 +17,7 @@ Router.get('/google',
 Router.get(
   '/google/callback',
    passport.authenticate('google', {failureRedirect: '/failed' }),(req,res)=>{
-   console.log(req.user);
+  //  console.log(req.user);
    const payload = {
     id: req.user._id
     

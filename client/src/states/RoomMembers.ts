@@ -32,7 +32,7 @@ export const JoinClassroom = createAsyncThunk('/classroom/join', async (classId:
     }
     );
     const data = await response.json();
-    console.log(data)
+    // console.log(data)
     return data;
 })
 
@@ -51,7 +51,7 @@ export const leaveRoom = createAsyncThunk('/classroom/members/leave',async({id}:
     }
     );
     const data = await response.json();
-    console.log(data)
+    // console.log(data)
     return data;
 
 })
@@ -71,7 +71,7 @@ export const RemoveMember=createAsyncThunk('/classroom/members/remove',async({Id
     }
     );
     const data = await response.json();
-    console.log(data)
+    // console.log(data)
     return data;
 })
 
@@ -149,7 +149,7 @@ const RoomMembers = createSlice({
 
         })
         .addCase(RemoveMember.fulfilled, (state, action) => {
-            console.log(action.payload)
+            // console.log(action.payload)
             if (action.payload.error) {
                 toast.error(`${action.payload.message}`)
             }

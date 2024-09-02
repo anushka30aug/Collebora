@@ -15,7 +15,7 @@ export const fetchMessage = createAsyncThunk('/classroom/chats/messages', async 
         }
     )
     const data = await response.json();
-    console.log("message data is ", data)
+    // console.log("message data is ", data)
     return data;
 })
 
@@ -33,7 +33,7 @@ export const createMessage = createAsyncThunk('/classroom/chat/send', async ({ m
         }
     )
     const data = await response.json();
-    console.log(data);
+    // console.log(data);
     return data;
 })
 

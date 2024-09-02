@@ -70,7 +70,7 @@ exports.addComment = asyncHandler(async (req, res) => {
         }
     }
     catch (error) {
-        console.log(error)
+        // console.log(error)
         res.status(400).send({ error: true, message: error.message });
     }
 })
@@ -121,7 +121,7 @@ exports.fetchComment = asyncHandler(async (req, res) => {
         }
     }
     catch (error) {
-        console.log(error)
+        // console.log(error)
         res.status(400).send({ error: true, message: error.message });
     }
 })

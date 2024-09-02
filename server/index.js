@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 
 const io = require("socket.io")(server, {
     cors: {
-      origin: "*", // Adjust this to your frontend URL in production
+      origin: "*",
       methods: ["GET", "POST"],
     },
   });
@@ -45,31 +45,31 @@ app.use('/classroom/invitation',require('./Routes/Invitation'))
 app.use('/classroom/announcement/comments',require('./Routes/Comments'));
 
 io.on( "connection", (socket) => {
-    console.log("Connected to socket.io")
+    // console.log("Connected to socket.io")
     
      socket.on('setup',(userId)=>{
         socket.join(userId);
-        console.log(userId);
+        // console.log(userId);
         // socket.emit('connected',userId)
      })
      socket.on("check", ((data)=>{
-         console.log(data.ullu)
+        //  console.log(data.ullu)
      }))
 
      socket.on("new message", (newMessageRecieved) => {
         var chat = newMessageRecieved.newMessage.chatId;
-        console.log(newMessageRecieved)
+        // console.log(newMessageRecieved)
         if (!newMessageRecieved.members) return console.log("chat users not defined");
     
         newMessageRecieved.members.forEach((membersId) => {
           if (membersId == newMessageRecieved.newMessage.senderId) return;
-          console.log(membersId)
+          // console.log(membersId)
           socket.in(membersId).emit("message received", newMessageRecieved.newMessage);
         })
       })
 
       socket.off("setup", () => {
-        console.log("USER DISCONNECTED");
+        // console.log("USER DISCONNECTED");
         socket.leave(userData._id);
       });
       

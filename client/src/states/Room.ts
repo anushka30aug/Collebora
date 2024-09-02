@@ -71,7 +71,7 @@ export const RenameClassroom = createAsyncThunk('/classroom/update', async ({ cl
     }
     );
     const data = await response.json();
-    console.log(data)
+    // console.log(data)
     return data;
 })
 
@@ -90,7 +90,7 @@ export const deleteClassroom = createAsyncThunk('/classroom/delete', async ({ cl
     }
     );
     const data = await response.json();
-    console.log(data)
+    // console.log(data)
     return data;
 })
 
@@ -108,7 +108,7 @@ export const ArchiveRoom = createAsyncThunk('/classroom/archive/toogle',async(id
     } 
     );
     const data = await response.json();
-    console.log(data)
+    // console.log(data)
     return data;
 })
 

@@ -9,7 +9,7 @@ async function checkEmails(emailIds) {
             const exists = await CheckEmail(email);
             return { email, exists };
         } catch (error) {
-            console.error(`Error verifying email ${email}:`, error);
+            // console.error(`Error verifying email ${email}:`, error);
             return { email, exists: false };
         }
     }));
@@ -29,13 +29,13 @@ exports.sendMail = asyncHandler(async (req, res) => {
         if (classRoom.adminId != userId) {
             return res.status(401).send({ error: true, message: 'unauthorized access request' })
         }
-        console.log(emails);
+        // console.log(emails);
         checkEmails(emails)
             .then(async (results) => {
                 const invalidEmails = results.filter(result => !result.exists).map(result => result.email);
                 const validEmails = results.filter(result => result.exists).map(result => result.email);
-                console.log(validEmails);
-                console.log(invalidEmails);
+                // console.log(validEmails);
+                // console.log(invalidEmails);
                 if (validEmails.length > 0) {
                     let info = await transporter.sendMail({
                         from: '"Anushka shukla" <anushkashukla3003@gmail.com>',
@@ -44,7 +44,7 @@ exports.sendMail = asyncHandler(async (req, res) => {
                         text: `Hello dear members , We invite you to join our Room on Collebora-digital workspace . RoomId is ${classId} . Please do not share this Id with anyone`,
                     });
 
-                    console.log(info);
+                    // console.log(info);
                     if (invalidEmails.length > 0)
                         return res.status(200).send({ success: true, message: `Invitation sent to valid email addressess` });
                     else {
@@ -54,18 +54,17 @@ exports.sendMail = asyncHandler(async (req, res) => {
 
                 } else {
                     res.status(200).json({ error:true,message: `Entered email addressess are invalid` });
-                    // Proceed with your logic, e.g., sending verification emails
                 }
             })
             .catch(error => {
-                console.error('Error during email verification:', error);
+                // console.error('Error during email verification:', error);
                 res.status(500).json({ error: 'Failed to verify email addresses' });
             });
 
 
     }
     catch (error) {
-        console.log(error)
+        // console.log(error)
         return res.status(400).send({ error: true, message: 'Internal server error' })
     }
 })

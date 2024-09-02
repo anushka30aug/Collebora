@@ -7,6 +7,9 @@ import { Cross } from '../helper/icons';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../states/Hooks';
 import { addRoom } from '../../states/Room';
+import Button from '@mui/material/Button';
+
+
 const JoinRoom = (): React.JSX.Element => {
 
   const dispatch = useDispatch<AppDispatch>();
@@ -44,7 +47,8 @@ const JoinRoom = (): React.JSX.Element => {
         <span onClick={()=>{navigate(-1)}}><Cross/></span>
         <h3>Join Room</h3>
         </span>
-        <button onClick={handleClick} disabled={classId.length<4 ||codeSubmitted }>JOIN</button>
+        <Button variant="contained" onClick={handleClick} disabled={classId.length<4 ||codeSubmitted }>Join</Button>
+
       </header>
 
       <main className={style.main_container}>

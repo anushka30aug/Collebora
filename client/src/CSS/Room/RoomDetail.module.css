@@ -1,6 +1,7 @@
 .roomDetail_container {
     position: relative;
     height: 100vh;
+    box-sizing: border-box; 
 }
 
 .header{

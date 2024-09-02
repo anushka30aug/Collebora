@@ -42,7 +42,7 @@ exports.addMember = asyncHandler(async (req, res) => {
         }
     }
     catch (error) {
-        console.log(error)
+        // console.log(error)
         res.status(400).send({ error: true, message: 'unexpected error occured' })
     }
 
@@ -111,7 +111,7 @@ exports.removeMember = asyncHandler(async (req, res) => {
                     { $pull: { members: userToRemove } },
                     { new: true }
                 );
-                console.log(updatedClassroom)
+                // console.log(updatedClassroom)
                 res.status(200).send({ success: true, message: 'User removed successfully' });
             }
         }
@@ -143,12 +143,12 @@ exports.leaveRoom = asyncHandler(async (req, res) => {
                 { $pull: { members: userId } },
                 { new: true }
             );
-            console.log(updatedClassroom)
+            // console.log(updatedClassroom)
             res.status(200).send({ success: true, message: 'You left the Room successfully' });
         }
     }
     catch (error) {
-        console.log(error)
+        // console.log(error)
         res.status(400).send({ error: true, message: 'unexpected error occured' })
     }
 

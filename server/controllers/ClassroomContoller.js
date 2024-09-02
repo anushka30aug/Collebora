@@ -40,7 +40,7 @@ exports.createClassroom = asyncHandler(async (req, res) => {
                 groupAdmin: user._id
              })
             await Chatroom.save();
-            console.log(classroom); 
+            // console.log(classroom); 
             res.status(200).send({ success: true, data:classroom });
         }
 
@@ -92,7 +92,7 @@ exports.updatedClassroom = asyncHandler(async (req, res) => {
         const userId = req.user.id;
         const classId = req.params.classId;
         const { newName, classcode } = req.body;
-            console.log(classId);
+            // console.log(classId);
         const classroom = await Classroom.findOne({ classId:classId });
         if (!classroom) {
             res.status(404).send({ error: true, message: 'classroom not found' });
@@ -112,7 +112,7 @@ exports.updatedClassroom = asyncHandler(async (req, res) => {
         }
     }
     catch (error) {
-        console.log(error)
+        // console.log(error)
         res.status(400).send({ error: true, message: 'unexpected error occured' });
     }
 })
@@ -144,7 +144,7 @@ exports.deleteClassroom = asyncHandler(async (req, res) => {
 
         res.status(200).send({ success: true, message: 'Classroom deleted successfully' });
     } catch (error) {
-        console.error(error);
+        // console.error(error);
         res.status(400).send({ error: true, message: 'Unexpected error occurred' });
     }
 });
@@ -176,7 +176,7 @@ exports.toogle_Archive = asyncHandler(async (req, res) => {
         }
     }
     catch (error) {
-        console.log(error)
+        // console.log(error)
         res.status(400).send({ error: true, message: 'unexpected error occured' })
     }
 

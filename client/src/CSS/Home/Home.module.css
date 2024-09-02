@@ -1,6 +1,7 @@
 .home_component{
     position: relative; 
-    height:100vh; 
+    height:100vh;
+    box-sizing: border-box; 
 }
 .header{
     height: 15%;

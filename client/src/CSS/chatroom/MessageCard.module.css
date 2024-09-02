@@ -1,8 +1,3 @@
-/* .message_container {
-    display: flex;
-    flex-direction: column; 
-} */
-
 .own_message{
     display: flex;
     align-items: flex-start;

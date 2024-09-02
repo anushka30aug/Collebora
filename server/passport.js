@@ -20,9 +20,9 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
               profilePicture: profile.photos[0].value,
               googleId: profile.id,
             });
-            console.log('New user created:', user);
+            // console.log('New user created:', user);
           } else {
-            console.log('User already present:', user);
+            // console.log('User already present:', user);
           }
           done(null, user); 
         } catch (error) {

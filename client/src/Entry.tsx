@@ -14,13 +14,16 @@ import { fetchUser } from './states/User';
 import { newMessage } from './states/Message';
 import AnnouncementDescription from './components/Announcement/AnnouncementDescription';
 import Invitation from './components/modal/Invitation';
+import CreateRoom from './components/modal/CreateRoom';
 var classRoomIdCheck: string | undefined;
 const Entry = (): React.JSX.Element => {
   const { socket } = useChatSocketCtx()
   const dispatch = useDispatch<AppDispatch>();
   const ref = useRef<null | LoadingBarRef>(null);
   const Loading = useAppSelector(state => state.userInterface.isLoading)
-  const classroomId = useAppSelector(state => state.userInterface.classroomDetail?._id)
+  const classroomId = useAppSelector(state => state.userInterface.classroomDetail?._id);
+  const createRoom = useAppSelector(state => state.userInterface.showCreateModal);
+
   classRoomIdCheck = classroomId;
   useEffect(() => {
     if (Loading) {
@@ -34,14 +37,14 @@ const Entry = (): React.JSX.Element => {
   useEffect(() => {
     if (localStorage.getItem('auth-token-workspace')) {
       socket.connect();
-      console.log(socket)
+      // console.log(socket)
       dispatch(fetchUser()).then((result) => {
         if (result.payload.success) {
           socket.emit("setup", result.payload.data._id)
         }
       })
       socket.on("connected", (userId) => {
-        console.log(userId)
+        // console.log(userId)
       })
       socket.on("message received", (Message) => {
 
@@ -61,6 +64,7 @@ const Entry = (): React.JSX.Element => {
     <div>
       <LoadingBar color='#0057ee' ref={ref} height={5} loaderSpeed={1000} />
       <BrowserRouter>
+          {createRoom && <CreateRoom />}
         <Routes>
           <Route path='/' Component={Home}></Route>
           <Route path='/auth' Component={Auth}></Route>
