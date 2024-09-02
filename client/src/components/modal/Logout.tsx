@@ -36,7 +36,9 @@ const Logout = (): React.JSX.Element => {
           <Button onClick={()=>{
             localStorage.removeItem('auth-token-workspace');
             sessionStorage.clear();
-            navigate('/auth')
+            navigate('/auth');
+            dispatch(setMenuOption('home'));
+         
           }}>Log Out Anyway</Button>
         </DialogActions>
       </Dialog>

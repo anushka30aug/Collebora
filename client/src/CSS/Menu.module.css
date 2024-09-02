@@ -27,6 +27,7 @@
 
 .menu_options {
     padding: .5em;
+    padding-right: 2em;
     display: flex;
     flex-direction: column;
     cursor: pointer;
