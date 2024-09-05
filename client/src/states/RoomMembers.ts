@@ -84,12 +84,12 @@ interface memberStructure{
 }
 
 interface stateStructure{
-    members:memberStructure[],
+    members:null|memberStructure[],
     Admin:null|memberStructure
 }
 
 const initialState:stateStructure={
-    members:[],
+    members:null,
     Admin:null
 }
 

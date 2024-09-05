@@ -12,11 +12,9 @@ import NoAnnouncements from "./NoAnnouncements";
 import toast from "react-hot-toast";
 import style from '../../CSS/Announcement/Announcement.module.css';
 import { useNavigate } from "react-router-dom";
-// import Invitation from "../modal/Invitation";
-
+import { Skeleton } from "@mui/material";
 
 const Announcement = (): React.JSX.Element => {
-    // const [InvitationModal,setInvitationModal]=useState<boolean>(false)
     const navigate = useNavigate();
     const dispatch = useDispatch<AppDispatch>();
     const Id = useAppSelector(state => state.userInterface.classroomDetail?._id)
@@ -55,10 +53,6 @@ const Announcement = (): React.JSX.Element => {
             dispatch(fetchAnnouncement({ id: Id }));
     }
 
-    // const handleInvitationClose=()=>{
-    //     setInvitationModal(false);
-    // }
-
     return (
         <div>
             <div>
@@ -82,7 +76,6 @@ const Announcement = (): React.JSX.Element => {
                     {isAdmin && <div className={style.join_invitation}>
                         <button onClick={(e: React.MouseEvent) => {
                             e.preventDefault();
-                            // setInvitationModal(true)
                             navigate('/Invitation');
                         }}>
                            Send Invitation
@@ -96,7 +89,16 @@ const Announcement = (): React.JSX.Element => {
                 }
             </div>
             {
-                isLoading ? ('') : (totalCount > 0 ? (
+                isLoading ?
+                Array.from({length:4}).map((_,index)=>{
+                    return <Skeleton variant="rectangular" width="100%" height={200} style = {{
+                        maxWidth: "600px",
+                        borderRadius:"1em",
+                        margin: window.innerWidth >= 900 ? "1em 2em" : "1em auto",
+                      }}/>
+                }) 
+                
+                 : (totalCount > 0 ? (
                     <InfiniteScroll
                         dataLength={Announcements.length}
                         hasMore={hasMore()}

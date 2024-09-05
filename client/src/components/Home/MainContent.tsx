@@ -8,6 +8,7 @@ import { AppDispatch } from "../../states/Store";
 import { fetchClassrooms, fetchClassroomsAsAdmin } from "../../states/Room";
 import { setIsAdmin, setLoadingState } from "../../states/UserInterface";
 import { useNavigate } from "react-router-dom";
+import { Skeleton } from "@mui/material";
 
 const MainContent = (): React.JSX.Element => {
     const navigate = useNavigate();
@@ -48,9 +49,22 @@ const MainContent = (): React.JSX.Element => {
                 <button className={`${style.rooms_header_button} ${isAdmin === false ? style.button_active : ''}`} onClick={(e) => { e.preventDefault(); handleIsAdmin(e, false) }}>Joined</button>
             </div>
 
+
             <div className={style.rooms_main}>
                 {
-                    isLoading ? '' : (classrooms !== null && classrooms.length !== 0) ?
+                    isLoading ?  
+                    Array.from({ length: 4 }).map((_, index) => (
+                        <Skeleton 
+                            key={index} 
+                            sx={{ height: 150 }} 
+                            animation="wave" 
+                            variant="rectangular" 
+                            width={300} 
+                            style={{ margin: '2em', borderRadius: '1em' }} 
+                        />
+                    ))
+                    :
+                     (classrooms !== null && classrooms.length !== 0) ?
                         (classrooms.map(rooms => <RoomsModal key={rooms._id} _id={rooms._id} name={rooms.name} adminId={rooms.adminId} adminName={rooms.adminName} classId={rooms.classId} />)) :
                         (<RoomNotFound />)
                 }
