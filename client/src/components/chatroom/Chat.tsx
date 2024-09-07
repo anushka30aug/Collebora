@@ -7,9 +7,11 @@ import { useAppSelector } from "../../states/Hooks";
 import MessageCard from "./MessageCard";
 import style from '../../CSS/chatroom/Chat.module.css'
 import { MessageIcon, Send } from "../helper/icons";
+import { Skeleton } from "@mui/material";
 
 const Chatroom = (): React.JSX.Element => {
     const [message, setMessage] = useState<string>('');
+    const[loading,setLoading]=useState<boolean>(false);
     const classroomId = useAppSelector(state => state.userInterface.classroomDetail?._id)
     const userDetail = useAppSelector(state => state.user)
     const allMessages = useAppSelector(state => state.messages.messages);
@@ -27,15 +29,24 @@ const Chatroom = (): React.JSX.Element => {
 
     useEffect(() => {
         if (classroomId !== undefined) {
+            setLoading(true);
             dispatch(fetchMessage({ chatId: classroomId }))
-                .then(() => scrollToBottom()); // Scroll to bottom after messages are fetched
+                .then(() =>{setLoading(false); 
+                    setTimeout(() => {
+                        scrollToBottom();
+                    }, 100);
+                 }); // Scroll to bottom after messages are fetched
         }
         //eslint-disable-next-line
     }, [classroomId]);
 
     useEffect(() => {
-        scrollToBottom(); // Scroll to bottom whenever messages change
-    }, [allMessages]);
+        if (!loading && allMessages.length > 0) {
+            setTimeout(() => {
+                scrollToBottom();
+            }, 100); // Adjust timeout as needed
+        }
+    }, [allMessages,loading]);
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
@@ -85,7 +96,14 @@ const Chatroom = (): React.JSX.Element => {
     return (
         <div className={style.chat_container}>
             <div className={style.chat}>
-                {allMessages.length !== 0 ?
+                {loading?
+                Array.from({length:4}).map((_,index)=>{
+                    return <Skeleton variant="rectangular" width={250} height={100} style = {{
+                        borderRadius:"1em",
+                        margin:"1em .5em"
+                      }}/>
+                })
+                :allMessages.length !== 0 ?
                     (allMessages.map((item, index, arr) => {
                         if (index >= 1) {
                             if (arr[index - 1].createdAt.split('T')[0] !== arr[index].createdAt.split('T')[0]) {
