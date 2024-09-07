@@ -55,7 +55,7 @@ const RemoveMembers = ({ userToRemove }: {
           Enter the room code to confirm the removal of the member
           </DialogContentText>
             <form onSubmit={handleSubmit}>
-                <TextField type="password" name="code" placeholder='room Code' title='(secret code should not be shared with anyone)'  margin="dense" value={code} onChange={handleChange} inputProps={{ minLength: 6 }} fullWidth required variant="standard"/>
+                <TextField type="password" name="code" placeholder='Room Code' title='(secret code should not be shared with anyone)'  margin="dense" value={code} onChange={handleChange} inputProps={{ minLength: 6 }} fullWidth required variant="standard"/>
                 <DialogActions>
                     <Button onClick={() => { dispatch(editShowRemoveModal()) }}>cancel</Button>
                     <Button type="submit" disabled={code.length >= 6 ? false : true}>Remove</Button>

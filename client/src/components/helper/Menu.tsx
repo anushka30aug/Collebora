@@ -7,7 +7,6 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../states/Store";
 import { editShowMenu, setIsActive, setMenuOption } from "../../states/UserInterface";
 import img from '../helper/image.png';
-// import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
@@ -59,9 +58,7 @@ const Menu = (): React.JSX.Element => {
                 <div className={`${style.icons} ${option === 'home' ? style.activeOption : ''}`} onClick={homeClick}>
                     <Home />
                 </div>
-                {/* <div className={`${style.icons} ${option==='calendar'?style.activeOption:''}`} onClick={calendarClick}>
-                    <Calendar />
-                </div> */}
+              
                 <div className={`${style.icons} ${option === 'archive' ? style.activeOption : ''}`} onClick={archiveClick}>
                     <Archive />
                 </div>
@@ -76,9 +73,6 @@ const Menu = (): React.JSX.Element => {
                 <div className={`${style.options} ${option === 'home' ? style.activeOption : ''}`} onClick={homeClick}>
                     Home
                 </div>
-                {/* <div className={`${style.options} ${option==='calendar'?style.activeOption:''}`} onClick={calendarClick}>
-                    Calendar
-                </div> */}
                 <div className={`${style.options} ${option === 'archive' ? style.activeOption : ''}`} onClick={archiveClick}>
                     Archived Rooms
                 </div>

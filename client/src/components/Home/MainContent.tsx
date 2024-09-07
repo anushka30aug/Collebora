@@ -60,7 +60,7 @@ const MainContent = (): React.JSX.Element => {
                             animation="wave" 
                             variant="rectangular" 
                             width={300} 
-                            style={{ margin: '2em', borderRadius: '1em' }} 
+                            style={{ margin: '.5em', borderRadius: '1em' }} 
                         />
                     ))
                     :
