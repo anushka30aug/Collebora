@@ -15,7 +15,10 @@ import { newMessage } from './states/Message';
 import AnnouncementDescription from './components/Announcement/AnnouncementDescription';
 import Invitation from './components/modal/Invitation';
 import CreateRoom from './components/modal/CreateRoom';
+import Logout from './components/modal/Logout';
 var classRoomIdCheck: string | undefined;
+
+
 const Entry = (): React.JSX.Element => {
   const { socket } = useChatSocketCtx()
   const dispatch = useDispatch<AppDispatch>();
@@ -23,6 +26,8 @@ const Entry = (): React.JSX.Element => {
   const Loading = useAppSelector(state => state.userInterface.isLoading)
   const classroomId = useAppSelector(state => state.userInterface.classroomDetail?._id);
   const createRoom = useAppSelector(state => state.userInterface.showCreateModal);
+  const menuOption = useAppSelector(state => state.userInterface.menuOption)
+
 
   classRoomIdCheck = classroomId;
   useEffect(() => {
@@ -65,7 +70,8 @@ const Entry = (): React.JSX.Element => {
       <LoadingBar color='#0057ee' ref={ref} height={5} loaderSpeed={1000} />
       <BrowserRouter>
           {createRoom && <CreateRoom />}
-        <Routes>
+          {menuOption==='Logout' && <Logout/>}
+            <Routes>
           <Route path='/' Component={Home}></Route>
           <Route path='/auth' Component={Auth}></Route>
           <Route path='/authRedirect' Component={AuthRedirect}></Route>

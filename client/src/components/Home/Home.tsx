@@ -3,20 +3,16 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../helper/Navbar";
 import Menu from "../helper/Menu";
 import style from '../../CSS/Home/Home.module.css'
-import CreateRoom from "../modal/CreateRoom";
 import { useAppSelector } from "../../states/Hooks";
 import MainContent from "./MainContent";
-import Logout from "../modal/Logout";
 import DeleteRoom from "../modal/DeleteRoom";
 import RenameRoom from "../modal/RenameRoom";
 
 
 const Home = (): React.JSX.Element => {
     const navigate = useNavigate();
-    const createRoom = useAppSelector(state => state.userInterface.showCreateModal);
     const deleteRoom = useAppSelector(state => state.userInterface.showDeleteModal);
     const renameRoom = useAppSelector(state => state.userInterface.showRenameModal);
-    const menuOption = useAppSelector(state => state.userInterface.menuOption)
     useEffect(() => {
         if (localStorage.getItem('auth-token-workspace') === null || undefined) {
             navigate('/auth');
@@ -27,10 +23,10 @@ const Home = (): React.JSX.Element => {
 
     return (
         <div className={style.home_component}>
-            {createRoom && <CreateRoom />}
+            {/* {createRoom && <CreateRoom />} */}
             {deleteRoom && <DeleteRoom />}
             {renameRoom && <RenameRoom />}
-            {menuOption==='Logout' && <Logout/>}
+            {/* {menuOption==='Logout' && <Logout/>} */}
            
             <header className={style.header}>
                 <Navbar />
