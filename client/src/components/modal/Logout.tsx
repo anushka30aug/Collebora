@@ -6,7 +6,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../states/Hooks';
-import { setMenuOption } from '../../states/UserInterface';
+import { setIsActive, setMenuOption } from '../../states/UserInterface';
 import { useNavigate } from 'react-router-dom';
 
 const Logout = (): React.JSX.Element => {
@@ -15,7 +15,9 @@ const Logout = (): React.JSX.Element => {
     const navigate = useNavigate();
 
     const handleClose=()=>{
-        dispatch(setMenuOption('home'))
+      dispatch(setIsActive(true));
+        dispatch(setMenuOption('home'));
+        
     }
     
     return(
