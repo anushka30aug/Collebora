@@ -1,4 +1,7 @@
 .loadingComponent{
-    max-width: 130px;;
+    max-width: 130px;
     margin: 10em auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }

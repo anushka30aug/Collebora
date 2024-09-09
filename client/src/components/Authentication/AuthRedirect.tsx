@@ -22,6 +22,13 @@ const AuthRedirect = (): React.JSX.Element => {
       // eslint-disable-next-line
    },[token])
    
+   useEffect(() => {
+      if (localStorage.getItem('auth-token-workspace')) {
+          navigate('/');
+      }
+      // eslint-disable-next-line
+  }, [])
+   
    return (
       <div className={style.loadingComponent}>
             <Spinner/>

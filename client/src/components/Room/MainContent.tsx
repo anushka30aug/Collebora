@@ -1,16 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import style from '../../CSS/Room/MainContent.module.css'
 import Announcement from "../Announcement/Announcement";
-// import { useAppSelector } from "../../states/Hooks";
-// import CreateRoom from "./CreateRoom";
 import Members from "../Members/Members";
 import Chatroom from "../chatroom/Chat";
+import { useNavigate } from "react-router-dom";
 
 const MainContent = ():React.JSX.Element => {
+    const navigate= useNavigate();
     const [option, setOption] = useState<'announcement' | 'members' | 'discussion' | null>('announcement');
     const handleOptionChange = (e: React.MouseEvent, prop: 'announcement' | 'members' | 'discussion' | null) => {
         setOption(prop);
     }
+
+    useEffect(() => {
+        if (localStorage.getItem('auth-token-workspace') === null || undefined) {
+            navigate('/auth');
+        }
+        //eslint-disable-next-line
+    }, [])
+
 
     return (
         <div className={style.room_container}>
