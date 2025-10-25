@@ -11,7 +11,7 @@ exports.addMember = asyncHandler(async (req, res) => {
         const userId = req.user.id;
         const classroom = await Classroom.findOne({ classId: classId }).select('-code');
         if (!classroom) {
-            res.status(404).send({ error: true, message: 'Classroom not found' })
+            res.status(404).send({ error: true, message: 'Room not found' })
         }
         else {
             const user = await User.findOne({ _id: userId });

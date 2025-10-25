@@ -1,88 +1,159 @@
-import { Add, Hamburger } from "./icons";
-import style from '../../CSS/Navbar.module.css';
-import { useAppSelector } from "../../states/Hooks";
-import img from '../helper/image.png';
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../states/Store";
-import { editShowCreateModal, editShowMenu } from "../../states/UserInterface";
 import { useNavigate } from "react-router-dom";
-import Popover from '@mui/material/Popover';
-import Typography from '@mui/material/Typography';
+import { AppDispatch } from "../../states/Store";
+import { useAppSelector } from "../../states/Hooks";
+import { editShowCreateModal, editShowMenu } from "../../states/UserInterface";
+import { Add, Hamburger } from "./icons";
+import img from "../helper/image.png";
+import {
+  Menu,
+  MenuItem,
+  IconButton,
+  Popover,
+  Typography,
+  Avatar,
+  Box,
+  useMediaQuery,
+} from "@mui/material";
+import style from "../../CSS/Navbar.module.css";
 
 const Navbar = (): React.JSX.Element => {
-    const image = useAppSelector(state => state.user.profilePicture);
-    const menu = useAppSelector(state=>state.userInterface.showMenu)
-    const dispatch = useDispatch<AppDispatch>();
-    const navigate = useNavigate();
-    const name = useAppSelector(state=>state.user.name);
-    const email = useAppSelector(state=>state.user.emailAddress);
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
 
-    const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+  const image = useAppSelector((state) => state.user.profilePicture);
+  const name = useAppSelector((state) => state.user.name);
+  const email = useAppSelector((state) => state.user.emailAddress);
+  const menu = useAppSelector((state) => state.userInterface.showMenu);
 
-    const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
+  // --- Responsive breakpoint ---
+  const showProfile = useMediaQuery("(min-width:500px)");
 
-    const handlePopoverClose = () => {
-        setAnchorEl(null);
-    };
+  // --- MUI Menu for Add Button ---
+  const [addAnchor, setAddAnchor] = useState<null | HTMLElement>(null);
+  const openAddMenu = Boolean(addAnchor);
+  const handleAddClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAddAnchor(event.currentTarget);
+  };
+  const handleAddClose = () => setAddAnchor(null);
 
-    const open = Boolean(anchorEl);
+  // --- MUI Popover for Profile ---
+  const [profileAnchor, setProfileAnchor] = useState<HTMLElement | null>(null);
+  const openProfile = Boolean(profileAnchor);
+  const handleProfileEnter = (e: React.MouseEvent<HTMLElement>) =>
+    setProfileAnchor(e.currentTarget);
+  const handleProfileLeave = () => setProfileAnchor(null);
 
-
-    
-    const showMenu = (e: React.MouseEvent) => {
-        e.preventDefault();
-        dispatch(editShowMenu(!menu));
-    }
-
-    return (
-        <div className={style.nav_container}>
-            <div className={style.nav_left}>
-                <div className={style.nav_left_menu} onClick={showMenu}>
-                    <Hamburger />
-                </div>
-                <div className={style.nav_left_logo}>
-                    <h3><b>COLLEBORA</b></h3>
-                </div>
-            </div>
-            <div className={style.nav_right}>
-                <div className={style.nav_right_addClass} title="Add or join Room">
-                    <span><Add/></span>
-                    <div className={style.nav_right_dropdown_content}>
-                        <p onClick={()=>{dispatch(editShowCreateModal())}}>Create Room</p>
-                        <p onClick={()=>{navigate('/joinRoom')}}>Join Room</p>
-                    </div>
-                </div>
-                <div className={style.nav_right_account} onMouseEnter={handlePopoverOpen}
-                    onMouseLeave={handlePopoverClose}>
-                    <img src={image? image : img} alt="" />
-                </div>
-                <Popover
-                    id="mouse-over-popover"
-                    sx={{
-                        pointerEvents: 'none',
-                    }}
-                    open={open}
-                    anchorEl={anchorEl}
-                    anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'left',
-                    }}
-                    transformOrigin={{
-                        vertical: 'top',
-                        horizontal: 'left',
-                    }}
-                    onClose={handlePopoverClose}
-                    disableRestoreFocus
-                >
-                    <Typography sx={{ p: 1 }}>{name}</Typography>
-                    <Typography sx={{ p: 1 }}>{email}</Typography>
-                </Popover>
-
-            </div>
+  return (
+    <div className={style.nav_container}>
+      {/* LEFT */}
+      <div className={style.nav_left}>
+        <div
+          className={style.nav_left_menu}
+          onClick={() => dispatch(editShowMenu(!menu))}
+        >
+          <Hamburger />
         </div>
-    )
-}
+        <div className={style.nav_left_logo}>
+          <h3>
+            <b>COLLEBORA</b>
+          </h3>
+        </div>
+      </div>
+
+      {/* RIGHT */}
+      <div className={style.nav_right}>
+        {/* Add / Join Menu */}
+        <IconButton
+          aria-controls={openAddMenu ? "add-menu" : undefined}
+          aria-haspopup="true"
+          aria-expanded={openAddMenu ? "true" : undefined}
+          onClick={handleAddClick}
+          sx={{
+            color: "#0057ee",
+            transition: "0.2s ease",
+            "&:hover": { backgroundColor: "#eaf1ff" },
+          }}
+        >
+          <Add />
+        </IconButton>
+
+        <Menu
+          id="add-menu"
+          anchorEl={addAnchor}
+          open={openAddMenu}
+          onClose={handleAddClose}
+          PaperProps={{
+            elevation: 3,
+            sx: {
+              borderRadius: 2,
+              mt: 1,
+              minWidth: 160,
+              "& .MuiMenuItem-root:hover": {
+                color: "#0057ee",
+                backgroundColor: "#f3f6ff",
+              },
+            },
+          }}
+        >
+          <MenuItem
+            onClick={() => {
+              handleAddClose();
+              dispatch(editShowCreateModal());
+            }}
+          >
+            Create Room
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              handleAddClose();
+              navigate("/joinRoom");
+            }}
+          >
+            Join Room
+          </MenuItem>
+        </Menu>
+
+        {/* Profile Avatar (visible only ≥500px) */}
+        {showProfile && (
+          <Box
+            onMouseEnter={handleProfileEnter}
+            onMouseLeave={handleProfileLeave}
+            sx={{ ml: 1, cursor: "pointer" }}
+          >
+            <Avatar
+              src={image || img}
+              alt="name"
+              sx={{
+                width: 38,
+                height: 38,
+                border: "1px solid #dcdcdc",
+                transition: "0.3s",
+                "&:hover": { boxShadow: "0 0 8px rgba(0,0,0,0.2)" },
+              }}
+            />
+          </Box>
+        )}
+
+        <Popover
+          id="profile-popover"
+          open={openProfile}
+          anchorEl={profileAnchor}
+          onClose={handleProfileLeave}
+          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+          transformOrigin={{ vertical: "top", horizontal: "left" }}
+          sx={{ pointerEvents: "none" }}
+          disableRestoreFocus
+        >
+          <Box sx={{ p: 1.5 }}>
+            <Typography sx={{ fontWeight: 600 }}>{name}</Typography>
+            <Typography sx={{ fontSize: 14, color: "gray" }}>{email}</Typography>
+          </Box>
+        </Popover>
+      </div>
+    </div>
+  );
+};
+
 export default Navbar;

@@ -1,41 +1,45 @@
-// import { useState } from "react";
-import style from '../../CSS/Authentication/Authentication.module.css'
-import { Google } from "../helper/icons";
-import img from '../helper/authentication.jpg'
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Skeleton } from '@mui/material';
-const host = process.env.REACT_APP_IP_ADDRESS
+import style from '../../CSS/Authentication/Authentication.module.css';
+import { Google } from '../helper/icons';
+import classroomImg from '../helper/authentication.jpg';
+
+const host = process.env.REACT_APP_IP_ADDRESS;
 
 const Authentication = (): React.JSX.Element => {
-    const navigate = useNavigate()
-    useEffect(() => {
-        if (localStorage.getItem('auth-token-workspace')) {
-            navigate('/');
-        }
-        // eslint-disable-next-line
-    }, [])
+  const navigate = useNavigate();
 
-    const login = async () => {
-        window.open(`${host}/classroom/authentication/google`, '_self')
-    }
+  useEffect(() => {
+    if (localStorage.getItem('auth-token-workspace')) navigate('/');
+  }, [navigate]);
 
-    return (
-        <div className={style.auth_container}>
-            <h1>Sign-in</h1>
-            <div className={style.auth_main}>
-                <div className={style.class_image}>{
-                    img ? <img src={img} alt="classroom" /> : <Skeleton
-                        sx={{ height: 450 }}
-                        animation="wave"
-                        variant="rectangular"
-                        width={300}
-                    />
-                }
-                </div>
-                <button onClick={() => login()} className={style.auth_button}> <Google /> <span> Continue with Google </span> </button>
-            </div>
+  const handleLogin = () => {
+    window.open(`${host}/classroom/authentication/google`, '_self');
+  };
+
+  return (
+    <div className={style.container}>
+      <div className={style.card}>
+        <div className={style.imageWrapper}>
+          <img src={classroomImg} alt="Classroom" className={style.image} />
         </div>
-    );
-}
+
+        <h1 className={style.title}>Welcome to <span>Collebora</span></h1>
+        <p className={style.subtitle}>
+          Sign in to continue to your workspace
+        </p>
+
+        <button className={style.googleButton} onClick={handleLogin}>
+          <Google />
+          <span>Continue with Google</span>
+        </button>
+
+        <p className={style.note}>
+          By signing in, you agree to our Terms & Privacy Policy
+        </p>
+      </div>
+    </div>
+  );
+};
+
 export default Authentication;
