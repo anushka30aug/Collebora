@@ -124,7 +124,7 @@ const Navbar = (): React.JSX.Element => {
           >
             <Avatar
               src={image || img}
-              alt="name"
+              alt="User"
               sx={{
                 width: 38,
                 height: 38,
