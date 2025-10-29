@@ -6,7 +6,7 @@ import { JoinClassroom } from "../../states/RoomMembers";
 import { Cross } from "../helper/icons";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../states/Hooks";
-import { addRoom, fetchClassrooms } from "../../states/Room";
+import { fetchClassrooms } from "../../states/Room";
 import Button from "@mui/material/Button";
 
 const JoinRoom = (): React.JSX.Element => {

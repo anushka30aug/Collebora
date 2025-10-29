@@ -4,7 +4,6 @@ import AnnouncementCard from "./AnnouncementCard";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../states/Store";
 import { fetchAnnouncement, incrementPage } from "../../states/Announcement";
-import MakeAnnouncement from "./MakeAnnouncement";
 import { setLoadingState } from "../../states/UserInterface";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Spinner, Copy } from "../helper/icons";

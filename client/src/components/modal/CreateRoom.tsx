@@ -4,7 +4,6 @@ import { AppDispatch } from "../../states/Store";
 import { editShowCreateModal } from "../../states/UserInterface";
 import {
   createRoom,
-  fetchClassrooms,
   fetchClassroomsAsAdmin,
 } from "../../states/Room";
 import { useAppSelector } from "../../states/Hooks";
