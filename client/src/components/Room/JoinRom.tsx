@@ -6,7 +6,7 @@ import { JoinClassroom } from "../../states/RoomMembers";
 import { Cross } from "../helper/icons";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../states/Hooks";
-import { addRoom } from "../../states/Room";
+import { addRoom, fetchClassrooms } from "../../states/Room";
 import Button from "@mui/material/Button";
 
 const JoinRoom = (): React.JSX.Element => {
@@ -22,7 +22,8 @@ const JoinRoom = (): React.JSX.Element => {
     dispatch(JoinClassroom(classId)).then((result) => {
       if (result.payload.success) {
         if (isActive && !isAdmin) {
-          dispatch(addRoom(result.payload.data));
+          dispatch(fetchClassrooms(isActive));
+          // dispatch(addRoom(result.payload.data));
         }
         navigate(-1);
       }

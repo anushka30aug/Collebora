@@ -30,6 +30,7 @@ interface Classroom {
   adminName: string;
   adminId: string;
   classId: string;
+  theme?: string;
 }
 
 const RoomsModal = (prop: Classroom): React.JSX.Element => {
@@ -38,7 +39,9 @@ const RoomsModal = (prop: Classroom): React.JSX.Element => {
 
   const isAdmin = useAppSelector((state) => state.userInterface.isAdmin);
   const isActive = useAppSelector((state) => state.userInterface.isActive);
-  const leaveRoom = useAppSelector((state) => state.userInterface.showLeaveModal);
+  const leaveRoom = useAppSelector(
+    (state) => state.userInterface.showLeaveModal
+  );
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -85,8 +88,10 @@ const RoomsModal = (prop: Classroom): React.JSX.Element => {
         <Box
           sx={{
             height: "6em",
-            backgroundImage:
-              "url('https://gstatic.com/classroom/themes/img_graduation.jpg')",
+            backgroundImage: `url(${
+              prop.theme ||
+              "https://gstatic.com/classroom/themes/img_graduation.jpg"
+            })`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             position: "relative",
