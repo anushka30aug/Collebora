@@ -1,73 +1,92 @@
-.own_message{
-    display: flex;
-    align-items: flex-start;
-    justify-content: right;
-    flex-direction: row-reverse;
+.own_message {
+  display: flex;
+  align-items: flex-start;
+  justify-content: right;
+  flex-direction: row-reverse;
+  margin: 0.5em 0;
 }
 
-.other_message{
-    display: flex;
-    align-items: flex-start;
-    justify-content: left;
+.other_message {
+  display: flex;
+  align-items: flex-start;
+  justify-content: left;
+  margin: 0.5em 0;
 }
 
-.sender_info{
-    max-width: 35px;
-    max-height: 35px;
-    border-radius: 10em;
-    overflow: hidden;
-    background-color: black;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    object-fit: contain;
-    margin-top: .7em;
-
+/* Profile image */
+.sender_info {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: linear-gradient(135deg, #6b73ff, #000dff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  object-fit: cover;
+  margin-top: 0.5em;
+  box-shadow: 0 0 5px #00000025;
 }
-.sender_info img{
-    width: 100%;
-    height: 100%;
-   
-}
-
-.message_card{
-    width: fit-content;
-    min-width: 150px;
-    max-width: 200px;
-    word-wrap: break-word;
-    word-break: normal;
-    margin: .5em;
-    padding: .5em 1em;
-    background-color: #cedefb90;
-    color: black;
-    border-radius: 1em;
+.sender_info img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.sender_message_card{
-    background-color: #0057eee9;
-    color: white;
+/* Message bubble */
+.message_card {
+  width: fit-content;
+  min-width: 150px;
+  max-width: 250px;
+  word-wrap: break-word;
+  margin: 0.3em 0.5em;
+  padding: 0.7em 1em;
+  background: #e9efff;
+  color: #222;
+  border-radius: 1em;
+  border-top-left-radius: 0.3em;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
 }
 
-.name_container{
-    margin:0;
-    color:#096ffdea;
-    margin-bottom: .5em;
-    padding-bottom: .5em;
-    border-bottom: 2px solid #096ffd51 ;
+.sender_message_card {
+  background: linear-gradient(135deg, #007bff, #0057ee);
+  color: white;
+  border-top-right-radius: 0.3em;
 }
 
-.sender_name_Container{
-    color: white;
-    border-bottom: 2px solid #ffffff51 ;
+/* Name styling */
+.name_container {
+  margin: 0;
+  font-weight: 600;
+  color: #0d6efd;
+  margin-bottom: 0.4em;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid #0d6efd3a;
+  font-size: 0.9em;
 }
 
-.date_time_container{
-    display: flex;
-    align-items:flex-end;
-    justify-content: flex-end;
-    margin-top: .5em;
+.sender_name_Container {
+  color: #fff;
+  border-bottom: 1px solid #ffffff3a;
 }
 
-.date_time_container small{
-    margin: 0 .2em;
+/* Timestamp + tick */
+.date_time_container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 0.4em;
+  gap: 0.2em;
+  font-size: 0.75em;
+  opacity: 0.8;
+}
+
+.date_time_container small {
+  margin: 0;
+}
+
+/* Optional hover for smoothness */
+.message_card:hover {
+  transform: scale(1.02);
 }
