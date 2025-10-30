@@ -8,26 +8,28 @@ import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../states/Hooks";
 import { fetchClassrooms } from "../../states/Room";
 import Button from "@mui/material/Button";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const JoinRoom = (): React.JSX.Element => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const { isAdmin, isActive } = useAppSelector((state) => state.userInterface);
   const [classId, setClassId] = useState<string>("");
-  const [codeSubmitted, setCodeSubmitted] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleClick = (e: MouseEvent) => {
     e.preventDefault();
-    setCodeSubmitted(true);
+    if (!classId.trim()) return;
+    setLoading(true);
+
     dispatch(JoinClassroom(classId)).then((result) => {
       if (result.payload.success) {
         if (isActive && !isAdmin) {
           dispatch(fetchClassrooms(isActive));
-          // dispatch(addRoom(result.payload.data));
         }
         navigate(-1);
       }
-      setCodeSubmitted(false);
+      setLoading(false);
     });
   };
 
@@ -36,49 +38,48 @@ const JoinRoom = (): React.JSX.Element => {
   };
 
   return (
-    <div className={style.joinRoom_component}>
-      <header className={style.header}>
-        <span className={style.header_left}>
-          <span
-            onClick={() => {
-              navigate(-1);
-            }}
+    <div className={style.page_wrapper}>
+      <div className={style.joinRoom_card}>
+        <header className={style.header}>
+          <div className={style.header_left}>
+            <span onClick={() => navigate(-1)}>
+              <Cross />
+            </span>
+            <h3>Join Room</h3>
+          </div>
+          <Button
+            variant="contained"
+            disableElevation
+            onClick={handleClick}
+            disabled={classId.length < 4 || loading}
+            className={style.join_btn}
           >
-            <Cross />
-          </span>
-          <h3>Join Room</h3>
-        </span>
-        <Button
-          variant="contained"
-          onClick={handleClick}
-          disabled={classId.length < 4 || codeSubmitted}
-        >
-          Join
-        </Button>
-      </header>
+            {loading ? <CircularProgress size={20} color="inherit" /> : "Join"}
+          </Button>
+        </header>
 
-      <main className={style.main_container}>
-        <div className={style.main}>
+        <main className={style.main}>
           <h4>Room ID</h4>
-          <p> Ask Admin for Room ID, then enter it here </p>
-
+          <p>Ask the admin for the Room ID and enter it below.</p>
           <input
             type="text"
-            placeholder="Room ID"
+            placeholder="Enter Room ID"
             minLength={4}
             maxLength={6}
             value={classId}
             onChange={handleChange}
             required
           />
-        </div>
+        </main>
 
-        <div className={style.instructions}>
-          <h4>To sign in with a class code</h4>
-          <li>Use an authorised account</li>
-          <li>Use a class code with 4-6 letters or numbers</li>
-        </div>
-      </main>
+        <section className={style.instructions}>
+          <h4>To join a room:</h4>
+          <ul>
+            <li>Use an authorized account.</li>
+            <li>Enter a valid class code (4–6 letters or numbers).</li>
+          </ul>
+        </section>
+      </div>
     </div>
   );
 };
