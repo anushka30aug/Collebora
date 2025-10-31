@@ -12,6 +12,7 @@ import toast from "react-hot-toast";
 import style from "../../CSS/Announcement/Announcement.module.css";
 import { useNavigate } from "react-router-dom";
 import { Skeleton } from "@mui/material";
+import MakeAnnouncement from "./MakeAnnouncement";
 
 const Announcement = (): React.JSX.Element => {
   const navigate = useNavigate();
@@ -97,6 +98,12 @@ const Announcement = (): React.JSX.Element => {
               </button>
             </div>
           )}
+          
+        </div>
+        <div>
+          {
+            isAdmin && <MakeAnnouncement/>
+          }
         </div>
         {isLoading ? (
           Array.from({ length: 4 }).map((_, index) => {
