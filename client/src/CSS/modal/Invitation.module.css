@@ -18,7 +18,7 @@
   justify-content: center;
   height: 100%;
   min-height: 100vh;
-  width: 100%;
+  /* width: 100%; */
   background: var(--bg-gradient);
   font-family: "Inter", sans-serif;
   padding: 1em;

@@ -1,43 +1,87 @@
-.announcement_container{
-     margin: 1em auto;
-     width: 100%;
-     min-width: 200px;
-     max-width: 600px;
-     border-radius: .5em;
-     box-shadow: 0 1px 3px 1px gray;
-     padding: 1em 1em .5em 1em;
-     box-sizing: border-box;
-    
+.announcement_container {
+  margin: 1.5em auto;
+  width: 100%;
+  max-width: 600px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  padding: 1em 1.2em;
+  transition: all 0.3s ease;
+  border: 1px solid #eee;
+  box-sizing: border-box;
 }
+
+.announcement_container:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
 .textArea {
-    display: inline-block;
-    width: 100%;
-    outline: none;
-    border: none;
-    box-sizing: border-box;
-    resize: none;
-    font-size: 15px;
-    font-weight: 550;
+  width: 100%;
+  min-height: 3em;
+  border: none;
+  outline: none;
+  resize: none;
+  font-size: 15px;
+  font-weight: 500;
+  color: #333;
+  background: transparent;
+  transition: all 0.2s ease;
+}
+
+.textArea::placeholder {
+  color: #aaa;
 }
 
 .FocusedtextArea {
-    height: 5em;
+  min-height: 6em;
 }
 
-.buttons_container button{
-   background-color: white;
-    border: none;
-    margin:.5em .5em;
-
+.filesStack {
+  margin-top: 0.8em;
+  margin-bottom: 0.5em;
 }
 
-.textArea:focus .buttons_container{
-    display: flex;
+.buttons_container {
+  display: none;
+  justify-content: flex-end;
+  margin-top: 0.5em;
+  gap: 0.6em;
 }
 
-@media(min-width:900px) {
-    .announcement_container {
-        margin: 1em 2em;
-        padding: 1em 1em 0em 1em;
-    }    
+.showButtons {
+  display: flex;
+}
+
+.iconButton {
+  background: #f5f5f5;
+  border: none;
+  border-radius: 50%;
+  padding: 0.6em;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iconButton:hover {
+  background: #e6e6e6;
+  transform: scale(1.05);
+}
+
+.sendButton {
+  background: #007bff;
+  color: white;
+}
+
+.sendButton:hover {
+  background: #0069e0;
+}
+
+@media (min-width: 900px) {
+  .announcement_container {
+    margin: 1.5em 2em;
+    padding: 1.5em;
+  }
 }
